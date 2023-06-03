@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Address;
 use Illuminate\Http\Request;
 
 class UserProfileController extends Controller
@@ -11,7 +13,7 @@ class UserProfileController extends Controller
      */
     public function index()
     {
-        return view('userPage.userProfile');
+        
 
     }
 
@@ -30,13 +32,16 @@ class UserProfileController extends Controller
     {
         //
     }
-
+    
     /**
      * Display the specified resource.
      */
+    
     public function show(string $id)
     {
-        //
+        $addresses=Address::get();
+        $user=User::with('crafts','addresses',)->where('id',$id)->first();
+        return view('userPage.userProfile',compact('user'))->with('addresses',$addresses);
     }
 
     /**
@@ -44,7 +49,8 @@ class UserProfileController extends Controller
      */
     public function edit(string $id)
     {
-        //
+       
+
     }
 
     /**
@@ -52,9 +58,22 @@ class UserProfileController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
-    }
+        $validated = $request->validate([
+            'fname' => 'required',
+            'lname' => 'required',
+            'number'=>'required|regex:/(05)[69][0-9]{7}/|unique:users'
+            
+        ]);
+   
+        $user = User::findOrFail($id);
 
+        $user->fname = $request->input('fname');
+        $user->lname = $request->input('lname');
+        $user->number = $request->input('number');
+        $user->save();
+        return redirect(route('userPage.userProfile', $id ));
+
+    }
     /**
      * Remove the specified resource from storage.
      */

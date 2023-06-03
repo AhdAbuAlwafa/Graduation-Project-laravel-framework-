@@ -61,6 +61,10 @@ Route::prefix('/crafts')->group(function(){
    Route::get('/list2',[ComentController::class,'index'])->name('user_comment.list2');
    Route::post('/destroy',[ComentController::class,'destroy'])->name('user_comment.destroy');
 
+
+
+
+
   
   
   
@@ -68,7 +72,16 @@ Route::prefix('/crafts')->group(function(){
   
    Route::get('/list',[UserNameController::class,'index'])->name('users.list');
    Route::get('/workerprofile', [WorkeProfilerController::class, 'index'])->name('workerPage.workerProfile');
-   Route::get('/userprofile', [UserProfileController::class, 'index'])->name('userPage.userProfile');
+
+
+
 
    Route::get('/profile',[AdminController::class,'index'])->name('layouts.adminProfile');
    Route::get('admin/logout',[AdminController::class,'logout'])->name('userPage.logout');
+
+
+
+  // Route::get('/userprofile', [UserProfileController::class, 'index'])->name('userPage.userProfile');
+   Route::get('userprofile/{id}',[UserProfileController::class, 'show'])->name('userPage.userProfile');
+  // Route::get('//{id}',[UserProfileController::class,'edit'])->name('userPage.userProfile');
+   Route::patch('/update/{id}', [UserProfileController::class, 'update'])->name('userPage.update');
