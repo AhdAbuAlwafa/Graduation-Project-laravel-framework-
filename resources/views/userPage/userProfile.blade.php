@@ -111,10 +111,7 @@
 								<div class="form-group">
 								  	<label>القرية</label>
                     <select class="form-control form-select mt-3" aria-label="Default select example" name="village_name">
-						@foreach($addresses as $address) 
-                      <option value="{{$address->id}}">{{ $address->village_name }}</option> 
- 
-                         @endforeach
+						
 					</select>
 								
 								</div>

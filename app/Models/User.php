@@ -24,7 +24,7 @@ class User extends Authenticatable
     ];
 
     public function addresses(){
-        return $this->belongsTo(Address::class); 
+        return $this->belongsTo(Address::class,'address_id','id');
     }
 
     public function crafts(){
