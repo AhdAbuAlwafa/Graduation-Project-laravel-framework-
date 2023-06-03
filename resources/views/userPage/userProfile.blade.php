@@ -110,8 +110,12 @@
 							<div class="col-md-6">
 								<div class="form-group">
 								  	<label>القرية</label>
-                    <select class="form-control form-select mt-3" aria-label="Default select example" name="village_name">
-						
+                    <select class="form-control form-select mt-3" aria-label="Default select example" id="village_name" name="village_name">
+						@foreach ($village as $id => $name)
+                      <option value="{{ $name }}" {{ $user->addresses->village_name == $name ? 'selected' : '' }}>
+                       {{ $name }}
+                   </option>
+				   @endforeach
 					</select>
 								
 								</div>
