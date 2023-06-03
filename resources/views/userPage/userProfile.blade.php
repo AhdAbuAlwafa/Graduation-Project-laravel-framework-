@@ -92,13 +92,16 @@
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
-								  	<label>المدينة</label>
-                    <select class="form-control form-select mt-3" aria-label="Default select example"  name="city_name">
+								
+						<label>المدينة</label>
 						
-						@foreach($addresses as $address) 
-						<option value="{{$address->id}}">{{$address->city_name}}</option> 
-	  
-								   @endforeach
+						<select class="form-control form-select mt-3" aria-label="Default select example" id="city_name"  name="city_name">
+						
+						@foreach ($cities as $id => $name)
+                      <option value="{{ $name }}" {{ $user->addresses->city_name == $name ? 'selected' : '' }}>
+                       {{ $name }}
+                   </option>
+                    @endforeach
                     </select>
 			
 								</div>
