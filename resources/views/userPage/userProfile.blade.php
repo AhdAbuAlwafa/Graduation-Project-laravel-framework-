@@ -4,6 +4,9 @@
 
 <section class="py-5 my-5">
 		<div class="container">
+			<form action="{{ route('userPage.update', $user->id) }}"method="POST" enctype="multipart/form-data">
+				@csrf
+            @method('PATCH')
 			<h1 class="mb-5">Account Settings</h1>
 			<div class="bg-white shadow rounded-lg d-block d-sm-flex">
 				<div class="profile-tab-nav border-right">
@@ -56,26 +59,46 @@
 							<div class="col-md-6">
 								<div class="form-group">
 								  	<label>الاسم الاول</label>
-								  	<input type="text" class="form-control" value="">
+								  	<input type="text" class="form-control"  name="fname" value="{{ $user->fname }}">
+									  @error('fname')
+									  <div class="text-red-500 mt-2 text-sm">
+										  {{ $message }}
+									  </div>
+								  @enderror
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
 								  	<label>اسم العائلة</label>
-								  	<input type="text" class="form-control" value="">
+								  	<input type="text" class="form-control"  name="lname" value="{{ $user->lname }}">
+									  @error('lname')
+									  <div class="text-red-500 mt-2 text-sm">
+										  {{ $message }}
+									  </div>
+								  @enderror
 								</div>
 							</div>
               
 							<div class="col-md-6">
 								<div class="form-group">
 								  	<label>رقم الهاتف</label>
-								  	<input type="text" class="form-control" value="">
+									<input type="text" class="form-control" name="number" value="{{ $user->number }}">
+									  @error('number')
+									  <div class="text-red-500 mt-2 text-sm">
+										  {{ $message }}
+									  </div>
+								      @enderror
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
 								  	<label>المدينة</label>
-                    <select class="form-control form-select mt-3" aria-label="Default select example" value="">
+                    <select class="form-control form-select mt-3" aria-label="Default select example"  name="city_name">
+						
+						@foreach($addresses as $address) 
+						<option value="{{$address->id}}">{{$address->city_name}}</option> 
+	  
+								   @endforeach
                     </select>
 			
 								</div>
@@ -84,15 +107,19 @@
 							<div class="col-md-6">
 								<div class="form-group">
 								  	<label>القرية</label>
-                    <select class="form-control form-select mt-3" aria-label="Default select example" value="">
-                    </select>
+                    <select class="form-control form-select mt-3" aria-label="Default select example" name="village_name">
+						@foreach($addresses as $address) 
+                      <option value="{{$address->id}}">{{ $address->village_name }}</option> 
+ 
+                         @endforeach
+					</select>
 								
 								</div>
 							</div>
 							
 						</div>
 						<div>
-							<button class="btn btn-primary">تحديث</button>
+							<button type="submit" class="btn btn-primary">تحديث</button>
 							<button class="btn btn-light">الغاء</button>
 						</div>
 					</div>
@@ -102,7 +129,7 @@
 							<div class="col-md-6">
 								<div class="form-group">
 								  	<label>كلمةالسر القديمة</label>
-								  	<input type="password" class="form-control">
+								  	<input type="text" class="form-control" name="password" value="{{ $user-> password}}">
 								</div>
 							</div>
 						</div>
@@ -182,6 +209,8 @@
 				</div>
 			</div>
 		</div>
+			</form>
+			
    
 </section>
 
