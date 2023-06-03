@@ -6,7 +6,7 @@
 <form method="post" action="{{route('userPage.store')}}">
   @csrf
 
-   
+
 
    <div class="row col-3">
 <select class="form-control form-select mt-3  justify-content-end" aria-label="Default select example" name="work_hour">
