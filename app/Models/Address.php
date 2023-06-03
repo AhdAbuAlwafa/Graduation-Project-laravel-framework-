@@ -10,10 +10,11 @@ class Address extends Model
     
     use HasFactory;
     public function user(){
-        return $this->hasMany(User::class); 
+        return $this->hasMany(User::class, 'address_id','id');
     }
 
     public function advertisement(){
         return $this->hasMany(Advertisement::class); 
     }
+    
 }
