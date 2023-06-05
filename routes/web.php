@@ -27,8 +27,7 @@ use Symfony\Component\Routing\RequestContext;
 |
 */
 
-Route::get('/', function () { return view('welcome');});
-
+Route::get('/admin', function () { return view('welcome');})->name('admin');
 
 Route::get('/whoWE',[PublicController::class,'index'])->name('userPage.who-are-we');
 Route::get('/addAdv',[AdvertisementController::class,'index'])->name('user.addAdv');
@@ -85,3 +84,6 @@ Route::prefix('/crafts')->group(function(){
    Route::get('userprofile/{id}',[UserProfileController::class, 'show'])->name('userPage.userProfile');
   // Route::get('//{id}',[UserProfileController::class,'edit'])->name('userPage.userProfile');
    Route::patch('/update/{id}', [UserProfileController::class, 'update'])->name('userPage.update');
+
+   Auth::routes();
+   Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
