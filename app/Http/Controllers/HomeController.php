@@ -22,7 +22,8 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
-    {
-        return view('home');
+    {  
+        // for testing, load actual crafts from db
+        return view('home')->with('crafts', ['asdf', 'adfdsfcs', 'zxczxc']);
     }
 }
