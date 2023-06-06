@@ -6,9 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <title> الرئيسيه</title>
     <link href="{{ asset('assets/css/home.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/navbar.css') }}" rel="stylesheet">
@@ -27,9 +25,9 @@
             <div class="searchbox1">
                 <div class="searchbox2">
                     <input type='text' placeholder="ابحث عن عامل">
-                    <!---  <a href="#">
-                            <i class="fa-solid fa-user-magnifying-glass"></i>
-                    </a>----->
+                    <a href="#">
+                        <i class="fa fa-magnifying-glass"></i>
+                    </a>
                 </div>
             </div>
         </div>
@@ -40,6 +38,7 @@
                 <h1>مهن فلسطين</h1>
             </div>
 
+            @foreach ($crafts as $craft)
             <div class="contener">
                 <div class="img-contener">
                     <img src="assets/img/pic1.jpg">
@@ -47,40 +46,10 @@
                 <br>
                 <br>
                 <div class="btn-contener">
-                    <a href="#" class="btn"> دهان </a>
+                    <a href="#" class="btn">{{ $craft }}</a>
                 </div>
             </div>
-            <div class="contener">
-                <div class="img-contener">
-                    <img src="assets/img/pic1.jpg">
-                </div>
-                <br>
-                <br>
-                <div class="btn-contener">
-                    <a href="#" class="btn"> نجار</a>
-                </div>
-            </div>
-            <div class="contener">
-                <div class="img-contener">
-                    <img src="assets/img/pic1.jpg">
-                </div>
-                <br>
-                <br>
-                <div class="btn-contener">
-                    <a href="#" class="btn"> كهربجي</a>
-                </div>
-            </div>
-            <div class="contener">
-                <div class="img-contener">
-                    <img src="assets/img/pic1.jpg">
-                </div>
-                <br>
-                <br>
-                <div class="btn-contener">
-                    <a href="#" class="btn"> ميكانيكي سيارات </a>
-                </div>
-            </div>
-
+            @endforeach
         </div>
 
         <!------------------------start of adds-------------------->
