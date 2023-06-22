@@ -53,7 +53,7 @@ Route::prefix('/crafts')->group(function(){
 
    Route::get('/edit1/{id}',[CommentController::class,'edit'])->name('user_comment.editComment');
 
-   Route::patch('/update/{id}', [CommentController::class, 'update'])->name('user_comment.update');
+   Route::patch('/update2/{id}', [CommentController::class, 'update'])->name('user_comment.update');
 
    
 
@@ -71,7 +71,6 @@ Route::prefix('/crafts')->group(function(){
   
   
    Route::get('/list',[UserNameController::class,'index'])->name('users.list');
-   Route::get('/workerprofile', [WorkeProfilerController::class, 'index'])->name('workerPage.workerProfile');
 
 
 
@@ -81,7 +80,18 @@ Route::prefix('/crafts')->group(function(){
 
 
 
-  // Route::get('/userprofile', [UserProfileController::class, 'index'])->name('userPage.userProfile');
+  //Route::get('/userprofile', [UserProfileController::class, 'index'])->name('userPage.userprofilemaster');
+   
+ //Route::get('/userprofileinformation/{id}', [UserProfileController::class, 'profileinformation'])->name('userPage.userProfileInformation');
+
+
    Route::get('userprofile/{id}',[UserProfileController::class, 'show'])->name('userPage.userProfile');
   // Route::get('//{id}',[UserProfileController::class,'edit'])->name('userPage.userProfile');
-   Route::patch('/update/{id}', [UserProfileController::class, 'update'])->name('userPage.update');
+   Route::patch('/update1/{id}', [UserProfileController::class, 'update'])->name('userPage.update');
+
+
+   Route::get('workerprofile/{id}',[WorkeProfilerController::class, 'show'])->name('workerPage.workerProfile');
+  
+   Route::patch('/update/{id}', [WorkeProfilerController::class, 'update'])->name('workerPage.update');
+   //Route::get('/workerprofile', [WorkeProfilerController::class, 'index'])->name('workerPage.workerProfile');
+// Route::get('//{id}',[UserProfileController::class,'edit'])->name('userPage.userProfile');

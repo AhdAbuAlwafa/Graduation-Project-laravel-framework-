@@ -56,8 +56,8 @@
 
 
     @yield('content')
-
-    <section class="footer">
+{{-- 
+  <section class="footer">
         <footer class="p-5 text-light text-center position-relative fixed-bottom">
             <div class="container">
                 <p class="lead">Copyright &copy; 2023 Call Mehani</p>
@@ -66,6 +66,8 @@
     </section>
 
     
+   --}}
+   
     
     {{-- bootstrab script --}}
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

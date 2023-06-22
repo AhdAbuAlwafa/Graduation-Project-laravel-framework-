@@ -1,7 +1,7 @@
 @extends('userpage.navbar')
 
 @section('content')
-<form action="{{ route('user_comment.update', $user_comments->id)}}"method="post">
+<form action="{{ route('user_comment.update', $user_comments->id)}}"  method="post">
     @csrf
     @method('PATCH')
     
