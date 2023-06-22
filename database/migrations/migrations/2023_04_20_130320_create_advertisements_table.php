@@ -10,13 +10,12 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {           
-
+    {
         Schema::create('advertisements', function (Blueprint $table) {
             $table->id();
             $table->date('adv_date'); 
             $table->string('adv_req');
-            $table->longText('job_des');
+            $table->longText('job_des'); 
             $table->integer('work_hour');     
             $table->string('job_name');   
             $table->integer('adv_period');
@@ -28,7 +27,6 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('address_id')->references('id')->on('addresses')->onDelete('cascade');
             $table->timestamps();
-
 
         });
     }

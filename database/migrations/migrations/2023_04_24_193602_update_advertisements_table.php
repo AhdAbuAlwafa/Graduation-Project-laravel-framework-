@@ -8,10 +8,12 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
-     */
+     */ 
     public function up(): void
     {
-        Schema::rename('user_craft','craft_user');
+        Schema::table('advertisements', function (Blueprint $table) {
+            $table->string('gender')->change();
+        });
     }
 
     /**
