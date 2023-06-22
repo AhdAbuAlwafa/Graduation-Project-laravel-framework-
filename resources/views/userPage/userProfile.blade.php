@@ -127,35 +127,54 @@
 							<button class="btn btn-light">الغاء</button>
 						</div>
 					</div>
-					<div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
-						<h3 class="mb-4">اعدادات كلمة السر</h3>
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-								  	<label>كلمةالسر القديمة</label>
-								  	<input type="text" class="form-control" name="password" value="{{ $user-> password}}">
+				    
+				      
+						<div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
+							<h3 class="mb-4">اعدادات كلمة السر</h3>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										  <label>كلمةالسر القديمة</label>
+										  <input type="text" class="form-control @error('password') is-invalid @enderror" name="password" value="">
+										  @error('password')
+										  <div class="text-red-500 mt-2 text-sm">
+											  {{ $message }}
+										  </div>
+										  @enderror
+									</div>
 								</div>
 							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-								  	<label>كلمة السر الجديدة</label>
-								  	<input type="password" class="form-control">
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										  <label>كلمة السر الجديدة</label>
+										  <input type="password" class="form-control" name="new_password">
+										  @error('new_password')
+										  <div class="text-red-500 mt-2 text-sm">
+											  {{ $message }}
+										  </div>
+										  @enderror
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										  <label>تاكيد كلمة السر الجديدة</label>
+										  <input type="password" class="form-control" name="new_password_confirmation">
+										  @error('new_password_confirmation')
+										  <div class="text-red-500 mt-2 text-sm">
+											  {{ $message }}
+										  </div>
+										  @enderror
+									</div>
 								</div>
 							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-								  	<label>تاكيد كلمة السر الجديدة</label>
-								  	<input type="password" class="form-control">
-								</div>
+							<div>
+								<button class="btn btn-primary">تحديث</button>
+								<button class="btn btn-light">الغاء</button>
 							</div>
 						</div>
-						<div>
-							<button class="btn btn-primary">تحديث</button>
-							<button class="btn btn-light">الغاء</button>
-						</div>
-					</div>
+					</form>
+					
 					<div class="tab-pane fade" id="security" role="tabpanel" aria-labelledby="security-tab">
             
             <h3 class="mb-4">الغاء تنشيط حسابك</h3>
@@ -207,13 +226,13 @@
                 
 
                           
-                                    
+				</form>          
                                 </div>
 					</div>
 				</div>
 			</div>
 		</div>
-			</form>
+		
 			
    
 </section>

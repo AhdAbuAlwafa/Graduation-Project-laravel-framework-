@@ -5,6 +5,7 @@ use App\Models\User;
 use App\Models\Address;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserProfileController extends Controller
 {
@@ -12,10 +13,10 @@ class UserProfileController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        
+   {
 
-    }
+
+   }
 
     /**
      * Show the form for creating a new resource.
@@ -62,20 +63,24 @@ class UserProfileController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        
+         
         $validated = $request->validate([
             'fname' => 'required',
             'lname' => 'required',
-            'number'=>'required|regex:/(05)[69][0-9]{7}/|unique:users',
-            'password'=>'required'
+            'number'=>'required|regex:/[69][0-9]{7}/',
+            
+            
             
         ]);
+        
         $address=Address::where('village_name',$request->village_name)->first();
 
         user::where('id',$id)->update([
             'fname' => $request->fname,
             'lname' => $request->lname,
             'number' => $request->number,
-            'password'=>$request->password,
+          
             'address_id'=>$address->id
         ]);
         return redirect(route('userPage.userProfile', $id ));
