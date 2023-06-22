@@ -80,18 +80,14 @@ Route::prefix('/crafts')->group(function(){
 
 
 
-  //Route::get('/userprofile', [UserProfileController::class, 'index'])->name('userPage.userprofilemaster');
-   
- //Route::get('/userprofileinformation/{id}', [UserProfileController::class, 'profileinformation'])->name('userPage.userProfileInformation');
+  
 
 
    Route::get('userprofile/{id}',[UserProfileController::class, 'show'])->name('userPage.userProfile');
-  // Route::get('//{id}',[UserProfileController::class,'edit'])->name('userPage.userProfile');
    Route::patch('/update1/{id}', [UserProfileController::class, 'update'])->name('userPage.update');
 
 
    Route::get('workerprofile/{id}',[WorkeProfilerController::class, 'show'])->name('workerPage.workerProfile');
   
    Route::patch('/update/{id}', [WorkeProfilerController::class, 'update'])->name('workerPage.update');
-   //Route::get('/workerprofile', [WorkeProfilerController::class, 'index'])->name('workerPage.workerProfile');
-// Route::get('//{id}',[UserProfileController::class,'edit'])->name('userPage.userProfile');
+   
