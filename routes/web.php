@@ -83,10 +83,10 @@ Route::prefix('/crafts')->group(function(){
   
 
 
-   Route::get('userprofile/{id}',[UserProfileController::class, 'show'])->name('userPage.userProfile');
+   Route::get('userprofile/{id}',[UserProfileController::class, 'show'])->name('userPage.userProfile')->middleware('auth');
 
    Route::patch('/update1/{id}', [UserProfileController::class, 'update'])->name('userPage.update');
-
+   Route::post('/changepassword', [UserProfileController::class, 'changePassword'])->name('userPage.changePassword');
 
    Route::get('workerprofile/{id}',[WorkeProfilerController::class, 'show'])->name('workerPage.workerProfile');
   

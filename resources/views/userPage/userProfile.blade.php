@@ -53,81 +53,7 @@
 					</div>
 				</div>
 				<div class="tab-content p-4 p-md-5" id="v-pills-tabContent">
-					<div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="account-tab">
-						<h3 class="mb-4">تعديل المعلومات الشخصية</h3>
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-								  	<label>الاسم الاول</label>
-								  	<input type="text" class="form-control"  name="fname" value="{{ $user->fname }}">
-									  @error('fname')
-									  <div class="text-red-500 mt-2 text-sm">
-										  {{ $message }}
-									  </div>
-								  @enderror
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-								  	<label>اسم العائلة</label>
-								  	<input type="text" class="form-control"  name="lname" value="{{ $user->lname }}">
-									  @error('lname')
-									  <div class="text-red-500 mt-2 text-sm">
-										  {{ $message }}
-									  </div>
-								  @enderror
-								</div>
-							</div>
-              
-							<div class="col-md-6">
-								<div class="form-group">
-								  	<label>رقم الهاتف</label>
-									<input type="text" class="form-control" name="number" value="{{ $user->number }}">
-									  @error('number')
-									  <div class="text-red-500 mt-2 text-sm">
-										  {{ $message }}
-									  </div>
-								      @enderror
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-								
-						<label>المدينة</label>
-						
-						<select class="form-control form-select mt-3" aria-label="Default select example" id="city_name"  name="city_name">
-						
-						@foreach ($cities as $id => $name)
-                      <option value="{{ $name }}" {{ $user->addresses->city_name == $name ? 'selected' : '' }}>
-                       {{ $name }}
-                   </option>
-                    @endforeach
-                    </select>
-			
-								</div>
-							</div>
-							
-							<div class="col-md-6">
-								<div class="form-group">
-								  	<label>القرية</label>
-                    <select class="form-control form-select mt-3" aria-label="Default select example" id="village_name" name="village_name">
-						@foreach ($village as $id => $name)
-                      <option value="{{ $name }}" {{ $user->addresses->village_name == $name ? 'selected' : '' }}>
-                       {{ $name }}
-                   </option>
-				   @endforeach
-					</select>
-								
-								</div>
-							</div>
-							
-						</div>
-						<div>
-							<button type="submit" class="btn btn-primary">تحديث</button>
-							<button class="btn btn-light">الغاء</button>
-						</div>
-					</div>
-				    
+					
 				      
 						<div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
 							<h3 class="mb-4">اعدادات كلمة السر</h3>
@@ -135,8 +61,8 @@
 								<div class="col-md-6">
 									<div class="form-group">
 										  <label>كلمةالسر القديمة</label>
-										  <input type="text" class="form-control @error('password') is-invalid @enderror" name="password" value="">
-										  @error('password')
+										  <input type="text" class="form-control " name="current_password" value="">
+										  @error('current_password')
 										  <div class="text-red-500 mt-2 text-sm">
 											  {{ $message }}
 										  </div>
@@ -169,7 +95,7 @@
 								</div>
 							</div>
 							<div>
-								<button class="btn btn-primary">تحديث</button>
+								<button type="submit" class="btn btn-primary">تحديث</button>
 								<button class="btn btn-light">الغاء</button>
 							</div>
 						</div>
