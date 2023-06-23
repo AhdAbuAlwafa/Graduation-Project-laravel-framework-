@@ -1,6 +1,6 @@
 <?php
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CommentController;
@@ -15,7 +15,7 @@ use App\Http\Controllers\WorkeProfilerController;
 use App\Http\Controllers\WorkerControllers\AddvertisimentController;
 use App\Http\Controllers\WorkerControllers\AwController;
 use Symfony\Component\Routing\RequestContext;
-
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,8 +26,9 @@ use Symfony\Component\Routing\RequestContext;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('/admin',[AdminController::class,'show'])->name('welcome');
 
-Route::get('/admin', function () { return view('welcome');})->name('admin');
+//Route::get('/admin', function () {return view('welcome');})->name('admin');
 
 Route::get('/whoWE',[PublicController::class,'index'])->name('userPage.who-are-we');
 Route::get('/addAdv',[AdvertisementController::class,'index'])->name('user.addAdv');
@@ -93,4 +94,4 @@ Route::prefix('/crafts')->group(function(){
 
 
    Auth::routes();
-   Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+   Route::get('/',[HomeController::class, 'index'])->name('home');

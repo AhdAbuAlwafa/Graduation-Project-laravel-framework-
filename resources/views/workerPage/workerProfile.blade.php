@@ -79,9 +79,7 @@
 								<div class="mb-3">
 									<label>المهنة</label>
 										  <select class="form-control form-select mt-3" aria-label="Default select example" id="craft_name" name="craft_name">
-											@foreach($craft as $id)
-											<option value="{{$id->craft_name}}" {{$worker->crafts[0]->craft_name == $id->craft_name ?'selected' : '' }}>    {{$id->craft_name}}</option>
-										@endforeach
+											
 										</select>
 								  
 									</div>
