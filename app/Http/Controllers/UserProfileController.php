@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Address;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
+use Illuminate\Support\Facades\Auth;
 class UserProfileController extends Controller
 {
     /**
@@ -84,7 +84,32 @@ class UserProfileController extends Controller
             'address_id'=>$address->id
         ]);
         return redirect(route('userPage.userProfile', $id ));
+    }
+
+    public function changePassword(Request $request)
+    {
+      $request->validate([
+        'current_password'=>['required','string','min:8'],
+        'new_password'=>['required','string','min:8','confirmed']
+      ]);
+      $currentPasswordStatus =Hash::check($request->current_password,auth()->user()->new_password);
+      if($currentPasswordStatus){
+
+        User::findOrFail(Auth::user()->id)->update([
+            'new_password' => Hash::make($request->new_password),
+        ]);
+
+        return redirect()->back()->with('message','Password Updated Successfully');
+
+    }else{
+
+        return redirect()->back()->with('message','Current Password does not match with Old Password');
+    }
+    }
+   
     
+
+
 /**
          * $addressId=Address::get('id')->where('village_name',$request->village_name);  
          *  user::find($id)->with('addresses')->update([
@@ -95,7 +120,7 @@ class UserProfileController extends Controller
          * 'address_id'=>$addressId
          *  ]);
          */
-    }
+    
     /**
      * Remove the specified resource from storage.
      */
