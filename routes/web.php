@@ -50,7 +50,7 @@ Route::prefix('/crafts')->group(function(){
    Route::get('/worker',[CommentController::class,'index'])->name('user_comment.addComment');
    Route::post('/worker/store',[CommentController::class,'store'])->name('user_comment.store');
 
-
+        
    Route::get('/edit1/{id}',[CommentController::class,'edit'])->name('user_comment.editComment');
 
    Route::patch('/update2/{id}', [CommentController::class, 'update'])->name('user_comment.update');
@@ -66,7 +66,8 @@ Route::prefix('/crafts')->group(function(){
 
 
   
-  
+   Route::post('/changepassword', [UserProfileController::class, 'changePassword'])->name('userPage.changePassword');
+   Route::get('/changepass', [UserProfileController::class, 'showPassChange'])->name('changepass')->middleware('auth');
   
   
   
@@ -86,8 +87,9 @@ Route::prefix('/crafts')->group(function(){
    Route::get('userprofile/{id}',[UserProfileController::class, 'show'])->name('userPage.userProfile')->middleware('auth');
 
    Route::patch('/update1/{id}', [UserProfileController::class, 'update'])->name('userPage.update');
-   Route::post('/changepassword', [UserProfileController::class, 'changePassword'])->name('userPage.changePassword');
 
+
+   
    Route::get('workerprofile/{id}',[WorkeProfilerController::class, 'show'])->name('workerPage.workerProfile');
   
    Route::patch('/update/{id}', [WorkeProfilerController::class, 'update'])->name('workerPage.update');

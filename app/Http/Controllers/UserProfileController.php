@@ -14,7 +14,7 @@ class UserProfileController extends Controller
      */
     public function index()
    {
-
+        
 
    }
 
@@ -69,10 +69,14 @@ class UserProfileController extends Controller
             'fname' => 'required',
             'lname' => 'required',
             'number'=>'required|regex:/[69][0-9]{7}/',
-            
+            'image' => 'required|mimes:jpg,png,jpeg|max:5048'
+
             
             
         ]);
+        $newImageName = time() . '-' . $request->name . '.' .
+            $request->image->extension();
+
         
         $address=Address::where('village_name',$request->village_name)->first();
 
@@ -80,50 +84,37 @@ class UserProfileController extends Controller
             'fname' => $request->fname,
             'lname' => $request->lname,
             'number' => $request->number,
-          
+          'image'=>$request->image,
             'address_id'=>$address->id
         ]);
         return redirect(route('userPage.userProfile', $id ));
     }
 
+
+
     public function changePassword(Request $request)
     {
-      $request->validate([
-        'current_password'=>['required','string','min:8'],
-        'new_password'=>['required','string','min:8','confirmed']
-      ]);
-      $currentPasswordStatus =Hash::check($request->current_password,auth()->user()->new_password);
-      if($currentPasswordStatus){
+        $request->validate([
+            'old' => 'required',
+            'password' => 'required|confirmed',
+        ]);
+        if(!Hash::check($request->old, auth()->user()->password)){
+            return back()->with("error", "Old Password Doesn't match!");
+        }
 
-        User::findOrFail(Auth::user()->id)->update([
-            'new_password' => Hash::make($request->new_password),
+
+        #Update the new Password
+        User::whereId(auth()->user()->id)->update([
+            'password' => Hash::make($request->password)
         ]);
 
-        return redirect()->back()->with('message','Password Updated Successfully');
+        return back()->with("status", "Password changed successfully!");
 
-    }else{
-
-        return redirect()->back()->with('message','Current Password does not match with Old Password');
     }
+    public function showPassChange(){
+
+        return (view('userpage.changepass'));
     }
-   
-    
-
-
-/**
-         * $addressId=Address::get('id')->where('village_name',$request->village_name);  
-         *  user::find($id)->with('addresses')->update([
-         * 'fname' => $request->fname,
-         *             'lname' => $request->lname,
-         * 'number' => $request->number,
-         *  'password'=>$request->password,
-         * 'address_id'=>$addressId
-         *  ]);
-         */
-    
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         //
