@@ -9,6 +9,8 @@
             @method('PATCH')
 			<h1 class="mb-5">Account Settings</h1>
 			<div class="bg-white shadow rounded-lg d-block d-sm-flex">
+
+				
 				<div class="profile-tab-nav border-right">
 					<div class="p-4">
 						<div class="img-circle text-center mb-3">
