@@ -85,8 +85,8 @@ class WorkeProfilerController extends Controller
         //$usercraft->timestamps = false; // Because there is no "updated_at" column in usercraft tabel
         $usercraft->update([
             'craft_id'=>$craft->id,
-            
 
+            
         ]);
 
 

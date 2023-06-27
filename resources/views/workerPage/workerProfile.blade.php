@@ -77,10 +77,18 @@
 								</div>
 				                   
 								<div class="mb-3">
+						
 									<label>المهنة</label>
-										  <select class="form-control form-select mt-3" aria-label="Default select example" id="craft_name" name="craft_name">
-											
-										</select>
+
+									<select class="form-control form-select mt-3" aria-label="Default select example" name="craft_name" id="craft_name" >
+										
+									  
+									</select>
+									
+                                     <button type="submit" class="btn-list">
+										<i class="fa fa-plus" aria-hidden="true"></i>
+									 </button>
+										
 								  
 									</div>
 
