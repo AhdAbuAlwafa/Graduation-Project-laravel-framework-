@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Address;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -39,10 +40,11 @@ class UserProfileController extends Controller
      *  $addresses=Address::get();
      */
     
-    public function show(string $id)
+    public function show()
     {
-       
-        $user=User::with('crafts','addresses',)->where('id',$id)->first();
+        $user=User::with('crafts','addresses',)->where('id',auth()->user()->id)->first();
+
+        //$user=User::with('crafts','addresses',)->where('id',$id)->first();
         $cities = Address::pluck('city_name', 'id');
         $village = Address::pluck('village_name', 'id');
         return view('userPage.userProfile',compact('user','cities','village'));
@@ -57,39 +59,36 @@ class UserProfileController extends Controller
        
 
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        
-         
+
+
         $validated = $request->validate([
             'fname' => 'required',
             'lname' => 'required',
             'number'=>'required|regex:/[69][0-9]{7}/',
-            'image' => 'required|mimes:jpg,png,jpeg|max:5048'
+            
 
-            
-            
+
+
         ]);
-        $newImageName = time() . '-' . $request->name . '.' .
-            $request->image->extension();
-
         
+
         $address=Address::where('village_name',$request->village_name)->first();
 
-        user::where('id',$id)->update([
+        user::where('id',auth()->user()->id)->update([
             'fname' => $request->fname,
             'lname' => $request->lname,
             'number' => $request->number,
-          'image'=>$request->image,
+            
             'address_id'=>$address->id
         ]);
-        return redirect(route('userPage.userProfile', $id ));
+        return redirect(route('userPage.userProfile',auth()->user()->id ));
     }
-
+    /**
+     * Update the specified resource in storage.
+     */
+    
 
 
     public function changePassword(Request $request)
@@ -114,6 +113,25 @@ class UserProfileController extends Controller
     public function showPassChange(){
 
         return (view('userpage.changepass'));
+    }
+
+
+
+    public function changeImg(Request $req){
+        $validator = Validator::make($req->all(),[
+            'image'=>'required|image'
+        ]);
+        if ($validator->fails()){
+            return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
+        }else{
+            $imgName= md5(time()).'.'.$req->image->extension();
+            $req->image->move(public_path('images'),$imgName);
+            User::whereId(auth()->user()->id)->update([
+                'image'=>$imgName
+            ]);
+            return response()->json(['status'=>1,'imgname'=>$imgName] );
+
+        }
     }
     public function destroy(string $id)
     {
