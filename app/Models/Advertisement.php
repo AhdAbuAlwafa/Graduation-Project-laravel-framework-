@@ -9,10 +9,10 @@ class Advertisement extends Model
 {
     use HasFactory;
     protected $table='advertisements';
-    protected $fillable=['job_des','work_hour','job_name','address_id','gender','work_period','adv_req'];
+    protected $fillable=['adv_date', 'adv_req', 'job_des', 'work_hour', 'job_name', 'adv_period','work_period', 'is_worker', 'gender', 'user_id', 'address_id', 'updated_at', 'created_at'];
 
     public function addresses(){
-        return $this->belongsTo(Address::class); 
+        return $this->belongsTo(Address::class, 'address_id');
     }
 
     public function users(){

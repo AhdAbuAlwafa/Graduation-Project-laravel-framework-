@@ -24,6 +24,9 @@ class AddvertisimentController extends Controller
        
     }
 
+
+   
+
     /**
      * Show the form for creating a new resource.
      */
@@ -66,10 +69,39 @@ class AddvertisimentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request)
     {
-        //
+        $crafts = Craft::all();
+        $cities = Address::distinct()->pluck('city_name', 'city_name')->toArray();
+        $villages = Address::distinct()->pluck('village_name', 'village_name')->toArray();
+    
+        $selectedCraft = $request->input('craft_name');
+        $selectedCity = $request->input('city_name');
+        $selectedVillage = $request->input('village_name');
+    
+        $query = Advertisement::query();
+    
+        if ($selectedCraft && $selectedCraft !== 'all') {
+            $query->where('job_name', $selectedCraft);
+        }
+    
+        if ($selectedCity && $selectedCity !== 'all') {
+            $query->whereHas('addresses', function ($query) use ($selectedCity) {
+                $query->where('city_name', $selectedCity);
+            });
+        }
+    
+        if ($selectedVillage && $selectedVillage !== 'all') {
+            $query->whereHas('addresses', function ($query) use ($selectedVillage) {
+                $query->where('village_name', $selectedVillage);
+            });
+        }
+    
+        $advertisements = $query->orderBy('created_at', 'desc')->paginate(12);
+    
+        return view('userPage.advertisementsPage', compact('advertisements', 'crafts', 'cities', 'villages', 'selectedCraft','selectedCity','selectedVillage'));
     }
+
 
     /**
      * Show the form for editing the specified resource.

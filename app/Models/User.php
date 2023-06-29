@@ -17,17 +17,12 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'fname',
-        'lname',
-        'number',
-        'description',
-        
-        
-    ];
+    protected $fillable=['fname','lname','number','image','password','description','num_evl','all_evl','gender','is_worker','address_id'];
 
-    public function addresses(){
-        return $this->belongsTo(Address::class,'address_id','id');
+
+    public function addresses()
+    {
+        return $this->belongsTo(Address::class, 'address_id');
     }
 
     public function crafts(){
@@ -37,6 +32,12 @@ class User extends Authenticatable
      public function advertisements(){
     return $this->hasMany(Advertisement::class);
 }
+
+public function evaluations()
+{
+    return $this->hasMany(UserEvaluation::class, 'worker_id');
+}
+
 
     /**
      * The attributes that should be hidden for serialization.

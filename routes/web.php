@@ -13,6 +13,7 @@ use App\Http\Controllers\RequestController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\WorkeProfilerController;
 use App\Http\Controllers\WorkerControllers\AddvertisimentController;
+use App\Http\Controllers\WorkerPageController;
 use App\Http\Controllers\WorkerControllers\AwController;
 use Symfony\Component\Routing\RequestContext;
 use Illuminate\Support\Facades\Auth;
@@ -45,7 +46,7 @@ Route::prefix('/crafts')->group(function(){
 
    Route::get('/advertisiment',[AddvertisimentController::class,'index'])->name('worker.advertisiment');
    Route::post('/advertisiment/store',[AddvertisimentController::class,'store'])->name('workerPage.store');
-   
+   Route::get('/showAdvertisements', [AddvertisimentController::class, 'show'])->name('userPage.advertisements');
    
    Route::get('/worker',[CommentController::class,'index'])->name('user_comment.addComment');
    Route::post('/worker/store',[CommentController::class,'store'])->name('user_comment.store');
@@ -61,6 +62,13 @@ Route::prefix('/crafts')->group(function(){
    Route::get('/list2',[ComentController::class,'index'])->name('user_comment.list2');
    Route::post('/destroy',[ComentController::class,'destroy'])->name('user_comment.destroy');
 
+   Route::get('/get-villages', [PublicController::class, 'getVillages'])->name('get-villages');
+   Route::get('/showWorker/{id}',[PublicController::class,'showWorker'])->name('userPage.showWorker');
+   Route::get('/filter',[PublicController::class,'filterNav'])->name('userPage.mysearch');
+   Route::get('/search/{profession?}', [PublicController::class, 'openCraft'])->name('userPage.getAllUser');
+
+
+   Route::get('/worker/{id}', [WorkerPageController::class, 'show'])->name('workerPage.showWorker');
 
 
 
