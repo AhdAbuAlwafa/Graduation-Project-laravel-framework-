@@ -84,11 +84,11 @@ Route::prefix('/crafts')->group(function(){
   
 
 
-   Route::get('userprofile/{id}',[UserProfileController::class, 'show'])->name('userPage.userProfile')->middleware('auth');
+   Route::get('userprofile',[UserProfileController::class, 'show'])->name('userPage.userProfile')->middleware('auth');
 
-   Route::patch('/update1/{id}', [UserProfileController::class, 'update'])->name('userPage.update');
+   Route::patch('/update1', [UserProfileController::class, 'update'])->name('userPage.update');
 
-
+   Route::post('uploadimg',[UserProfileController::class,'changeImg'])->name('uploadimg');
    
    Route::get('workerprofile/{id}',[WorkeProfilerController::class, 'show'])->name('workerPage.workerProfile');
   
