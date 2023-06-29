@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Address;
+use App\Models\Craft;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -41,7 +43,9 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
+
         $input = $request->all();
+
 
         $this->validate($request, [
             'number' => 'required',
@@ -50,11 +54,18 @@ class LoginController extends Controller
 
         if (auth()->attempt(array('number' => $input['number'], 'password' => $input['password']))) {
             if (auth()->user()) {
-                return redirect()->route('home');
+                return view('home');
             }
-        } else {
-            return redirect()->route('login')
+        }
+        else {
+            return view('login')
                 ->with('error', 'Phone or Password is wrong.');
         }
+    }
+    public function showLoginForm()
+    {
+        $address=Address::get();
+        $crafts=Craft::get();
+        return view('auth.login' , compact('address', 'crafts'));
     }
 }
