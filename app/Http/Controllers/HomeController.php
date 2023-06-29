@@ -24,6 +24,6 @@ class HomeController extends Controller
     public function index()
     {  
         // for testing, load actual crafts from db
-        return view('home')->with('crafts', ['asdf', 'adfdsfcs', 'zxczxc']);
+        return view('home')->with('crafts', ['asdf', 'adfdsfcs', 'zxczxc','jbvlwjwbljkv']);
     }
 }
