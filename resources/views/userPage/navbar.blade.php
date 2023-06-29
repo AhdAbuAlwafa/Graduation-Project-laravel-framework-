@@ -79,6 +79,65 @@
     
     {{-- bootstrab script --}}
    
+
+    
+    <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl-js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+    
+    <script>
+
+
+$(document).ready(function() {
+        $("#Inputsearch").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            
+            $('div[data-role="user"]').each(function() {
+                var userName = $(this).find('h3').text().toLowerCase();
+                if (userName.indexOf(value) > -1) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        });
+    });
+
+     
+    </script>
+<script>
+
+    $(document).ready(function() {
+    $('#city_name_select').on('change', function() {
+        var selectedCity = $(this).val();
+        if (selectedCity) {
+            // Send an Ajax request to get the villages based on the selected city
+            $.ajax({
+                url: "{{ route('get-villages') }}",
+                type: "GET",
+                data: { city_name: selectedCity },
+                success: function(data) {
+                    console.log(data);
+                    // Clear the previous options
+                    $('#village_name_select').html('<option value="all">Select Village</option>');
+
+                    // Append new options based on the received data
+                    $.each(data, function(key, value) {
+                        $('#village_name_select').append('<option value="' + value + '">' + value + '</option>');
+                    });
+                },
+                
+            });
+        } else {
+            // If no city is selected, clear the villages dropdown
+            $('#village_name_select').html('<option value="all">Select Village</option>');
+        }
+    });
+});
+</script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>

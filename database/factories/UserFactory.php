@@ -20,11 +20,18 @@ class UserFactory extends Factory
         return [
             'fname' => fake()->name(),
             'lname' => fake()->name(),
-            'number' => fake()->unique(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'number'=>fake()->numberBetween(9,9),
+            'image'=>fake()->image,
+            'password' => fake()->password(6,11),
+            'description'=>fake()->paragraph,
+            'num_evl'=>fake()->numberBetween(0,5),
+             'all_evl'=>fake()->numberBetween(0,5),
+             'gender'=>fake()->boolean,
+             'is_worker'=>fake()->boolean,
+             'address_id'=>fake()->numberBetween(1,9),
+
         ];
     }
-
     /**
      * Indicate that the model's email address should be unverified.
      */
