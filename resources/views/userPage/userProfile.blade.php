@@ -6,7 +6,7 @@
 		<div class="container">
 
 			<h1 class="mb-5">Account Settings</h1>
-			<div class="bg-white shadow rounded-lg d-block d-sm-flex">
+			<div class="bg-white shadow rounded-lg d-block d-sm-flex float-right">
 
 
 				<div class="profile-tab-nav border-right">
@@ -15,7 +15,7 @@
 
 							<img src="{{'images/'.auth()->user()->image}}" alt="Image" class="shadow" id="profileImg">
 						</div>
-            <div >
+            <div>
                 <form action="{{route('uploadimg')}}" method="post" id="imgform">
                     @method('post')
                     @csrf
