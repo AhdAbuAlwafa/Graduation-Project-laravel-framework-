@@ -80,11 +80,16 @@
 						
 									<label>المهنة</label>
 
-									<select class="form-control form-select mt-3" aria-label="Default select example" name="craft_name" id="craft_name" >
-										
+									<select class=" form-select form-select-sm" aria-label=".form-select-sm example" multiple name="craft_name[]">
+										<option  selected>Choose One Please</option> 
+										@foreach($craft as $crafts) 
+										<option value="{{$crafts->id}}">{{$crafts->name}}</option> 
+									   
+										@endforeach
+									  </select>
 									  
-									</select>
-									
+									  <br><span class="form-text text-danger">@error('craft_name'){{$message}}@enderror</span><br>
+									 
                                      <button type="submit" class="btn-list">
 										<i class="fa fa-plus" aria-hidden="true"></i>
 									 </button>
