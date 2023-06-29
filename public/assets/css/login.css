@@ -7,9 +7,9 @@
     font-family: 'Poppins', sans-serif;
 }
 
-.container {
+.continer {
     display: flex;
-    height: 155vh;
+    height: 130vh;
     background-image: linear-gradient(rgba(49, 46, 43, 0.7), rgba(59, 57, 54, 0.7)), url(../img/worker.jpg);
     background-size: cover;
     background-position: center;
@@ -120,6 +120,8 @@ nav ul li a:hover {
     transition: .5s ease-in-out;
     right: -500px;
     top: 50px;
+    width: 100%;
+    height: 100%;
 }
 
 .top-header {
@@ -130,7 +132,7 @@ nav ul li a:hover {
 .top-header h3 {
     font-size: 22px;
     font-weight: 600;
-    margin-bottom: 8px;
+    margin-bottom: 0px;
     /* text-shadow: 7px 7px 7px black;*/
     font-family: 'Courier New', Courier, monospace;
 }
@@ -146,10 +148,30 @@ nav ul li a:hover {
 
 }
 
+.input-groub2 {
+    width: 100%;
+
+}
+
+
 .input-field {
     margin: 25px 0;
     position: relative;
     padding-top: 5px;
+
+}
+
+.input-field2 {
+    margin: 2px -85px 0 0px;
+    position: relative;
+    padding-top: 10px;
+
+}
+
+.input-field-left {
+    margin: 2px -100px 0 0px;
+    position: relative;
+    padding-top: 10px;
 
 }
 
@@ -166,6 +188,66 @@ nav ul li a:hover {
     backdrop-filter: plur(2px);
     outline: none;
 
+}
+
+.input-box2 {
+    width: 220px;
+    height: 50px;
+    font-size: 27px;
+    color: black;
+    border-radius: 10px;
+    border: none;
+    padding: 0px 7px 0 0px;
+    border-radius: 10px;
+    background: rgba(224, 223, 223, 0.6);
+    backdrop-filter: plur(2px);
+    outline: none;
+
+}
+
+.input-box3 {
+    width: 460px;
+    height: 50px;
+    font-size: 27px;
+    color: black;
+    border-radius: 10px;
+    border: none;
+    padding: 0px 7px 0 0px;
+    border-radius: 10px;
+    background: rgba(224, 223, 223, 0.6);
+    backdrop-filter: plur(2px);
+    outline: none;
+    margin-right: 5px;
+}
+
+.input-box2-right {
+    width: 220px;
+    height: 50px;
+    font-size: 27px;
+    color: black;
+    border-radius: 10px;
+    border: none;
+    padding: 0px 7px 0 0px;
+    border-radius: 10px;
+    background: rgba(224, 223, 223, 0.6);
+    backdrop-filter: plur(2px);
+    outline: none;
+    margin-right: 45px;
+}
+
+.input-box2-left {
+    width: 220px;
+    height: 50px;
+    font-size: 27px;
+    color: black;
+    border-radius: 10px;
+    border: none;
+    padding: 0px 7px 0 0px;
+    border-radius: 10px;
+    background: rgba(224, 223, 223, 0.6);
+    backdrop-filter: plur(2px);
+    outline: none;
+    margin-right: 53px;
 }
 
 .input-groub label {
@@ -195,13 +277,14 @@ nav ul li a:hover {
 .select .remember {
     display: flex;
     font-size: 66px;
-    color: #000;
+    color: #fa1c1c;
     margin: 12px 0 30px 0;
 }
 
 .check {
     width: 15px;
-    margin-right: -270px;
+    margin-right: -360px;
+    margin-top: 20px;
 
 }
 
@@ -225,6 +308,26 @@ nav ul li a:hover {
     box-shadow: 0px 4px 20px rgba(62, 9, 9, 0.145);
     cursor: pointer;
     transition: .4s;
+}
+
+.input-submit2 {
+    width: 80%;
+    height: 50px;
+    font-size: 29px;
+    font-weight: bold;
+    font-weight: 500;
+    border: none;
+    border-radius: 10px;
+    background: #bc6202;
+    color: #000000;
+    box-shadow: 0px 4px 20px rgba(62, 9, 9, 0.145);
+    cursor: pointer;
+    transition: .4s;
+}
+
+.gender-option {
+    display: flex;
+    column-gap: 70px;
 }
 
 .input-submit:hover {
@@ -275,11 +378,278 @@ nav ul li a:hover {
 #btn {
     position: absolute;
     bottom: 0;
-    left: 200;
+    left: 205px;
     width: 200px;
     height: 50px;
     background: #bc6202;
     border-radius: 10px;
     box-shadow: 2px 0px 12px rgba(0, 0, 0, 0.1);
     transition: .5s ease-in-out;
+}
+
+
+
+.container {
+    max-width: 700px;
+    width: 100%;
+    background-color: #fff;
+    padding: 25px 30px;
+    border-radius: 5px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+}
+
+.container .title {
+    font-size: 25px;
+    font-weight: 500;
+    position: relative;
+}
+
+.container .title::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 30px;
+    border-radius: 5px;
+    background: linear-gradient(135deg, #71b7e6, #9b59b6);
+}
+
+.content form .user-details {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 20px 0 12px 0;
+}
+
+form .user-details .input-box {
+    margin-bottom: 15px;
+    width: calc(100% / 2 - 20px);
+}
+
+form .input-box span.details {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.user-details .input-box input {
+    height: 45px;
+    width: 100%;
+    outline: none;
+    font-size: 16px;
+    border-radius: 5px;
+    padding-left: 15px;
+    border: 1px solid #ccc;
+    border-bottom-width: 2px;
+    transition: all 0.3s ease;
+}
+
+.user-details .input-box input:focus,
+.user-details .input-box input:valid {
+    border-color: #9b59b6;
+}
+
+form .gender-details .gender-title {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+form .category {
+    display: flex;
+    width: 80%;
+    margin: 14px 0;
+    justify-content: space-between;
+}
+
+form .category label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+form .category label .dot {
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    margin-right: 10px;
+    background: #d9d9d9;
+    border: 5px solid transparent;
+    transition: all 0.3s ease;
+}
+
+#dot-1:checked~.category label .one,
+#dot-2:checked~.category label .two,
+#dot-3:checked~.category label .three {
+    background: #9b59b6;
+    border-color: #d9d9d9;
+}
+
+form input[type="radio"] {
+    display: none;
+}
+
+form .button {
+    height: 45px;
+    margin: 35px 0
+}
+
+form .button input {
+    height: 100%;
+    width: 100%;
+    border-radius: 5px;
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: linear-gradient(135deg, #71b7e6, #9b59b6);
+}
+
+form .button input:hover {
+    /* transform: scale(0.99); */
+    background: linear-gradient(-135deg, #71b7e6, #9b59b6);
+}
+
+@media(max-width: 584px) {
+    .container {
+        max-width: 100%;
+    }
+
+    form .user-details .input-box {
+        margin-bottom: 15px;
+        width: 100%;
+    }
+
+    form .category {
+        width: 100%;
+    }
+
+    .content form .user-details {
+        max-height: 300px;
+        overflow-y: scroll;
+    }
+
+    .user-details::-webkit-scrollbar {
+        width: 5px;
+    }
+}
+
+@media(max-width: 459px) {
+    .container .content .category {
+        flex-direction: column;
+    }
+}
+
+
+.form .input-box {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.input-box label {
+    color: #333;
+}
+
+.form :where(.input-box input, .select-box) {
+    position: relative;
+    height: 50px;
+    width: 100%;
+    outline: none;
+    font-size: 1rem;
+    color: #707070;
+    margin-top: 8px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 0 15px;
+}
+
+.input-box input:focus {
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+}
+
+.form .column {
+    display: flex;
+    column-gap: 15px;
+}
+
+.gender-box {
+    display: inline-flex;
+    margin-left: 230px;
+
+    margin-top: 20px;
+}
+
+.gender-box h3 {
+    color: #333;
+    font-size: 1rem;
+    font-weight: 400;
+    margin-bottom: 8px;
+}
+
+.form :where(.gender-option, .gender) {
+    display: flex;
+    align-items: center;
+    column-gap: 50px;
+    flex-wrap: wrap;
+}
+
+.form .gender {
+    column-gap: 5px;
+}
+
+.gender input {
+    accent-color: rgb(130, 106, 251);
+}
+
+.form :where(.gender input, .gender label) {
+    cursor: pointer;
+}
+
+.gender label {
+    color: #000000;
+    font-size: 30px;
+}
+
+.address :where(input, .select-box) {
+    margin-top: 15px;
+}
+
+.select-box select {
+    height: 100%;
+    width: 100%;
+    outline: none;
+    border: none;
+    color: #707070;
+    font-size: 1rem;
+}
+
+.form button {
+    height: 55px;
+    width: 100%;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 400;
+    margin-top: 30px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: rgb(130, 106, 251);
+}
+
+.form button:hover {
+    background: rgb(88, 56, 250);
+}
+
+/*Responsive*/
+@media screen and (max-width: 500px) {
+    .form .column {
+        flex-wrap: wrap;
+    }
+
+    .form :where(.gender-option, .gender) {
+        row-gap: 15px;
+    }
 }
