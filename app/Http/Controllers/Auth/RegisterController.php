@@ -74,7 +74,7 @@ class RegisterController extends Controller
             'lname' => ['required', 'string', 'max:255'],
             'number' => ['required', 'string',  'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'description'=> ($req->is_worker == 0) ? ['required','min:10','max:1500','string']: '',
+            'description'=> ($req->is_worker == 0) ? ['required','min:100','max:1500','string']: '',
             'is_worker'=>['required','in:1,0'],
             'gender'=>['required','in:1,0'],
 
