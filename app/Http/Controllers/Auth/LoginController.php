@@ -45,7 +45,8 @@ class LoginController extends Controller
     {
 
         $input = $request->all();
-
+        $address=Address::get();
+        $crafts=Craft::get();
 
         $this->validate($request, [
             'number' => 'required',
@@ -54,13 +55,14 @@ class LoginController extends Controller
 
         if (auth()->attempt(array('number' => $input['number'], 'password' => $input['password']))) {
             if (auth()->user()) {
-                return view('home');
-            }
+                return view('home',compact('crafts','address'));
+            }  
+        }else {
+            
+             return view('auth.login',compact('address','crafts'))
+                 ->with('error', 'Phone or Password is wrong.');
         }
-        else {
-            return view('login')
-                ->with('error', 'Phone or Password is wrong.');
-        }
+      
     }
     public function showLoginForm()
     {
