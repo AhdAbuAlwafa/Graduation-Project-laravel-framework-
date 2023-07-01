@@ -6,7 +6,7 @@
         <ul id='MenuItems'>
 
             <li><a href='/'> الرئيسية</a></li>
-            <li><a href='#'>المهن</a></li>
+            <li><a href='{{ route('userPage.getAllUser')}}''>المهن</a></li>
             <li><a href='#'>اعلانات العمل</a></li>
             <li><a href='#'>المفضلة</a></li>
             <li><a href='#'>من نحن </a></li>

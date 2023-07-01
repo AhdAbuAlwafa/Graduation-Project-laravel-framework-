@@ -41,11 +41,10 @@ class AddvertisimentController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
         $validated = $request->validate([
           
             'job_des' => 'required',
-            'adv_req'=>'required',
+            
         ]);
         
         $advertisements = new Advertisement;

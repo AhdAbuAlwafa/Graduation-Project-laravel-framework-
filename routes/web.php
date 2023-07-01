@@ -44,8 +44,8 @@ Route::prefix('/crafts')->group(function(){
     Route::patch('/update/{id}', [CrafttController::class, 'update'])->name('crafts.update');
     Route::post('/destroy',[CrafttController::class,'destroy'])->name('crafts.destroy'); });
 
-   Route::get('/advertisiment',[AddvertisimentController::class,'index'])->name('worker.advertisiment');
-   Route::post('/advertisiment/store',[AddvertisimentController::class,'store'])->name('workerPage.store');
+   Route::get('/advertisiment',[AddvertisimentController::class,'index'])->name('worker.advertisiment')->middleware('auth');
+   Route::post('/advertisiment/store',[AddvertisimentController::class,'store'])->name('workerPage.store')->middleware('auth');
    Route::get('/showAdvertisements', [AddvertisimentController::class, 'show'])->name('userPage.advertisements');
    
    Route::get('/worker',[CommentController::class,'index'])->name('user_comment.addComment');

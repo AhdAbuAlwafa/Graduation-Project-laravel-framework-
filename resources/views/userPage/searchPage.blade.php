@@ -9,7 +9,8 @@
 
 <form method="GET" action="{{route('userPage.getAllUser')}}">
     @csrf
-    <button type="submit" class="btn10">انتقل الى الصفحة الرئيسية</button>
+    <a href="/" class="btn btn-primary">انتقل الى الصفحة الرئيسية</a>
+
 </form>
 
 <form method="GET" action="{{ route('userPage.mysearch') }}">
