@@ -17,129 +17,134 @@
 
 </div>
 
-    <div class="modal" tabindex="-1" id="advertisiment-modal">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">إضافة اعلان عمل حر</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <form action="{{route('workerPage.store')}}" method="post" >
-                @csrf
-
-                <div class="row">
-                    <div class="col">
-                        <select class="form-control8 form-select mt-3  justify-content-end" aria-label="Default select example" name="adv_period">
-                        
-                            <option selected value="" selected Disabled>اختر مدة الاعلان</option>
-                            <option value="1">يوم</option>
-                            <option value="2">يومان</option>
-                            <option value="3">ثلاثة ايام</option>
-                            <option value="4">اربعة ايام</option>
-                            <option value="5">خمسة ايام</option>
-                            <option value="6">ستة ايام</option>
-                            <option value="7">سبعة ايام</option>
-                          </select>
-                        
-                    </div>
-                    <div class="col">
-                        <div class="select1">
-                            
-                            <select class="form-control8 form-select mt-3" aria-label="Default select example" name="job_name" >
-                              <option selected>اختر المهنة المطلوبة</option>
-                              @foreach($crafts as $craft) 
-                              <option value="{{$craft->craft_name}}">{{$craft->craft_name}}</option>
-                              @endforeach
-                            </select>
-                            </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col">
-                        <select class="form-control8 form-select mt-3 " aria-label="Default select example" name="address_id">
-                            <option selected>اخترالقرية/البلدة</option>
-                            @foreach($addresses as $address) 
-                            <option value="{{$address->id}}">{{$address->city_name}}</option> 
-                           
-                            @endforeach
-                          </select>
-                        
-                    </div>
-                    <div class="col">
-                        <select class="form-control8 form-select mt-3" aria-label="Default select example" name="address_id" >
-                            <option selected>اختر المدينة</option>
-                            @foreach($addresses as $address) 
-                            <option value="{{$address->id}}">{{$address->city_name}}</option> 
-                           
-                            @endforeach
-                          </select>
-                    </div>
-                  </div>
-                  <div class="problem">
-                    <div class="mb">
-                       <textarea class="form-control8" id="IP" cols="45" rows="2" name="job_des" placeholder="وصف المشكلة"></textarea>
-                       @error('job_des')
-                       <div class="text-red-500 mt-2 text-sm">
-                           {{ $message }}
-                       </div>
-                   @enderror
-                      </div>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <label class="form-check-label" for="inlineRadio1">غير محدد </label>
-                    <input class="form-check-input" type="radio" name="work_period" id="IR3" value="غير محدد" >
-                   
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <label class="form-check-label" for="inlineRadio1">نهارية وليلية </label>
-                    <input class="form-check-input" type="radio" name="work_period" id="IR4" value="نهارية وليلية" >
-                   
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <label class="form-check-label" for="inlineRadio1">ليلية </label>
-                    <input class="form-check-input" type="radio" name="work_period" id="IR5" value="ليلية" >
-                   
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <label class="form-check-label" for="inlineRadio1">نهارية </label>
-                    <input class="form-check-input" type="radio" name="work_period" id="IR6" value="نهارية">
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <label class="form-check-label" for="inlineRadio1">الفتره</label>
-                  </div>
-                  <div class="t-work">
-                    <div class="form-check form-check-inline">
-                       <input class="form-check-input" type="radio" name="gender" id="IR1" value="male">
-                       <label class="form-check-label" for="inlineRadio1">ذكر</label>
-                     </div>
-                     <div class="form-check form-check-inline">
-                       <label class="form-check-label" for="inlineRadio1">انثى </label>
-                       <input class="form-check-input" type="radio" name="gender" id="IR2" value="female" >
-                     </div>
-                     <div class="form-check form-check-inline">
-                        <label class="form-check-label" for="inlineRadio1">جنس المهني</label>
-                      </div>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">الغاء</button>
-                      <button type="submit" class="btn btn-secondary" >انشر</button>
-        
-                    </div>
-              </form>
-            </div>
-            
-          </div>
-        </div>
+<div class="modal" tabindex="-1" id="advertisiment-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">إضافة اعلان عمل حر</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-    
-      <div class="modal" tabindex="-1" id="advertisiment-modal1">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">إضافة اعلان ورشات عمل </h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <div class="modal-body">
+        <form action="{{route('workerPage.store')}}" method="post" >
+          @csrf
+
+          <div class="row">
+              <div class="col">
+                  <select class="form-control8 form-select mt-3  justify-content-end" aria-label="Default select example" name="adv_period">
+                  
+                      <option selected value="" selected Disabled>اختر مدة الاعلان</option>
+                      <option value="1">يوم</option>
+                      <option value="2">يومان</option>
+                      <option value="3">ثلاثة ايام</option>
+                      <option value="4">اربعة ايام</option>
+                      <option value="5">خمسة ايام</option>
+                      <option value="6">ستة ايام</option>
+                      <option value="7">سبعة ايام</option>
+                    </select>
+                  
+              </div>
+              <div class="col">
+                  <div class="select1">
+                      
+                      <select class="form-control8 form-select mt-3" aria-label="Default select example" name="job_name" >
+                        <option selected>اختر المهنة المطلوبة</option>
+                        @foreach($crafts as $craft) 
+                        <option value="{{$craft->craft_name}}">{{$craft->craft_name}}</option>
+                        @endforeach
+                      </select>
+                      </div>
+              </div>
             </div>
+            <div class="row">
+              <div class="col">
+                  <select class="form-control8 form-select mt-3 " aria-label="Default select example" name="address_id">
+                      <option selected>اخترالقرية/البلدة</option>
+                      @foreach($addresses as $address) 
+                      <option value="{{$address->id}}">{{$address->village_name}}</option> 
+                     
+                      @endforeach
+                    </select>
+                  
+              </div>
+              <div class="col">
+                  <select class="form-control8 form-select mt-3" aria-label="Default select example" name="address_id" >
+                      <option selected>اختر المدينة</option>
+                      @foreach($addresses as $address) 
+                      <option value="{{$address->id}}">{{$address->city_name}}</option> 
+                     
+                      @endforeach
+                    </select>
+              </div>
+            </div>
+            <div class="problem">
+              <div class="mb">
+                 <textarea class="form-control8" id="IP" cols="45" rows="2" name="job_des" placeholder="وصف المشكلة"></textarea>
+                 @error('job_des')
+                 <div class="text-red-500 mt-2 text-sm">
+                     {{ $message }}
+                 </div>
+             @enderror
+                </div>
+            </div>
+            <div class="form-check form-check-inline">
+              <label class="form-check-label" for="inlineRadio1">غير محدد </label>
+              <input class="form-check-input" type="radio" name="work_period" id="IR3" value="غير محدد" >
+             
+            </div>
+            <div class="form-check form-check-inline">
+              <label class="form-check-label" for="inlineRadio1">نهارية وليلية </label>
+              <input class="form-check-input" type="radio" name="work_period" id="IR4" value="نهارية وليلية" >
+             
+            </div>
+            <div class="form-check form-check-inline">
+              <label class="form-check-label" for="inlineRadio1">ليلية </label>
+              <input class="form-check-input" type="radio" name="work_period" id="IR5" value="ليلية" >
+             
+            </div>
+            <div class="form-check form-check-inline">
+              <label class="form-check-label" for="inlineRadio1">نهارية </label>
+              <input class="form-check-input" type="radio" name="work_period" id="IR6" value="نهارية">
+            </div>
+            <div class="form-check form-check-inline">
+              <label class="form-check-label" for="inlineRadio1">الفتره</label>
+            </div>
+            <div class="t-work">
+              <div class="form-check form-check-inline">
+                 <input class="form-check-input" type="radio" name="gender" id="IR1" value="male">
+                 <label class="form-check-label" for="inlineRadio1">ذكر</label>
+               </div>
+               <div class="form-check form-check-inline">
+                 <label class="form-check-label" for="inlineRadio1">انثى </label>
+                 <input class="form-check-input" type="radio" name="gender" id="IR2" value="female" >
+               </div>
+               <div class="form-check form-check-inline">
+                  <label class="form-check-label" for="inlineRadio1">جنس المهني</label>
+                </div>
+                <div class="m">
+                  <input type="hidden"class="c" name="user_id " value="{{ auth()->user()->id }}">
+                </div>
+                 
+              </div>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">الغاء</button>
+                <button type="submit" class="btn btn-secondary" >انشر</button>
+  
+              </div>
+        </form>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="modal" tabindex="-1" id="advertisiment-modal1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">إضافة اعلان ورشات عمل </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
             <div class="modal-body">
               <form  action="{{route('workerPage.store')}}" method="post">
                 @csrf
@@ -176,7 +181,7 @@
                         <select class="form-control8 form-select mt-3 " aria-label="Default select example" name="address_id">
                             <option selected>اخترالقرية/البلدة</option>
                             @foreach($addresses as $address) 
-                            <option value="{{$address->id}}">{{$address->city_name}}</option> 
+                            <option value="{{$address->id}}">{{$address->village_name}}</option> 
                            
                             @endforeach
                           </select>
@@ -268,7 +273,7 @@
                       </div>
                       
                       <div class="m">
-                        <input type="hidden"class="c" name="user_id " value="">
+                        <input type="hidden"class="c" name="user_id " value="{{ auth()->user()->id }}">
                       </div>
                        
                       
