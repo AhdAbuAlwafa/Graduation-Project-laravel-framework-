@@ -26,7 +26,8 @@
       </div>
       <div class="modal-body">
         <form action="{{route('workerPage.store')}}" method="post" >
-          @csrf
+          @method('post')
+          {{ csrf_field() }}
 
           <div class="row">
               <div class="col">
@@ -120,9 +121,7 @@
                <div class="form-check form-check-inline">
                   <label class="form-check-label" for="inlineRadio1">جنس المهني</label>
                 </div>
-                <div class="m">
-                  <input type="hidden"class="c" name="user_id " value="{{ auth()->user()->id }}">
-                </div>
+               
                  
               </div>
 
@@ -153,7 +152,7 @@
                     <div class="col">
                         <select class="form-control8 form-select mt-3  justify-content-end" aria-label="Default select example" name="adv_period">
                         
-                            <option selected value="" selected Disabled>اختر مدة الاعلان</option>
+                            <option selected  >اختر مدة الاعلان</option>
                             <option value="1">يوم</option>
                             <option value="2">يومان</option>
                             <option value="3">ثلاثة ايام</option>
@@ -271,10 +270,10 @@
                         <label class="form-check-label" for="inlineRadio1">جنس المهني</label>
                         
                       </div>
+                     
+    
                       
-                      <div class="m">
-                        <input type="hidden"class="c" name="user_id " value="{{ auth()->user()->id }}">
-                      </div>
+               
                        
                       
                     </div>
