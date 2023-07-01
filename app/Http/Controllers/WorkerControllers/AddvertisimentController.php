@@ -59,7 +59,8 @@ class AddvertisimentController extends Controller
         $advertisements->user_id=auth()->user()->id;
 
         $advertisements->save();
-         return view(route('worker.advertisiment'));
+         
+         return redirect(route('worker.advertisiment' ));
 
     
     }
