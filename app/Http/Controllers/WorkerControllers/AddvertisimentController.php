@@ -41,27 +41,26 @@ class AddvertisimentController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        // $validated = $request->validate([
           
-            'job_des' => 'required',
-            
-        ]);
+        //     'job_des' => 'required',
+        //     'adv_req'=>'required'
+        // ]);
         
         $advertisements = new Advertisement;
-        $advertisements->adv_req = $request->input('adv_req');
-        $advertisements->job_des = $request->input('job_des');
-        $advertisements-> job_name= $request->input('job_name');
-        $advertisements->work_hour=$request->input('work_hour');
-        $advertisements->address_id=$request->input('address_id');
-        $advertisements->work_period=$request->input('work_period');
-        $advertisements->gender=$request->input('gender');
-        $advertisements->adv_period=$request->has('adv_period');
-        $advertisements->user_id=$request->input('user_id');
-        $advertisements->adv_date=$request->input('adv_date');
-
+        $advertisements->adv_req = $request->adv_req;
+        $advertisements->job_des = $request->job_des|| 'null';
+        $advertisements-> job_name= $request->job_name;
+        $advertisements->work_hour=$request->work_hour || 'null';
+        $advertisements->address_id=$request->address_id;
+        $advertisements->work_period=$request->work_period;
+        $advertisements->gender=$request->gender;
+        $advertisements->adv_period=$request->adv_period;
+        $advertisements->user_id=auth()->user()->id;
 
         $advertisements->save();
-         
+         return view(route('worker.advertisiment'));
+
     
     }
 
