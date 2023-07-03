@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
 
-
+   
     
     <!-- font awesome style -->
     <link href="css/font-awesome.min.css" rel="stylesheet" />
@@ -145,7 +145,13 @@ $(document).ready(function() {
 
     <script src="{{ asset('style/js/main.js') }}"></script>
 
-
+    
+      
+      
+      
+      
+      
+      
     
     @stack('js')
 
