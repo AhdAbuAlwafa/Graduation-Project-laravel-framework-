@@ -47,6 +47,7 @@ class LoginController extends Controller
         $input = $request->all();
         $address=Address::get();
         $crafts=Craft::get();
+        $cities = Address::distinct()->pluck('city_name', 'city_name')->toArray();
 
         $this->validate($request, [
             'number' => 'required',
@@ -68,6 +69,6 @@ class LoginController extends Controller
     {
         $address=Address::get();
         $crafts=Craft::get();
-        return view('auth.login' , compact('address', 'crafts'));
+        return view('auth.login' , compact('address', 'crafts','cities'));
     }
 }

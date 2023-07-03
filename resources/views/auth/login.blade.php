@@ -96,11 +96,9 @@
                     <div class="col">
                         <div class="input-field2">
                             <div class="select-country">
-                                <select class='input-box2' id="village" name="village" style="color: #4e4e4e;">
-                                    @foreach ($address as $item)
-                                    <option value="{{$item->id}}">{{$item->village_name}}</option>
-            
-                                    @endforeach
+                                <select class='input-box2' id="village_name_select1" name="village_name" style="color: #4e4e4e;">
+                                    <option value="all" selected>اخترالقرية/البلدة</option>
+
                                 </select>
                             </div>
                         </div>
@@ -108,11 +106,13 @@
                     <div class="col">
                         <div class="input-field-left">
                             <div class="select-country">
-                                <select class='input-box2' id="city" name="city" style="color: #4e4e4e;">
-                                    @foreach ($address as $item)
-                                    <option value="{{$item->id}}">{{$item->city_name}}</option>
-            
-                                    @endforeach
+                                <select class='input-box2' id="city_name_select1" name="city_name" style="color: #4e4e4e;">
+                                    <option value="all" selected>اختر المدينة</option>
+                                    @foreach($cities as $cityName)
+                            <option value="{{ $cityName }}">
+                                {{ $cityName }}
+                            </option>
+                        @endforeach
                                 </select>
                             </div>
                         </div>
@@ -242,6 +242,35 @@
     
     
         </script>
+<script>
+    $(document).ready(function() {
+    $('#city_name_select1').on('change', function() {
+        var selectedCity = $(this).val();
+        if (selectedCity) {
+            // Send an Ajax request to get the villages based on the selected city
+            $.ajax({
+                url: "{{ route('get-villages') }}",
+                type: "GET",
+                data: { city_name: selectedCity },
+                success: function(data) {
+                    console.log(data);
+                    // Clear the previous options
+                    $('#village_name_select1').html('<option value="all">Select Village</option>');
+                    // Append new options based on the received data
+                    $.each(data, function(key, value) {
+                        $('#village_name_select1').append('<option value="' + value + '">' + value + '</option>');
+                    });
+                },
+                
+            });
+        } else {
+            // If no city is selected, clear the villages dropdown
+            $('#village_name_select1').html('<option value="all">Select Village</option>');
+        }
+    });
+  });
+  </script>
+  
 
 
 
