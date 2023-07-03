@@ -53,7 +53,7 @@ class AddvertisimentController extends Controller
         $advertisements->job_des = $request->job_des|| 'null';
         $advertisements-> job_name= $request->job_name;
         $advertisements->work_hour=$request->work_hour || 'null';
-        $advertisements->address_id=$request->address_id;
+        $advertisements->address_id=$request->address_id || 'null';
         $advertisements->work_period=$request->work_period;
         $advertisements->gender=$request->gender;
         $advertisements->adv_period=$request->adv_period;

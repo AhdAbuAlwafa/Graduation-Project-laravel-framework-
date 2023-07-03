@@ -173,7 +173,26 @@
                 </div>
                 <div class="tab-pane fade" id="application" role="tabpanel" aria-labelledby="application-tab">
                     <h3 class="mb-4">اعلاناتي</h3>
-                   
+                    <div class="row">
+                        @foreach ($advertisements as $advertisement)
+                            <div class="col-md-6 col-lg-4 mb-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title"> المهنة:{{ $advertisement->job_name }}</h5>
+                                        <p class="card-text">وصف المهنة:{{ $advertisement->job_des }}</p>
+                                        <p class="card-text">المدينة: {{ $advertisement->addresses->city_name }}</p>
+                                        <p class="card-text">القرية/البلدة: {{ $advertisement->addresses->village_name }}</p>
+                                        <p class="card-text">عدد ساعات العمل المطلوبة:: {{ $advertisement->work_hour }}</p>
+                                        <p class="card-text"> متطلبات العمل: {{ $advertisement->adv_req }}</p>
+                                        <p class="card-text">فترة العمل: {{ $advertisement->work_period }}</p>
+                                        <p class="card-text"> جنس المهني : {{ $advertisement->gender }}</p>
+
+                                        <!-- Add more details as needed -->
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
                     
                 </div>
                 
