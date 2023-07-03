@@ -4,7 +4,6 @@
 <div class="container text-center my-5 bigContainer" id="bigContainer">
 <form method="GET" action="{{route('userPage.getAllUser')}}">
     @csrf
-    <button type="submit" class="btn10">اظهر جميع المهنيين</button>
 </form>
 
 <form method="GET" action="{{route('userPage.getAllUser')}}">
