@@ -76,10 +76,11 @@ class LoginController extends Controller
     }
     public function showLoginForm()
     {
-        $cities = Address::pluck('city_name','city_name')->all();
+
+        $cities=Address::distinct()->pluck('city_name','city_name')->toArray();
         $address=Address::get();
         $crafts=Craft::get();
-        return view('auth.login' , compact('address', 'crafts','cities'));
+        return view('auth.login' , compact('cities','address', 'crafts'));
     }
     public function logout(){
         auth()->logout();

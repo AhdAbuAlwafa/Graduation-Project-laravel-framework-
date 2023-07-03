@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Address;
 use App\Models\Advertisement;
+use App\Models\Worker;
 
 use App\Models\Craft;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Support\Facades\Auth;
 class UserProfileController extends Controller
@@ -52,6 +54,7 @@ class UserProfileController extends Controller
         $cities = Address::pluck('city_name', 'id');
         $village = Address::pluck('village_name', 'id');
         $advertisements=Advertisement::get()->where('user_id', auth() ->user()->id);
+
         return view('userPage.userProfile',compact('user','cities','village','advertisements','crafts'));
     }
     
@@ -103,6 +106,54 @@ class UserProfileController extends Controller
      * Update the specified resource in storage.
      */
     
+     public function becomeWorker(Request $request, string $id)
+     {
+        $user = User::findOrFail($id);
+
+        // If the user is already a worker or the is_worker checkbox is not checked, return an error message
+        if ($user->is_worker && !$request->has('is_worker')) {
+            return response()->json(['success' => false, 'message' => 'Already a worker or invalid request.']);
+        }
+    
+        $validator = Validator::make($request->all(), [
+            'craft_id' => 'required',
+            'description' => 'required|min:100|max:1500|string',
+        ]);
+    
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'error' => $validator->errors()->toArray()]);
+        }
+    
+        // Start a database transaction to ensure data consistency
+        DB::beginTransaction();
+    
+        try {
+            // Create a new Worker instance
+            $worker = new Worker();
+            $worker->craft_id = $request->input('craft_id');
+            $worker->description = $request->input('description');
+            $worker->save();
+    
+            // Associate the worker with the user
+            $user->worker()->save($worker);
+    
+            // Update the user as a worker
+            $user->is_worker = true;
+            $user->save();
+    
+            // Commit the transaction
+            DB::commit();
+    
+            return response()->json(['success' => true]);
+        } catch (\Exception $e) {
+            // Something went wrong, rollback the transaction
+            DB::rollBack();
+            return response()->json(['success' => false, 'message' => 'Failed to become a worker.']);
+        }
+    }
+     
+      
+
 
 
     public function changePassword(Request $request)
