@@ -9,6 +9,7 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
@@ -20,7 +21,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
 
-   
+
     
     <!-- font awesome style -->
     <link href="css/font-awesome.min.css" rel="stylesheet" />
@@ -79,6 +80,7 @@
     
     {{-- bootstrab script --}}
    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
 
     
     <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
@@ -87,11 +89,95 @@
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl-js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
     
+
+    <script>
+    // Get the toggle box element
+    const toggleBox = document.getElementById('is_worker');
+
+    // Add event listener for the toggle box
+    toggleBox.addEventListener('change', function() {
+        // Disable the toggle box
+        toggleBox.disabled = true;
+
+        // Send an AJAX request to update the is_worker value
+        fetch('{{ route('userPage.becomeWorker', ['id' => $user->id]) }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({ is_worker: toggleBox.checked })
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Check if the update was successful
+            if (data.success) {
+                // Hide the toggle box container
+                document.getElementById('toggleBoxContainer').style.display = 'none';
+            } else {
+                // Enable the toggle box if the update failed
+                toggleBox.disabled = false;
+            }
+        })
+        .catch(error => {
+            console.error('An error occurred:', error);
+            // Enable the toggle box if an error occurred
+            toggleBox.disabled = false;
+        });
+    });
+</script>
+
+
+<script>
+    $(document).ready(function() {
+        // Listen for change event on ToggleBox
+        $('#toggleBox').change(function() {
+            if ($(this).is(':checked')) {
+                $('#craftFields').show();
+            } else {
+                $('#craftFields').hide();
+            }
+        });
+
+        // Submit the form via AJAX
+        $('#becomeWorkerForm').submit(function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            var form = $(this);
+            var url = form.attr('action');
+            var data = form.serialize();
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: data,
+                dataType: 'json',
+                success: function(response) {
+                    if (response.success) {
+                        // Success message
+                        alert('You have successfully become a worker.');
+
+                        // Refresh the page to hide the toggle box
+                        location.reload();
+                    } else {
+                        // Error message
+                        alert('Failed to become a worker. Please try again.');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    // Error message
+                    alert('An error occurred. Please try again.');
+                }
+            });
+        });
+    });
+</script>
+
     <script>
 
 
 $(document).ready(function() {
-        $("#Inputsearch").on("keyup", function() {
+    $("#Inputsearch").on("keyup", function() {
             var value = $(this).val().toLowerCase();
             
             $('div[data-role="user"]').each(function() {
