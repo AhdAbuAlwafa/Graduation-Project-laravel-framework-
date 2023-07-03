@@ -108,7 +108,38 @@ $(document).ready(function() {
      
     </script>
 <script>
+    $(document).ready(function() {
+    $('#city_name_select1').on('change', function() {
+        var selectedCity = $(this).val();
+        if (selectedCity) {
+            // Send an Ajax request to get the villages based on the selected city
+            $.ajax({
+                url: "{{ route('get-villages') }}",
+                type: "GET",
+                data: { city_name: selectedCity },
+                success: function(data) {
+                    console.log(data);
+                    // Clear the previous options
+                    $('#village_name_select1').html('<option value="all">Select Village</option>');
+                    // Append new options based on the received data
+                    $.each(data, function(key, value) {
+                        $('#village_name_select1').append('<option value="' + value + '">' + value + '</option>');
+                    });
+                },
+                
+            });
+        } else {
+            // If no city is selected, clear the villages dropdown
+            $('#village_name_select1').html('<option value="all">Select Village</option>');
+        }
+    });
+  });
+  </script>
+  
 
+
+
+<script>
     $(document).ready(function() {
     $('#city_name_select').on('change', function() {
         var selectedCity = $(this).val();
@@ -122,7 +153,6 @@ $(document).ready(function() {
                     console.log(data);
                     // Clear the previous options
                     $('#village_name_select').html('<option value="all">Select Village</option>');
-
                     // Append new options based on the received data
                     $.each(data, function(key, value) {
                         $('#village_name_select').append('<option value="' + value + '">' + value + '</option>');
@@ -137,11 +167,10 @@ $(document).ready(function() {
     });
 });
 </script>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
-    <script src="{{ asset('style/plugins/ijabo/ijaboCropTool.min.js') }}"></script>
+    <script src="{{ asset('style/plugins/ijabo/ijaboCropTool.min.js') }}"></scrip>
 
     <script src="{{ asset('style/js/main.js') }}"></script>
 

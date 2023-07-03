@@ -65,6 +65,7 @@ class RegisterController extends Controller
      */
     protected function register(Request $req)
     {
+
          User::class;
 
         $user = new User();
