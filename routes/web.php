@@ -61,6 +61,7 @@ Route::prefix('/crafts')->group(function(){
    
    Route::get('/worker',[CommentController::class,'index'])->name('user_comment.addComment');
    Route::post('/worker/store',[CommentController::class,'store'])->name('user_comment.store');
+   Route::post('/user/{id}/become-worker', [UserProfileController::class, 'becomeWorker'])->name('userPage.becomeWorker');
 
         
    Route::get('/edit1/{id}',[CommentController::class,'edit'])->name('user_comment.editComment');
@@ -106,6 +107,8 @@ Route::prefix('/crafts')->group(function(){
 
   
 
+   Route::get('userprofile', [UserProfileController::class, 'show'])->name('userPage.userProfile')->middleware('auth');
+
 
    Route::get('userprofile',[UserProfileController::class, 'show'])->name('userPage.userProfile')->middleware('auth');
    Route::get('otheruserprofile',[OtherUserProfileController::class, 'show'])->name('userPage.otherUserProfile')->middleware('auth');
@@ -117,8 +120,6 @@ Route::prefix('/crafts')->group(function(){
 
    Route::post('/delete-craft', [UserProfileController::class, 'deleteCraft'])->name('craft.delete');
    Route::post('/delete-all-crafts', [UserProfileController::class, 'deleteAllCrafts'])->name('craft.deleteAll');
-
-
 
 
 
