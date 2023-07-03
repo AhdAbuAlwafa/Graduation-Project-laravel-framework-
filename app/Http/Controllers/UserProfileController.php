@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Address;
+use App\Models\Advertisement;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -43,11 +44,13 @@ class UserProfileController extends Controller
     public function show()
     {
         $user=User::with('crafts','addresses',)->where('id',auth()->user()->id)->first();
-
+        
+        //$advertisements = $user->advertisements;
         //$user=User::with('crafts','addresses',)->where('id',$id)->first();
         $cities = Address::pluck('city_name', 'id');
         $village = Address::pluck('village_name', 'id');
-        return view('userPage.userProfile',compact('user','cities','village'));
+        $advertisements=Advertisement::get()->where('id',auth()->user()->id);
+        return view('userPage.userProfile',compact('user','cities','village','advertisements'));
     }
     
 
