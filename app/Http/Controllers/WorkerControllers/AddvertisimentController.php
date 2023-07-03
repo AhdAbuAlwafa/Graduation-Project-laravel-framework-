@@ -19,8 +19,9 @@ class AddvertisimentController extends Controller
        
         $addresses=Address::get();
         $crafts=Craft::get();
-        
-     return view('workerPage.advertisiment')->with('crafts',$crafts)->with('addresses',$addresses);
+        $cities = Address::distinct()->pluck('city_name', 'city_name')->toArray();
+
+     return view('workerPage.advertisiment')->with('crafts',$crafts)->with('cities',$cities);
        
     }
 

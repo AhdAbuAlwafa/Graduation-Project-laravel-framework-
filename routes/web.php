@@ -30,7 +30,7 @@ use Illuminate\Support\Facades\Auth;
 */
 Route::get('/admin',[AdminController::class,'show'])->name('welcome');
 
-//Route::get('/admin', function () {return view('welcome');})->name('admin');
+
 
 Route::get('/whoWE',[PublicController::class,'index'])->name('userPage.who-are-we');
 Route::get('/addAdv',[AdvertisementController::class,'index'])->name('user.addAdv');

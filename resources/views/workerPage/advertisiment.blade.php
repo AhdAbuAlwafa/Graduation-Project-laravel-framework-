@@ -17,19 +17,19 @@
 
 </div>
 
-<div class="modal" tabindex="-1" id="advertisiment-modal">
+<div class="modal" tabindex="-1" id="advertisiment-modal" >
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">إضافة اعلان عمل حر</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body"  >
         <form action="{{route('workerPage.store')}}" method="post" >
           @method('post')
           {{ csrf_field() }}
 
-          <div class="row">
+          <div class="row"  dir="rtl">
               <div class="col">
                   <select class="form-control8 form-select mt-3  justify-content-end" aria-label="Default select example" name="adv_period">
                   
@@ -56,39 +56,37 @@
                       </div>
               </div>
             </div>
-            <div class="row">
+            <div class="row"  dir="rtl">
               <div class="col">
-                  <select class="form-control8 form-select mt-3 " aria-label="Default select example" name="address_id">
-                      <option selected>اخترالقرية/البلدة</option>
-                      @foreach($addresses as $address) 
-                      <option value="{{$address->id}}">{{$address->village_name}}</option> 
-                     
-                      @endforeach
+                  <select class="form-control8 form-select mt-3 " aria-label="Default select example" id="village_name_select" name="village_name">
+                      <option value="all" selected >اخترالقرية/البلدة</option>
+                      
                     </select>
                   
               </div>
               <div class="col">
-                  <select class="form-control8 form-select mt-3" aria-label="Default select example" name="address_id" >
-                      <option selected>اختر المدينة</option>
-                      @foreach($addresses as $address) 
-                      <option value="{{$address->id}}">{{$address->city_name}}</option> 
-                     
-                      @endforeach
+                  <select class="form-control8 form-select mt-3" aria-label="Default select example" id="city_name_select" name="city_name" >
+                      <option value="all" selected>اختر المدينة</option>
+                      @foreach($cities as $cityName)
+                      <option value="{{ $cityName }}">
+                          {{ $cityName }}
+                      </option>
+                  @endforeach
                     </select>
               </div>
             </div>
-            <div class="problem">
-              <div class="mb">
-                 <textarea class="form-control8" id="IP" cols="45" rows="2" name="job_des" placeholder="وصف المشكلة"></textarea>
-                 @error('job_des')
-                 <div class="text-red-500 mt-2 text-sm">
-                     {{ $message }}
-                 </div>
-             @enderror
+            <div class="row"dir="rtl">
+              <div class="col">
+                <textarea class="form-control8" id="IP" cols="45" rows="2" name="job_des" placeholder="وصف الوظيفة"></textarea>
+                @error('job_des')
+                <div class="text-red-500 mt-2 text-sm">
+                    {{ $message }}
                 </div>
+            @enderror
+              </div>
             </div>
             <div class="form-check form-check-inline">
-              <label class="form-check-label" for="inlineRadio1">غير محدد </label>
+              <label class="form-check-label" for="inlineRadio1" >غير محدد </label>
               <input class="form-check-input" type="radio" name="work_period" id="IR3" value="غير محدد" >
              
             </div>
@@ -110,7 +108,7 @@
               <label class="form-check-label" for="inlineRadio1">الفتره</label>
             </div>
             <div class="t-work">
-              <div class="form-check form-check-inline">
+              <div class="form-check form-check-inline" >
                  <input class="form-check-input" type="radio" name="gender" id="IR1" value="male">
                  <label class="form-check-label" for="inlineRadio1">ذكر</label>
                </div>
@@ -148,7 +146,7 @@
               <form  action="{{route('workerPage.store')}}" method="post">
                 @csrf
 
-                <div class="row">
+                <div class="row" dir="rtl">
                     <div class="col">
                         <select class="form-control8 form-select mt-3  justify-content-end" aria-label="Default select example" name="adv_period">
                         
@@ -175,28 +173,26 @@
                             </div>
                     </div>
                   </div>
-                  <div class="row">
+                  <div class="row"dir="rtl">
                     <div class="col">
-                        <select class="form-control8 form-select mt-3 " aria-label="Default select example" name="address_id">
-                            <option selected>اخترالقرية/البلدة</option>
-                            @foreach($addresses as $address) 
-                            <option value="{{$address->id}}">{{$address->village_name}}</option> 
-                           
-                            @endforeach
+                        <select class="form-control8 form-select mt-3 " aria-label="Default select example" id="village_name_select" name="village_name">
+                            <option value="all" selected>اخترالقرية/البلدة</option>
+                            
                           </select>
                         
                     </div>
                     <div class="col">
-                        <select class="form-control8 form-select mt-3" aria-label="Default select example" name="address_id" >
-                            <option selected>اختر المدينة</option>
-                            @foreach($addresses as $address) 
-                            <option value="{{$address->id}}">{{$address->city_name}}</option> 
-                           
-                            @endforeach
+                        <select class="form-control8 form-select mt-3" aria-label="Default select example"  id="city_name_select" name="city_name">
+                            <option value="all" selected>اختر المدينة</option>
+                            @foreach($cities as $cityName)
+                            <option value="{{ $cityName }}">
+                                {{ $cityName }}
+                            </option>
+                        @endforeach
                           </select>
                     </div>
                   </div>
-                  <div class="row">
+                  <div class="row"dir="rtl">
                     <div class="col">
                         <select class="form-control8 form-select mt-3  justify-content-end" aria-label="Default select example" name="work_hour" >
           
@@ -213,27 +209,42 @@
                         
                     </div>
                   </div>
-                  <div class="problem">
-                    <div class="mb">
-                       <textarea class="form-control8" id="IP" cols="45" rows="2" name="job_des" placeholder="وصف الوظيفة"></textarea>
-                       @error('job_des')
-                       <div class="text-red-500 mt-2 text-sm">
-                           {{ $message }}
-                       </div>
-                   @enderror
+                  <div class="row"dir="rtl">
+                    <div class="col">
+                      <textarea class="form-control8" id="IP" cols="45" rows="2" name="job_des" placeholder="وصف الوظيفة"></textarea>
+                      @error('job_des')
+                      <div class="text-red-500 mt-2 text-sm">
+                          {{ $message }}
                       </div>
+                  @enderror
+                    </div>
+                    <div class="col">
+                      <textarea class="form-control8" id="IP" cols="45" rows="2" name="adv_req" placeholder="متطلبات الوظيفة"></textarea>
+                      @error('adv_req')
+                      <div class="text-red-500 mt-2 text-sm">
+                          {{ $message }}
+                      </div>
+                      @enderror
+                    </div>
                   </div>
 
-                  <div class="problem">
-                    <div class="mb">
-                       <textarea class="form-control8" id="IP" cols="45" rows="2" name="adv_req" placeholder="متطلبات الوظيفة"></textarea>
-                       @error('adv_req')
-                       <div class="text-red-500 mt-2 text-sm">
-                           {{ $message }}
-                       </div>
-                   @enderror
-                      </div>
-                  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                  
 
                   <div class="form-check form-check-inline">
                     <label class="form-check-label" for="inlineRadio1">غير محدد </label>
@@ -290,3 +301,16 @@
     
 
 @endsection
+
+<script>
+ // $(document).ready(function() {
+    // قم بتنشيط الـ "دبندنت سليكت" في الصفحة
+   // $(".selectpicker").selectpicker();
+
+    // حدث فتح المودال الثاني
+   // $('#advertisiment-modal1').on('shown.bs.modal', function () {
+      // قم بتحديث الـ "دبندنت سليكت" بعد فتح المودال الثاني
+    //  $(".selectpicker").selectpicker('refresh');
+   // });
+ // });
+</script>
