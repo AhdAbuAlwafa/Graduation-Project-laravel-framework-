@@ -518,7 +518,7 @@ d-flex{
     margin-bottom: 20px;
 }
 .container{
-    background-color: #C0C0C0;
+    background-color: #fff;
     
 }
 .modal-header h5{
@@ -535,13 +535,21 @@ d-flex{
 }
 
 
+.form-control9{
+
+    float: right;
+    border: solid;
+    border-radius: 3px;
+}
 
 
-
-
-
-
-
+.btn80{
+    margin-top: 10px;
+    margin-right: 25px;
+    border-radius: 5px;
+    font-size: larger;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
 
 
 
@@ -591,3 +599,11 @@ body {
 	border-radius: 100%;
 	border: 5px solid #fff;
 }
+
+
+
+
+
+
+
+

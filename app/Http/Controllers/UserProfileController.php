@@ -98,7 +98,7 @@ class UserProfileController extends Controller
             'password' => 'required|confirmed',
         ]);
         if(!Hash::check($request->old, auth()->user()->password)){
-            return back()->with("error", "Old Password Doesn't match!");
+            return back()->with("error", "كلمة السر القديمة ليست صحيحة");
         }
 
 
@@ -107,7 +107,7 @@ class UserProfileController extends Controller
             'password' => Hash::make($request->password)
         ]);
 
-        return back()->with("status", "Password changed successfully!");
+        return back()->with("status", "تم تغيير كلمة السر بنجاح");
 
     }
     public function showPassChange(){
