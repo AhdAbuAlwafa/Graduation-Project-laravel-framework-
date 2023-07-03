@@ -175,14 +175,14 @@
                   </div>
                   <div class="row"dir="rtl">
                     <div class="col">
-                        <select class="form-control8 form-select mt-3 " aria-label="Default select example" id="village_name_select" name="village_name">
+                        <select class="form-control8 form-select mt-3 " aria-label="Default select example" id="village_name_select1" name="village_name">
                             <option value="all" selected>اخترالقرية/البلدة</option>
                             
                           </select>
                         
                     </div>
                     <div class="col">
-                        <select class="form-control8 form-select mt-3" aria-label="Default select example"  id="city_name_select" name="city_name">
+                        <select class="form-control8 form-select mt-3" aria-label="Default select example"  id="city_name_select1" name="city_name">
                             <option value="all" selected>اختر المدينة</option>
                             @foreach($cities as $cityName)
                             <option value="{{ $cityName }}">
@@ -302,15 +302,3 @@
 
 @endsection
 
-<script>
- // $(document).ready(function() {
-    // قم بتنشيط الـ "دبندنت سليكت" في الصفحة
-   // $(".selectpicker").selectpicker();
-
-    // حدث فتح المودال الثاني
-   // $('#advertisiment-modal1').on('shown.bs.modal', function () {
-      // قم بتحديث الـ "دبندنت سليكت" بعد فتح المودال الثاني
-    //  $(".selectpicker").selectpicker('refresh');
-   // });
- // });
-</script>
