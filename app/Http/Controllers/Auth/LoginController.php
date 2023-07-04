@@ -56,17 +56,19 @@ class LoginController extends Controller
 
         if (auth()->attempt(array('number' => $input['number'], 'password' => $input['password']))) {
             if (auth()->user()) {
-                return view('home',compact('crafts','address'));
+                return view('home',compact('crafts','address','cities'));
             }  
         }else {
             
-             return view('auth.login',compact('address','crafts'))
+             return view('auth.login',compact('address','crafts','cities'))
                  ->with('error', 'Phone or Password is wrong.');
         }
       
     }
     public function showLoginForm()
     {
+        $cities = Address::distinct()->pluck('city_name', 'city_name')->toArray();
+
         $address=Address::get();
         $crafts=Craft::get();
         return view('auth.login' , compact('address', 'crafts','cities'));

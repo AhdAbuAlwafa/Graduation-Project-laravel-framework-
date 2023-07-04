@@ -59,14 +59,14 @@
             <div class="row"  dir="rtl">
               <div class="col">
                   <select class="form-control8 form-select mt-3 " aria-label="Default select example" id="village_name_select" name="village_name">
-                      <option value="all" selected >اخترالقرية/البلدة</option>
+                      <option selected >اخترالقرية/البلدة</option>
                       
                     </select>
                   
               </div>
               <div class="col">
                   <select class="form-control8 form-select mt-3" aria-label="Default select example" id="city_name_select" name="city_name" >
-                      <option value="all" selected>اختر المدينة</option>
+                      <option  selected>اختر المدينة</option>
                       @foreach($cities as $cityName)
                       <option value="{{ $cityName }}">
                           {{ $cityName }}
@@ -109,12 +109,12 @@
             </div>
             <div class="t-work">
               <div class="form-check form-check-inline" >
-                 <input class="form-check-input" type="radio" name="gender" id="IR1" value="male">
+                 <input class="form-check-input" type="radio" name="gender" id="IR1" value="ذكر">
                  <label class="form-check-label" for="inlineRadio1">ذكر</label>
                </div>
                <div class="form-check form-check-inline">
                  <label class="form-check-label" for="inlineRadio1">انثى </label>
-                 <input class="form-check-input" type="radio" name="gender" id="IR2" value="female" >
+                 <input class="form-check-input" type="radio" name="gender" id="IR2" value="انثى" >
                </div>
                <div class="form-check form-check-inline">
                   <label class="form-check-label" for="inlineRadio1">جنس المهني</label>
@@ -176,14 +176,14 @@
                   <div class="row"dir="rtl">
                     <div class="col">
                         <select class="form-control8 form-select mt-3 " aria-label="Default select example" id="village_name_select1" name="village_name">
-                            <option value="all" selected>اخترالقرية/البلدة</option>
+                            <option selected>اخترالقرية/البلدة</option>
                             
                           </select>
                         
                     </div>
                     <div class="col">
                         <select class="form-control8 form-select mt-3" aria-label="Default select example"  id="city_name_select1" name="city_name">
-                            <option value="all" selected>اختر المدينة</option>
+                            <option  selected>اختر المدينة</option>
                             @foreach($cities as $cityName)
                             <option value="{{ $cityName }}">
                                 {{ $cityName }}
@@ -270,12 +270,12 @@
                   </div>
                   <div class="t-work">
                     <div class="form-check form-check-inline">
-                       <input class="form-check-input" type="radio" name="gender" id="IR1" value="male">
+                       <input class="form-check-input" type="radio" name="gender" id="IR1" value="ذكر">
                        <label class="form-check-label" for="inlineRadio1">ذكر</label>
                      </div>
                      <div class="form-check form-check-inline">
                        <label class="form-check-label" for="inlineRadio1">انثى </label>
-                       <input class="form-check-input" type="radio" name="gender" id="IR2" value="female" >
+                       <input class="form-check-input" type="radio" name="gender" id="IR2" value="انثى" >
                      </div>
                      <div class="form-check form-check-inline">
                         <label class="form-check-label" for="inlineRadio1">جنس المهني</label>

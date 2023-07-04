@@ -41,7 +41,7 @@
             @foreach ($crafts as $craft)
             <div class="contener">
                 <div class="img-contener">
-                    <img src="assets/img/pic1.jpg">
+                    <img src="{{asset('/images/'.$craft->image_path)}}">
                 </div>
                 <br>
                 <br>

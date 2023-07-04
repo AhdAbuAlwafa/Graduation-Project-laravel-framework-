@@ -24,15 +24,15 @@ class CrafttController extends Controller
         $validated = $request->validate([
             
             'craft_name' => 'required',
-            'image' => 'required|mimes:jpg,png,jpeg|max:5048'
+            'image_path' => 'required|mimes:jpg,png,jpeg|max:5048'
         ]); 
         $newImageName = time() . '-' . $request->name . '.' .
             $request->image->extension();
 
         $craft = new Craft;
         $craft->craft_name =$request->input('craft_name');
-        $request->image->move(public_path('images'), $newImageName);
-        $craft->image = $newImageName;
+        $request->image_path->move(public_path('images'), $newImageName);
+        $craft->image_path = $newImageName;
         $craft->save();
         
          return view('crafts.add'); 
@@ -54,7 +54,7 @@ class CrafttController extends Controller
         $validated = $request->validate([
             
             'craft_name' => 'required',
-            'image' => 'required|mimes:jpg,png,jpeg|max:5048'
+            'image_path' => 'required|mimes:jpg,png,jpeg|max:5048'
             
         ]);
         $newImageName = time() . '-' . $request->name . '.' .
@@ -64,7 +64,7 @@ class CrafttController extends Controller
             $craft->update([
             
                 'craft_name' => $request->input('craft_name'),
-                $craft->image = $newImageName,
+                $craft->image_path = $newImageName,
                 
             ]);
 

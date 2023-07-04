@@ -97,7 +97,7 @@
                         <div class="input-field2">
                             <div class="select-country">
                                 <select class='input-box2' id="village_name_select1" name="village_name" style="color: #4e4e4e;">
-                                    <option value="all" selected>اخترالقرية/البلدة</option>
+                                    <option selected>اخترالقرية/البلدة</option>
 
                                 </select>
                             </div>
@@ -107,7 +107,7 @@
                         <div class="input-field-left">
                             <div class="select-country">
                                 <select class='input-box2' id="city_name_select1" name="city_name" style="color: #4e4e4e;">
-                                    <option value="all" selected>اختر المدينة</option>
+                                    <option selected>اختر المدينة</option>
                                     @foreach($cities as $cityName)
                             <option value="{{ $cityName }}">
                                 {{ $cityName }}

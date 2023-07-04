@@ -45,11 +45,10 @@ class UserProfileController extends Controller
     {
         $user=User::with('crafts','addresses',)->where('id',auth()->user()->id)->first();
         
-        //$advertisements = $user->advertisements;
-        //$user=User::with('crafts','addresses',)->where('id',$id)->first();
+        
         $cities = Address::pluck('city_name', 'id');
         $village = Address::pluck('village_name', 'id');
-        $advertisements=Advertisement::get()->where('id',auth()->user()->id);
+        $advertisements=Advertisement::get()->where('user_id', auth() ->user()->id);
         return view('userPage.userProfile',compact('user','cities','village','advertisements'));
     }
     
