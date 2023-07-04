@@ -8,7 +8,7 @@
 
             <div class="mb-3">
                 <label for="formGroupExampleInput" class="form-label">صورة تدل على المهنة</label>
-                <input type="file" class="form-control" id="image" name="image_path">
+                <input type="file" class="form-control" id="image_path" name="image_path">
 
                 @error('image_path')
                     <div class="text-red-500 mt-2 text-sm">

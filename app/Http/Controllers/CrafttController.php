@@ -27,7 +27,7 @@ class CrafttController extends Controller
             'image_path' => 'required|mimes:jpg,png,jpeg|max:5048'
         ]); 
         $newImageName = time() . '-' . $request->name . '.' .
-            $request->image->extension();
+            $request->image_path->extension();
 
         $craft = new Craft;
         $craft->craft_name =$request->input('craft_name');
@@ -58,7 +58,7 @@ class CrafttController extends Controller
             
         ]);
         $newImageName = time() . '-' . $request->name . '.' .
-            $request->image->extension();
+            $request->image_path->extension();
 
             $craft=Craft::where('id', $id)->first();
             $craft->update([
