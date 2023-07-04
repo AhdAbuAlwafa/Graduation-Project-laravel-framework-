@@ -43,7 +43,13 @@
 }
   
   
-  
+.rating {
+    color: #ccc;
+  }
+
+  .star.active {
+    color: yellow;
+  }
   
   .slider_section .detail-box a {
       display: inline-block;

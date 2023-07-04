@@ -10,7 +10,6 @@ use App\Models\Craft;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\DB;
 
 use Illuminate\Support\Facades\Auth;
 class UserProfileController extends Controller
@@ -115,40 +114,22 @@ class UserProfileController extends Controller
 
     if ($validator->fails()) {
         return response()->json(['success' => false, 'error' => $validator->errors()->toArray()]);
-    }
+    }else{
 
-    // Start a database transaction to ensure data consistency
-    DB::beginTransaction();
-
-    try {
-        // Save the craft to the crafts table
-        $craft = new Craft();
-        $craft->craft_name = $request->input('craft_name');
-        $craft->save();
-
-        // Attach the craft to the user
-        $user->crafts()->attach($craft->id);
-
-        // Update the user as a worker
-        $user->is_worker = 1;
+       $user= User::where('id',auth()->user()->id)->first();
+       $user->description = $request->input('craft_description');
+       $user->is_worker=1;
         $user->save();
+        $user->crafts()->attach($request->input('craft_name'));
 
-        // Save the description for the user
-        $user->description = $request->input('craft_description');
-        $user->save();
 
-        // Commit the transaction
-        DB::commit();
 
         return response()->json(['success' => true]);
-    } catch (\Exception $e) {
-        // Something went wrong, rollback the transaction
-        DB::rollBack();
-        return response()->json(['success' => false, 'message' => 'Failed to become a worker.']);
     }
 
-     
-}  
+
+
+}
 
 
 

@@ -9,7 +9,6 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
@@ -22,7 +21,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 
 
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css">
+
     <!-- font awesome style -->
     <link href="css/font-awesome.min.css" rel="stylesheet" />
     <!-- Custom styles for this template -->
@@ -80,51 +80,69 @@
     
     {{-- bootstrab script --}}
    
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
 
     
     <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl-js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
     
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  
     <script>
-    // Get the toggle box element
-    const toggleBox = document.getElementById('is_worker');
+  document.addEventListener('DOMContentLoaded', function() {
+    const stars = document.querySelectorAll('.star');
+    const selectedRatingDisplay = document.getElementById('selected-rating');
+    const resetButton = document.getElementById('reset-rating');
+    let selectedRating = 0;
 
-    // Add event listener for the toggle box
-    toggleBox.addEventListener('change', function() {
-        // Disable the toggle box
-        toggleBox.disabled = true;
+    stars.forEach(function(star) {
+      star.addEventListener('mouseenter', function() {
+        const rating = parseInt(star.dataset.rating);
+        highlightStars(rating);
+      });
 
-        // Send an AJAX request to update the is_worker value
-        fetch('{{ route('userPage.becomeWorker', ['id' => $user->id]) }}', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            },
-            body: JSON.stringify({ is_worker: toggleBox.checked })
-        })
-        .then(response => response.json())
-        .then(data => {
-            // Check if the update was successful
-            if (data.success) {
-                // Hide the toggle box container
-                document.getElementById('toggleBoxContainer').style.display = 'none';
-            } else {
-                // Enable the toggle box if the update failed
-                toggleBox.disabled = false;
-            }
-        })
-        .catch(error => {
-            console.error('An error occurred:', error);
-            // Enable the toggle box if an error occurred
-            toggleBox.disabled = false;
-        });
+      star.addEventListener('mouseleave', function() {
+        highlightStars(selectedRating);
+      });
+
+      star.addEventListener('click', function() {
+        const rating = parseInt(star.dataset.rating);
+        selectedRating = rating;
+        updateRatingDisplay();
+        resetButton.removeAttribute('disabled');
+      });
     });
+
+    resetButton.addEventListener('click', function() {
+      selectedRating = 0;
+      updateRatingDisplay();
+      resetButton.setAttribute('disabled', true);
+    });
+
+    function highlightStars(rating) {
+      stars.forEach(function(star) {
+        const starRating = parseInt(star.dataset.rating);
+        if (starRating <= rating) {
+          star.classList.add('active');
+        } else {
+          star.classList.remove('active');
+        }
+      });
+    }
+
+    function updateRatingDisplay() {
+      if (selectedRating !== 0) {
+        selectedRatingDisplay.textContent = 'You selected ' + selectedRating + ' stars.';
+      } else {
+        selectedRatingDisplay.textContent = 'No rating selected.';
+        stars.forEach(function(star) {
+          star.classList.remove('active');
+        });
+      }
+    }
+  });
 </script>
 
 

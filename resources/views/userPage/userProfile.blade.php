@@ -31,11 +31,14 @@
                         <i class="fa fa-key text-center mr-1"></i> 
                     اعدادات كلمة المرور
                     </a>
-                    <a class="nav-link" id="security-tab" data-toggle="pill" href="#security" role="tab" aria-controls="security" aria-selected="false">
+
+                    @if (!$user->is_worker)
+                    <a class="nav-link" id="security-tab" data-toggle="pill" href="#toggleBoxContainer" role="tab" aria-controls="security" aria-selected="false">
                         <i class="fa fa-user text-center mr-1"></i> 
                         تحويل الحساب
-                    </a> 
+                    </a>
                     @endif
+
                     <a class="nav-link" id="application-tab" data-toggle="pill" href="#application" role="tab" aria-controls="application" aria-selected="false">
                         <i class="fa fa-tv text-center mr-1"></i> 
                         الاعلانات
@@ -238,6 +241,7 @@
                     
                     
                 </div>
+
                 <div class="tab-pane fade" id="application" role="tabpanel" aria-labelledby="application-tab">
                     <h3 class="mb-4">اعلاناتي</h3>
                     <div class="row">

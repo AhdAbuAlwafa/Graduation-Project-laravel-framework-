@@ -4,7 +4,21 @@
  
 
 <div class="col-md-6 col-lg-3 bigcard" id="search-results">
+
+<div class="container">
+  <h3>Rate this product</h3>
+  <div class="rating">
+    @for ($i = 1; $i <= 5; $i++)
+      <i class="star fas fa-star" data-rating="{{ $i }}"></i>
+    @endfor
+  </div>
+  <p id="selected-rating"></p>
+  <button id="reset-rating" class="btn btn-primary" disabled>Reset Rating</button>
+</div>
+
+</div>
   <div class="card cardS bg-light h-100 shadow rounded bg-primary" >
+
   <img src="{{asset('images/'.$worker->image)}}" class="card-img-top" width="150" height="150" alt="">
       <h3 class="card-title mb-3">{{$worker->fname}}</h3>
       <hr>
