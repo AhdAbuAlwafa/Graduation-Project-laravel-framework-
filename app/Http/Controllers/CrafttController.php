@@ -31,6 +31,7 @@ class CrafttController extends Controller
 
         $craft = new Craft;
         $craft->craft_name =$request->input('craft_name');
+        $craft->admin_id=auth()->user()->id;
         $request->image_path->move(public_path('images'), $newImageName);
         $craft->image_path = $newImageName;
         $craft->save();

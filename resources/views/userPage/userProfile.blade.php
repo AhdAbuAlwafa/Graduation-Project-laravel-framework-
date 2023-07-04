@@ -109,6 +109,31 @@
                </option>
                @endforeach
                 </select>
+                 @if($user->is_worker==1)
+                 
+                    <div class="col-md-12">
+                        <div class="form-group">
+                              <label>وصف المهنة</label>
+                            <textarea class="form-control" rows="4" name="description" > {{ $user->description }}</textarea>
+                            @error('description')
+                            <div class="text-red-500 mt-2 text-sm">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                    <label>المهنة</label>
+                        <select class=" form-select form-select-sm" aria-label=".form-select-sm example" multiple name="craft[]">
+                            @foreach ($crafts as $craft)
+                            <option value="{{ $craft->id }}">{{ $craft->name }}</option>
+                        @endforeach
+                        </select>
+                         <button type="submit" class="btn-list">
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                         </button>
+                        </div>
+                 @endif
 
                             </div>
                         </div>

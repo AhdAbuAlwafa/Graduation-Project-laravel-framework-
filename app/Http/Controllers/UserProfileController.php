@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Address;
 use App\Models\Advertisement;
+use App\Models\Craft;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -75,6 +76,11 @@ class UserProfileController extends Controller
 
         ]);
         
+        $crafts = new Craft();
+       // $crafts->name = $validatedData['name'];
+        $crafts->save();
+        $user = User::find('user_id');
+    $user->crafts()->attach($crafts->id);
 
         $address=Address::where('village_name',$request->village_name)->first();
 
@@ -85,7 +91,7 @@ class UserProfileController extends Controller
             
             'address_id'=>$address->id
         ]);
-        return redirect(route('userPage.userProfile',auth()->user()->id ));
+        return redirect(route('userPage.userProfile',auth()->user()->id ,compact('crafts')));
     }
     /**
      * Update the specified resource in storage.

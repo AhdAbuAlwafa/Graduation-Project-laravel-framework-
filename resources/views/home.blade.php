@@ -46,8 +46,7 @@
                 <br>
                 <br>
                 <div class="btn-contener">
-                    <h4>{{ $craft->craft_name }}</h4>
-                    <a href="{{ route('userPage.getAllUser', ['profession' => $craft->id]) }}" class="btn btn-primary">أظهر المهنيين</a>
+                    <a href="{{ route('userPage.getAllUser', ['profession' => $craft->id]) }}" class="btn btn-primary">{{ $craft->craft_name }} </a>
 
                 </div>
             </div>

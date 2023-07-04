@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('craft_name');
             $table->unsignedBigInteger('admin_id');
             $table->timestamps();
-            $table->foreign('admin_id')->references('id')->on('admins')->onDelete('cascade');
+            $table->foreign('admin_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
