@@ -124,64 +124,58 @@
                                     </div>
                                 </div>
                                 @if ($user->is_worker == 1)
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>وصف المهنة</label>
-                                            <textarea class="form-control" rows="4" name="description"> {{ $user->description }}</textarea>
-                                            @error('description')
-                                                <div class="text-red-500 mt-2 text-sm">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>وصف المهنة</label>
+                                                <textarea class="form-control" rows="4" name="description"> {{ $user->description }}</textarea>
+                                                @error('description')
+                                                    <div class="text-red-500 mt-2 text-sm">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>المهنة</label>
-                                            <select class=" form-select form-select-sm"
-                                                aria-label=".form-select-sm example" name="craft_name">
-                                                @foreach ($crafts as $craft)
-                                                    <option selected disabled></option>
-                                                    <option value="{{ $craft->id }}">{{ $craft->craft_name }}</option>
-                                                @endforeach
-                                            </select>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>المهنة</label>
+                                                <select class=" form-select form-select-sm"
+                                                    aria-label=".form-select-sm example" name="craft_name">
+                                                    @foreach ($crafts as $craft)
+                                                        <option selected disabled></option>
+                                                        <option value="{{ $craft->id }}">{{ $craft->craft_name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
-                                    @endif
+                                @endif
+
+                                <br>
+                                <div class="crafts">
+
+                                    <label class="namecraft"> اسم المهنة</label>
+                                    <label>حذف المهنة </label>
 
                                     <br>
-                                    <div class="crafts">
-                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                        <thead>
-                                        <tr>
-                                            <th scope="col"></th>
-                                            <th>اسم المهنة</th>
-                                            <th>حذف المهنة </th>
-                                        </tr>
-                                    </thead>
 
-                                        <br>
-                                        <tbody>
-
-                                        @foreach ($user->crafts as $craft)
-                                        <tr>
-                                            <th scope="col"> </th>
-
-                                                <td><label> {{ $craft->craft_name }}</label></td>
-                                                <td><a href="#" class="delete-craft" data-user="{{ $user->id }}" data-craft="{{ $craft->id }}"><i class="fa-solid fa-trash-can" style="color: #e23f08;"></i></a></td>
-                                        </tr>
-                                        
-                                              
-
-                                      @endforeach
-                                    </tbody>
-                                    </table>
-                                    <button class="btn btn-danger" style="color:azure;"  id="delete-all-crafts" data-user="{{ $user->id }}"> حذف جميع المهن </button>
-
-                                    </div>
-                                    
-                            </div>
+                                    @foreach ($user->crafts as $craft)
+                                        <div class="craft-item">
+                                            <label class="namecraftuser"> {{ $craft->craft_name }}</label>
+                                            <a href="#" class="delete-craft" data-user="{{ $user->id }}"
+                                                data-craft="{{ $craft->id }}"><i class="fa-solid fa-trash-can"
+                                                    style="color: #e23f08;"></i></a>
+                                            
+                                        </div>
+                                    @endforeach
+                                    <br>
+                                    <br>
+                                    <button class="btn btn-danger" style="color:azure;"id="delete-all-crafts"
+                                        data-user="{{ $user->id }}">حذف جميع المهن </button>
+<br>
+<br>
+                                </div>
+                                
 
 
 
@@ -190,8 +184,14 @@
 
 
 
-                                    
-            
+
+
+
+
+
+
+
+
                             </div>
                             <br>
                             <div>
