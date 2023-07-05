@@ -46,11 +46,11 @@ class UserProfileController extends Controller
     {
         $user=User::with('crafts','addresses',)->where('id',auth()->user()->id)->first();
         
-        
+        $crafts=Craft::get();
         $cities = Address::pluck('city_name', 'id');
         $village = Address::pluck('village_name', 'id');
         $advertisements=Advertisement::get()->where('user_id', auth() ->user()->id);
-        return view('userPage.userProfile',compact('user','cities','village','advertisements'));
+        return view('userPage.userProfile',compact('user','cities','village','advertisements','crafts'));
     }
     
 
@@ -76,11 +76,13 @@ class UserProfileController extends Controller
 
         ]);
         
-        $crafts = new Craft();
-       // $crafts->name = $validatedData['name'];
-        $crafts->save();
-        $user = User::find('user_id');
-    $user->crafts()->attach($crafts->id);
+        $crafts = Craft::get();
+    //     $crafts->name = $validatedData['name'];
+    //    //$crafts=Craft::get();
+    //     $crafts->save();
+        $user = User::find(auth()->user()->id);
+        $user->save();
+        $user->crafts()->attach($request['craft_name']);
 
         $address=Address::where('village_name',$request->village_name)->first();
 
@@ -141,6 +143,32 @@ class UserProfileController extends Controller
 
         }
     }
+    public function deleteCraft(Request $request)
+{
+    $user = User::findOrFail($request->input('user'));
+    $craft = $request->input('craft');
+
+    try {
+        $user->crafts()->detach($craft);
+
+        return response()->json(['message' => 'Craft deleted successfully']);
+    } catch (\Exception $e) {
+        return response()->json(['message' => 'Failed to delete craft'], 500);
+    }
+}
+
+public function deleteAllCrafts(Request $request)
+{
+    $user = User::findOrFail($request->input('user'));
+
+    try {
+        $user->crafts()->detach();
+
+        return response()->json(['message' => 'All crafts deleted successfully']);
+    } catch (\Exception $e) {
+        return response()->json(['message' => 'Failed to delete all crafts'], 500);
+    }
+}
     public function destroy(string $id)
     {
         //

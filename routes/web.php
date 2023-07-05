@@ -98,10 +98,26 @@ Route::prefix('/crafts')->group(function(){
    Route::patch('/update1', [UserProfileController::class, 'update'])->name('userPage.update');
 
    Route::post('uploadimg',[UserProfileController::class,'changeImg'])->name('uploadimg');
+
+   Route::post('/delete-craft', [UserProfileController::class, 'deleteCraft'])->name('craft.delete');
+   Route::post('/delete-all-crafts', [UserProfileController::class, 'deleteAllCrafts'])->name('craft.deleteAll');
+
+
+
+
+
+
+
+
    
    Route::get('workerprofile/{id}',[WorkeProfilerController::class, 'show'])->name('workerPage.workerProfile');
   
    Route::patch('/update/{id}', [WorkeProfilerController::class, 'update'])->name('workerPage.update');
+
+
+
+
+
 
 
    Auth::routes();
