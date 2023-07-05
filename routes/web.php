@@ -110,13 +110,7 @@ Route::prefix('/crafts')->group(function(){
 
 
    
-   Route::get('workerprofile/{id}',[WorkeProfilerController::class, 'show'])->name('workerPage.workerProfile');
-  
-   Route::patch('/update/{id}', [WorkeProfilerController::class, 'update'])->name('workerPage.update');
-
-
-
-
+   
 
 
 
