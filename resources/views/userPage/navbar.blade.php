@@ -123,7 +123,8 @@ $(document).ready(function() {
                     $('#village_name_select1').html('<option value="all">Select Village</option>');
                     // Append new options based on the received data
                     $.each(data, function(key, value) {
-                        $('#village_name_select1').append('<option value="' + value + '">' + value + '</option>');
+
+                        $('#village_name_select1').append('<option value="' + value.id + '">' + value.village_name + '</option>');
                     });
                 },
                 
@@ -155,7 +156,8 @@ $(document).ready(function() {
                     $('#village_name_select').html('<option value="all">Select Village</option>');
                     // Append new options based on the received data
                     $.each(data, function(key, value) {
-                        $('#village_name_select').append('<option value="' + value + '">' + value + '</option>');
+
+                        $('#village_name_select').append('<option value="' + value.id + '">' + value.village_name + '</option>');
                     });
                 },
                 

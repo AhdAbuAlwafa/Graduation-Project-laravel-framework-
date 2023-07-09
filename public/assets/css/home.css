@@ -9,6 +9,7 @@
     ;
     height: 400px;
     background-image: linear-gradient(rgba(56, 56, 56, 0.616), rgba(97, 97, 97, 0.596)), url(../img/pic3.jpg);
+
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -65,6 +66,7 @@ a:hover {
     cursor: pointer;
     padding: 10px 20px;
     background: rgb(210, 211, 211);
+
     border-radius: 30px;
     align-items: center;
     box-shadow: 0 10px 25px rgbg(0, 0, 0, .3);
@@ -234,6 +236,7 @@ button:hover {
     font-size: 40px;
     margin-top: 10px;
     
+
     padding: 20px;
     font-weight: bold;
     text-align: ri;
@@ -242,6 +245,7 @@ button:hover {
 
     font-family: 'Courier New', Courier, monospace;
 }
+
 .center3 h1{
     color: rgb(0, 0, 0);
     font-size: 40px;

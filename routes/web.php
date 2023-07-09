@@ -1,6 +1,9 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+
+use App\Http\Controllers\Auth\LogoutController;
+
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CommentController;
@@ -28,11 +31,16 @@ use Illuminate\Support\Facades\Auth;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/admin',[AdminController::class,'show'])->name('welcome');
+
 
 
 
 Route::get('/whoWE',[PublicController::class,'index'])->name('who-are-we');
+
+Route::get('/admin',[AdminController::class,'show'])->name('welcome')->middleware('auth');
+
+
+
 Route::get('/addAdv',[AdvertisementController::class,'index'])->name('user.addAdv');
 Route::post('/addAdv/store',[AdvertisementController::class,'store'])->name('userPage.store');
 Route::get('/address',[AddressController::class,'index'])->name('address');
@@ -42,7 +50,8 @@ Route::prefix('/crafts')->group(function(){
     Route::get('/add',[CrafttController::class,'add'])->name('crafts.add');
     Route::post('/add',[CrafttController::class,'store']);
     Route::get('/edit/{id}', [CrafttController::class, 'edit'])->name('crafts.edit');
-    Route::patch('/update/{id}', [CrafttController::class, 'update'])->name('crafts.update');
+
+    Route::patch('/update', [CrafttController::class, 'update'])->name('crafts.update');
     Route::post('/destroy',[CrafttController::class,'destroy'])->name('crafts.destroy'); });
 
    Route::get('/advertisiment',[AddvertisimentController::class,'index'])->name('worker.advertisiment')->middleware('auth');
@@ -59,6 +68,7 @@ Route::prefix('/crafts')->group(function(){
 
    
 
+   Route::post('/user/{id}/become-worker', [UserProfileController::class, 'becomeWorker'])->name('userPage.becomeWorker')->middleware('auth');
    
    Route::get('/list2',[ComentController::class,'index'])->name('user_comment.list2');
    Route::post('/destroy',[ComentController::class,'destroy'])->name('user_comment.destroy');
@@ -75,7 +85,8 @@ Route::prefix('/crafts')->group(function(){
 
 
   
-   Route::post('/changepassword', [UserProfileController::class, 'changePassword'])->name('userPage.changePassword');
+
+   Route::post('/changepassword', [UserProfileController::class, 'changePassword'])->name('userPage.changePassword')->middleware('auth');;
    Route::get('/changepass', [UserProfileController::class, 'showPassChange'])->name('changepass')->middleware('auth');
   
   
@@ -90,18 +101,31 @@ Route::prefix('/crafts')->group(function(){
 
 
 
+   Route::get('/logout',[LogoutController::class,'logout'])->name('auth.logout');
+
   
 
 
    Route::get('userprofile',[UserProfileController::class, 'show'])->name('userPage.userProfile')->middleware('auth');
 
-   Route::patch('/update1', [UserProfileController::class, 'update'])->name('userPage.update');
 
-   Route::post('uploadimg',[UserProfileController::class,'changeImg'])->name('uploadimg');
+   Route::patch('/update1', [UserProfileController::class, 'update'])->name('userPage.update')->middleware('auth');;
+
+   Route::post('uploadimg',[UserProfileController::class,'changeImg'])->name('uploadimg')->middleware('auth');;
+
+   Route::post('/delete-craft', [UserProfileController::class, 'deleteCraft'])->name('craft.delete');
+   Route::post('/delete-all-crafts', [UserProfileController::class, 'deleteAllCrafts'])->name('craft.deleteAll');
+
+
+
+
+
+
+
+
    
-   Route::get('workerprofile/{id}',[WorkeProfilerController::class, 'show'])->name('workerPage.workerProfile');
-  
-   Route::patch('/update/{id}', [WorkeProfilerController::class, 'update'])->name('workerPage.update');
+   
+
 
 
    Auth::routes();
