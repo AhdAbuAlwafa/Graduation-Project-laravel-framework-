@@ -14,6 +14,7 @@ class PublicController extends Controller
     public function index()
     {
         return view('who-are-we');
+
     }
 
 
@@ -21,7 +22,8 @@ class PublicController extends Controller
  {
     $city = $request->input('city_name');
     Log::info("Selected City: " . $city);
-    $villages = Address::where('city_name', $city)->pluck('village_name', 'village_name');
+
+    $villages = Address::where('city_name', $city)->get();
     return response()->json($villages);
 }
 

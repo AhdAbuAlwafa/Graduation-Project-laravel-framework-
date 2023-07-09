@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Address;
+use App\Models\Craft;
+
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -20,6 +23,7 @@ class AdminController extends Controller
 
     
     public function logout(){
+
         return view('userPage.logout');
     }
 
@@ -44,7 +48,14 @@ class AdminController extends Controller
      */
     public function show()
     {
-        return view('welcome');
+
+        if(auth()->user()->is_worker == 2){
+            return view('welcome');
+
+        }else{
+            $crafts=Craft::get();
+            return redirect(route('home',compact('crafts')));
+        }
 
     }
 

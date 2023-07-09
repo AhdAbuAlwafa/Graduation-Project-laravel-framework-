@@ -34,21 +34,23 @@
         <!--------------- bottom-page---------------->
         <!---------------------start of crafts --------------->
         <div class="crafts">
+
             <div class="center1">
+
                 <h1>مهن فلسطين</h1>
             </div>
 
             @foreach ($crafts as $craft)
             <div class="contener">
                 <div class="img-contener">
-                    <img src="assets/img/pic1.jpg">
+
+                    <img src="{{asset('/images/'.$craft->image_path)}}">
                 </div>
                 <br>
                 <br>
                 <div class="btn-contener">
-                    <h4>{{ $craft->craft_name }}</h4>
-                    <a href="{{ route('userPage.getAllUser', ['profession' => $craft->id]) }}"
-                        class="btn btn-primary">أظهر المهنيين</a>
+
+                    <a href="{{ route('userPage.getAllUser', ['profession' => $craft->id]) }}" class="btn btn-primary">{{ $craft->craft_name }} </a>
 
                 </div>
             </div>
@@ -59,6 +61,7 @@
         <div class="adds">
             <div class="center2">
                 <h1>اعلانات البحث عن مهني</h1>
+
             </div>
         </div>
         <br><br><br>
@@ -95,6 +98,7 @@
                 </div>
             </div>
         </div>
+
 
         <br>
 

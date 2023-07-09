@@ -42,18 +42,21 @@ class AddvertisimentController extends Controller
      */
     public function store(Request $request)
     {
-        // $validated = $request->validate([
-          
-        //     'job_des' => 'required',
-        //     'adv_req'=>'required'
-        // ]);
+
+        $validated = $request->validate([
+            'work_hour'=> ($request->is_worker == 1) ? ['required']: '',
+            'adv_req'=> ($request->is_worker == 1) ? ['required','min:20','max:1500','string']: '',
+            //'job_des'=>['required','min:20','max:1500','string']
+        
+        ]);
         
         $advertisements = new Advertisement;
         $advertisements->adv_req = $request->adv_req;
-        $advertisements->job_des = $request->job_des|| 'null';
+        $advertisements->job_des = $request->job_des;
         $advertisements-> job_name= $request->job_name;
-        $advertisements->work_hour=$request->work_hour || 'null';
-        $advertisements->address_id=$request->address_id || 'null';
+        $advertisements->work_hour=$request->work_hour ||null;
+        $advertisements->address_id= $request->village_name;
+
         $advertisements->work_period=$request->work_period;
         $advertisements->gender=$request->gender;
         $advertisements->adv_period=$request->adv_period;
