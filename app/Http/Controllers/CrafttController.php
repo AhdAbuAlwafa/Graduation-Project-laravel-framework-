@@ -24,15 +24,17 @@ class CrafttController extends Controller
         $validated = $request->validate([
             
             'craft_name' => 'required',
-            'image' => 'required|mimes:jpg,png,jpeg|max:5048'
+
+            'image_path' => 'required|mimes:jpg,png,jpeg|max:5048'
         ]); 
         $newImageName = time() . '-' . $request->name . '.' .
-            $request->image->extension();
+            $request->image_path->extension();
 
         $craft = new Craft;
         $craft->craft_name =$request->input('craft_name');
-        $request->image->move(public_path('images'), $newImageName);
-        $craft->image = $newImageName;
+        $craft->admin_id=auth()->user()->id;
+        $request->image_path->move(public_path('images'), $newImageName);
+        $craft->image_path = $newImageName;
         $craft->save();
         
          return view('crafts.add'); 
@@ -42,33 +44,36 @@ class CrafttController extends Controller
     
     public function edit(string $id)
     {
-        return view('crafts.edit', [
-            'craft' => Craft::where('id', $id)->first()
-          ]);
+
+        $craft=Craft::find($id);
+        return view('crafts.edit', compact('craft'));
 
     }
 
     
-    public function update(Request $request, string $id)
+
+    public function update(Request $request)
     {
         $validated = $request->validate([
             
             'craft_name' => 'required',
-            'image' => 'required|mimes:jpg,png,jpeg|max:5048'
+
+            'image_path' => 'required|mimes:jpg,png,jpeg|max:5048'
             
         ]);
-        $newImageName = time() . '-' . $request->name . '.' .
-            $request->image->extension();
-
-            $craft=Craft::where('id', $id)->first();
+        //$newImageName = time() . '-' . $request->name . '.' .
+        $imgName= md5(time()).'.'.$request->image_path->extension();
+        $request->image_path->move(public_path('images'),$imgName);
+           $craft=Craft::where('craft_name',$request->input(('craft_name')))->first();
+           
             $craft->update([
             
                 'craft_name' => $request->input('craft_name'),
-                $craft->image = $newImageName,
+                $craft->image_path = $imgName,
                 
             ]);
 
-        return redirect(route('crafts.list', $id, ));
+        return redirect(route('crafts.list' ));
     }
 
     public function destroy(Request $request)

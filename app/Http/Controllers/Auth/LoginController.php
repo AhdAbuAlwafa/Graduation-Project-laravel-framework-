@@ -47,7 +47,8 @@ class LoginController extends Controller
         $input = $request->all();
         $address=Address::get();
         $crafts=Craft::get();
-        $cities = Address::distinct()->pluck('city_name', 'city_name')->toArray();
+
+        $cities = Address::pluck('city_name','city_name')->all();
 
         $this->validate($request, [
             'number' => 'required',
@@ -56,17 +57,26 @@ class LoginController extends Controller
 
         if (auth()->attempt(array('number' => $input['number'], 'password' => $input['password']))) {
             if (auth()->user()) {
-                return view('home',compact('crafts','address'));
+
+                if(auth()->user()->is_worker == 2){
+                    return view('welcome');
+        
+                }else{
+                    $crafts=Craft::get();
+                    return redirect(route('home',compact('crafts')));
+                }
+        
             }  
         }else {
             
-             return view('auth.login',compact('address','crafts'))
+             return view('auth.login',compact('address','crafts','cities'))
                  ->with('error', 'Phone or Password is wrong.');
         }
       
     }
     public function showLoginForm()
     {
+        $cities = Address::pluck('city_name','city_name')->all();
         $address=Address::get();
         $crafts=Craft::get();
         return view('auth.login' , compact('address', 'crafts','cities'));

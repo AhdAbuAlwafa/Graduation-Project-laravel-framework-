@@ -14,7 +14,7 @@
                             <tr> 
                                 <th scope=”col”></th>
                                 <th>craft_name</th>
-                                <th>image</th>
+                                <th>image_path</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
@@ -24,7 +24,8 @@
                                 <tr>
                                     <th scope="col"></th>
                                     <td>{{ $craft->craft_name }}</td>
-                                    <td>{{ $craft->image }}</td>
+
+                                    <td>{{ $craft->image_path }}</td>
                                     <td><a class="btn btn-primary" href="{{ route('crafts.edit', $craft->id) }}"
                                         role="button">Edit</a>
                                     </td>

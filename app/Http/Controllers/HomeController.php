@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Http\Request;
 use App\Models\Address;
 use App\Models\Advertisement;
@@ -35,7 +37,26 @@ class HomeController extends Controller
         return view('home',compact('crafts'));
     }
 
-    
+
+    public function show()
+    {
+        $is_worker=Auth::user()->is_worker;
+         if($is_worker==0)
+         {
+            return view('home');
+         }
+         if($is_worker==1)
+         {
+            return view('home');
+         }
+         else{
+            return view('welcome');
+         }
+
+
+
+
+    }
     public function openCraft(Request $request,$profession = null)
     {
         $selectedCraft = $request->input('craft_name', 'all');

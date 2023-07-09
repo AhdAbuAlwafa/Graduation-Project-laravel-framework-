@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Address;
 use App\Models\Advertisement;
+
+use App\Models\Craft;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -45,12 +47,12 @@ class UserProfileController extends Controller
     {
         $user=User::with('crafts','addresses',)->where('id',auth()->user()->id)->first();
         
-        //$advertisements = $user->advertisements;
-        //$user=User::with('crafts','addresses',)->where('id',$id)->first();
+
+        $crafts=Craft::get();
         $cities = Address::pluck('city_name', 'id');
         $village = Address::pluck('village_name', 'id');
-        $advertisements=Advertisement::get()->where('id',auth()->user()->id);
-        return view('userPage.userProfile',compact('user','cities','village','advertisements'));
+        $advertisements=Advertisement::get()->where('user_id', auth() ->user()->id);
+        return view('userPage.userProfile',compact('user','cities','village','advertisements','crafts'));
     }
     
 
@@ -77,6 +79,14 @@ class UserProfileController extends Controller
         ]);
         
 
+        $crafts = Craft::get();
+    //     $crafts->name = $validatedData['name'];
+    //    //$crafts=Craft::get();
+    //     $crafts->save();
+        $user = User::find(auth()->user()->id);
+        $user->save();
+        $user->crafts()->attach($request['craft_name']);
+
         $address=Address::where('village_name',$request->village_name)->first();
 
         user::where('id',auth()->user()->id)->update([
@@ -86,7 +96,8 @@ class UserProfileController extends Controller
             
             'address_id'=>$address->id
         ]);
-        return redirect(route('userPage.userProfile',auth()->user()->id ));
+
+        return redirect(route('userPage.userProfile',auth()->user()->id ,compact('crafts')));
     }
     /**
      * Update the specified resource in storage.
@@ -132,10 +143,65 @@ class UserProfileController extends Controller
             User::whereId(auth()->user()->id)->update([
                 'image'=>$imgName
             ]);
-            return response()->json(['status'=>1,'imgname'=>$imgName] );
+
+            return response()->json(['status'=>1,'image'=>$imgName] );
 
         }
     }
+    public function deleteCraft(Request $request)
+{
+    $user = User::findOrFail($request->input('user'));
+    $craft = $request->input('craft');
+
+    try {
+        $user->crafts()->detach($craft);
+
+        return response()->json(['message' => 'Craft deleted successfully']);
+    } catch (\Exception $e) {
+        return response()->json(['message' => 'Failed to delete craft'], 500);
+    }
+}
+
+public function deleteAllCrafts(Request $request)
+{
+    $user = User::findOrFail($request->input('user'));
+
+    try {
+        $user->crafts()->detach();
+
+        return response()->json(['message' => 'All crafts deleted successfully']);
+    } catch (\Exception $e) {
+        return response()->json(['message' => 'Failed to delete all crafts'], 500);
+    }
+}
+
+
+public function becomeWorker(Request $request)
+     {
+        $validator = Validator::make($request->all(), [
+        'craft_name' => 'required',
+        'craft_description' => 'required|min:100|max:1500|string',
+    ]);
+
+    if ($validator->fails()) {
+        return response()->json(['success' => false, 'error' => $validator->errors()->toArray()]);
+    }else{
+
+       $user= User::where('id',auth()->user()->id)->first();
+       $user->description = $request->input('craft_description');
+       $user->is_worker=1;
+        $user->save();
+        $user->crafts()->attach($request->input('craft_name'));
+
+
+
+        return response()->json(['success' => true]);
+    }
+
+
+
+}
+
     public function destroy(string $id)
     {
         //

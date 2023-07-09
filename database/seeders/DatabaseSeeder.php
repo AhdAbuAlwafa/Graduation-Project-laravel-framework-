@@ -42,7 +42,7 @@ class DatabaseSeeder extends Seeder
             'all_evl'=> 0,
             'gender'=> 0,
             'is_worker'=> 0,
-            'is_active'=> 0,
+
             'address_id'=> $addresses->id, 
             'password' => Hash::make('12345')
         ]);
