@@ -32,7 +32,7 @@ Route::get('/admin',[AdminController::class,'show'])->name('welcome');
 
 
 
-Route::get('/whoWE',[PublicController::class,'index'])->name('userPage.who-are-we');
+Route::get('/whoWE',[PublicController::class,'index'])->name('who-are-we');
 Route::get('/addAdv',[AdvertisementController::class,'index'])->name('user.addAdv');
 Route::post('/addAdv/store',[AdvertisementController::class,'store'])->name('userPage.store');
 Route::get('/address',[AddressController::class,'index'])->name('address');

@@ -13,8 +13,7 @@ class PublicController extends Controller
 {
     public function index()
     {
-        return view('userPage.who-are-we');
-
+        return view('who-are-we');
     }
 
 
