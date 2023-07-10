@@ -75,42 +75,16 @@
                     <span class="error-text password_error"></span>
                     <span class="error-text gender_error"></span>
 
+
                     <!-------------------------اسم الشخص------------------------------------------>
                     <div class="row">
+
                         <div class="col">
                             <div class="input-field2">
                                 <input type='text' class='input-box2' placeholder="الاسم الاول" name="fname"
                                     id="reg-user" required>
                             </div>
                         </div>
-                    </div>
-                </div>
-
-
-
-                <!--------------------------------مكانه row---------------------->
-                <div class="row">
-                    <div class="col">
-                        <div class="input-field2">
-                            <div class="select-country">
-                                <select class='input-box2' id="village_name_select1" name="village_name" style="color: #4e4e4e;">
-                                    <option value="all" selected>اخترالقرية/البلدة</option>
-
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="input-field-left">
-                            <div class="select-country">
-                                <select class='input-box2' id="city_name_select1" name="city_name" style="color: #4e4e4e;">
-                                    <option value="all" selected>اختر المدينة</option>
-                                    @foreach($cities as $cityName)
-                            <option value="{{ $cityName }}">
-                                {{ $cityName }}
-                            </option>
-                        @endforeach
-                                </select>
 
                         <div class="col">
                             <div class="input-field-left">
@@ -118,8 +92,42 @@
                                     id="reg-family" required>
                             </div>
                         </div>
+                        
                     </div>
 
+
+                    <!--------------------------------مكانه row---------------------->
+                    <div class="row">
+
+                        <div class="col">
+                            <div class="input-field2">
+                                <div class="select-country">
+                                    <select class='input-box2' id="village_name_select1" name="village_name"
+                                        style="color: #4e4e4e;">
+                                        <option value="all" selected>اخترالقرية/البلدة</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="input-field-left">
+                                <div class="select-country">
+                                    <select class='input-box2' id="city_name_select1" name="city_name"
+                                        style="color: #4e4e4e;">
+                                        <option value="all" selected>اختر المدينة</option>
+                                        @foreach($cities as $cityName)
+                                        <option value="{{ $cityName }}">
+                                            {{ $cityName }}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
 
 
                     <!--------------------------------مكانه row---------------------->
@@ -154,8 +162,8 @@
                     <div class="row">
                         <div class="col">
                             <div class="input-field-left">
-                                <input type='text' class='input-box-num' placeholder=" رقم الهاتف" id="phone" name="number"
-                                    required>
+                                <input type='text' class='input-box-num' placeholder=" رقم الهاتف" id="phone"
+                                    name="number" required>
                             </div>
                         </div>
                     </div>
@@ -172,9 +180,12 @@
                         <div class="col">
                             <div class="input-field-left">
                                 <div class="select-country">
-                                    <select selected disabled disabled="disabled" class='input-box-num' id="crafts" name="craft" style="color: #4e4e4e;">
+                                    <select selected disabled disabled="disabled" class='input-box-num' id="crafts"
+                                        name="craft" style="color: #4e4e4e;">
                                         @foreach ($crafts as $item)
-                                        <option selected disabled value="{{$item->id}}">{{$item->craft_name}}</option>
+                                        <option selected disabled value="{{$item->id}}">
+                                            {{$item->craft_name}}
+                                        </option>
 
                                         @endforeach
 
@@ -222,20 +233,20 @@
 
                     <!---------------------------------submit------------------------------------->
                     <div class="input-field">
-                        <button   type="submit" class="input-submit2">
+                        <button type="submit" class="input-submit2">
                             تسجيل
                         </button>
                     </div>
 
                 </div>
+            </form>
+            <!--------------------switch----------------->
 
-                <!--------------------switch----------------->
-
-                <div class="switch">
-                    <a href="#" class="login" onclick="login()">تسجيل الدخول</a>
-                    <a href="#" class="register" onclick="register()">انشاء حساب</a>
-                    <div class="btn" id="btn"></div>
-                </div>
+            <div class="switch">
+                <a href="#" class="login" onclick="login()">تسجيل الدخول</a>
+                <a href="#" class="register" onclick="register()">انشاء حساب</a>
+                <div class="btn" id="btn"></div>
+            </div>
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
@@ -290,58 +301,39 @@
 
         </script>
         <script>
-            function enabled(workercheck)
-            {
-                var craftss=document.getElementById("crafts")
-                craftss.disabled=workercheck.ch
+            function enabled(workercheck) {
+                var craftss = document.getElementById("crafts")
+                craftss.disabled = workercheck.ch
             }
         </script>
-<script>
-    $(document).ready(function() {
-    $('#city_name_select1').on('change', function() {
-        var selectedCity = $(this).val();
-        if (selectedCity) {
-            // Send an Ajax request to get the villages based on the selected city
-            $.ajax({
-                url: "{{ route('get-villages') }}",
-                type: "GET",
-                data: { city_name: selectedCity },
-                success: function(data) {
-                    console.log(data);
-                    // Clear the previous options
-                    $('#village_name_select1').html('<option value="all">Select Village</option>');
-                    // Append new options based on the received data
-                    $.each(data, function(key, value) {
-                        $('#village_name_select1').append('<option value="' + value + '">' + value + '</option>');
-                    });
-                },
-                
+        <script>
+            $(document).ready(function () {
+                $('#city_name_select1').on('change', function () {
+                    var selectedCity = $(this).val();
+                    if (selectedCity) {
+                        // Send an Ajax request to get the villages based on the selected city
+                        $.ajax({
+                            url: "{{ route('get-villages') }}",
+                            type: "GET",
+                            data: { city_name: selectedCity },
+                            success: function (data) {
+                                console.log(data);
+                                // Clear the previous options
+                                $('#village_name_select1').html('<option value="all">Select Village</option>');
+                                // Append new options based on the received data
+                                $.each(data, function (key, value) {
+                                    $('#village_name_select1').append('<option value="' + value + '">' + value + '</option>');
+                                });
+                            },
+
+                        });
+                    } else {
+                        // If no city is selected, clear the villages dropdown
+                        $('#village_name_select1').html('<option value="all">Select Village</option>');
+                    }
+                });
             });
-        } else {
-            // If no city is selected, clear the villages dropdown
-            $('#village_name_select1').html('<option value="all">Select Village</option>');
-        }
-    });
-  });
-  </script>
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        </script>
     </div>
 </body>
 @endsection
