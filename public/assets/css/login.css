@@ -220,6 +220,21 @@ nav ul li a:hover {
     margin-right: 5px;
 }
 
+.input-box-num {
+    width: 460px;
+    height: 50px;
+    margin-right: 5px;
+    font-size: 27px;
+    color: black;
+    border-radius: 10px;
+    border: none;
+    padding: 0px 7px 0 0px;
+    border-radius: 10px;
+    background: rgba(224, 223, 223, 0.6);
+    backdrop-filter: plur(2px);
+    outline: none;
+}
+
 .input-box2-right {
     width: 220px;
     height: 50px;
@@ -354,7 +369,7 @@ nav ul li a:hover {
     bottom: 93%;
     left: 25px;
     width: 85%;
-    height: 50px;
+    height: 49px;
     background: rgba(255, 255, 255, 0.16);
     backdrop-filter: blur(10px);
     border-radius: 10px;
