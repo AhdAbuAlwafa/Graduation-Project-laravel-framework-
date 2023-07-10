@@ -8,12 +8,34 @@
     margin-top: 60px;
     ;
     height: 400px;
-    background-image: linear-gradient(rgba(56, 56, 56, 0.096), rgba(83, 132, 151, 0.13)), url(../img/pic3.jpg);
+    background-image: linear-gradient(rgba(56, 56, 56, 0.616), rgba(97, 97, 97, 0.596)), url(../img/pic3.jpg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
 }
 
+.adds-selection1 {
+    margin: 3px -85px 13px 0px;
+    position: relative;
+    padding-right: 200px;
+    margin-top: 20px;
+
+}
+.adds-selection2 {
+    width: 300px;
+    height: 50px;
+    font-size: 27px;
+    color: black;
+    border-radius: 10px;
+    border: none;
+    padding: 0px 7px 0 0px;
+    border-radius: 10px;
+    background: rgba(224, 223, 223, 0.6);
+    backdrop-filter: plur(2px);
+    outline: none;
+    padding-left: 10px;
+
+}
 
 /* a.active,
 a:hover {
@@ -42,7 +64,7 @@ a:hover {
     display: flex;
     cursor: pointer;
     padding: 10px 20px;
-    background: rgb(21, 23, 31);
+    background: rgb(210, 211, 211);
     border-radius: 30px;
     align-items: center;
     box-shadow: 0 10px 25px rgbg(0, 0, 0, .3);
@@ -208,9 +230,10 @@ button:hover {
 }
 
 .center2 h1 {
-    color: black;
+    color: rgb(0, 0, 0);
     font-size: 40px;
     margin-top: 10px;
+    
     padding: 20px;
     font-weight: bold;
     text-align: ri;
@@ -218,6 +241,18 @@ button:hover {
     border-radius: 20px;*/
 
     font-family: 'Courier New', Courier, monospace;
+}
+.center3 h1{
+    color: rgb(0, 0, 0);
+    font-size: 40px;
+    margin-top: 10px;
+    margin-right: 100px;
+    padding: 20px;
+    font-weight: bold;
+    text-align: ri;
+    /*background-color: rgb(139, 141, 148);
+    border-radius: 20px;*/
+    font-family: 'Courier New', Courier, monospace;   
 }
 
 .select-box1 {
