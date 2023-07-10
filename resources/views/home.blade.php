@@ -47,7 +47,8 @@
                 <br>
                 <div class="btn-contener">
                     <h4>{{ $craft->craft_name }}</h4>
-                    <a href="{{ route('userPage.getAllUser', ['profession' => $craft->id]) }}" class="btn btn-primary">أظهر المهنيين</a>
+                    <a href="{{ route('userPage.getAllUser', ['profession' => $craft->id]) }}"
+                        class="btn btn-primary">أظهر المهنيين</a>
 
                 </div>
             </div>
@@ -57,45 +58,44 @@
         <!------------------------start of adds-------------------->
         <div class="adds">
             <div class="center2">
-                <h1>الاعلانات</h1>
+                <h1>اعلانات البحث عن مهني</h1>
             </div>
         </div>
         <br><br><br>
         <!------------------------adss of free work---------------->
         <div class="adds1">
-            <h1>اعلانات العمل الحر</h1>
-        </div>
-        <div class="select-box">
-            <div class="select-option1">
-                <input type="text" placeholder="المدينه" id="soValue1" readonly name="">
+            <div class="center3">
+                <h1>اعلانات البحث عن مهني</h1>
             </div>
-            <div class="content1">
-                <ul class="options1">
-                    <li>جنين</li>
-                    <li>نابلس</li>
-                    <li>رام الله</li>
-                    <li>بيت لحم</li>
-                    <li>الخليل</li>
-                    <li>طولكرم </li>
-                </ul>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="adds-selection1">
+                    <div class="adds-selection2">
+                        <select class='adds-selection2' id="city" name="city" ] style="color: #4e4e4e;">
+                        </select>
+                    </div>
+                </div>
             </div>
 
-        </div>
-        <div class="select-box">
-            <div class="select-option2">
-                <input type="text" placeholder="القريه" id="soValue2" readonly name="">
+            <div class="col">
+                <div class="adds-selection1">
+                    <div class="adds-selection2">
+                        <select class='adds-selection2' id="village" name="village" ] style="color: #4e4e4e;">
+                        </select>
+                    </div>
+                </div>
             </div>
-            <div class="content2">
-                <ul class="options2">
-                    <li>جنين</li>
-                    <li>نابلس</li>
-                    <li>رام الله</li>
-                    <li>بيت لحم</li>
-                    <li>الخليل</li>
-                    <li>طولكرم </li>
-                </ul>
+            <div class="col">
+                <div class="adds-selection1">
+                    <div class="adds-selection2">
+                        <select class='adds-selection2' id="craft" name="craft" ] style="color: #4e4e4e;">
+                        </select>
+                    </div>
+                </div>
             </div>
         </div>
+
         <br>
 
         <br><br><br> <br><br><br> <br><br><br>
