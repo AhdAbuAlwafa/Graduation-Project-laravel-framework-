@@ -13,13 +13,14 @@
             <li><a href='{{ route('userPage.userProfile') }}'>حسابي</a></li>
           
            
-            @if (auth()->user())
+            @if (auth()->user()!= null)
             <li>
-                <form action="{{ route('logout') }}" method="POST">
-                   @csrf
-                   <button type="submit" class="inline-3">الخروج</button>
-                </form>
+                   <a href="{{ route('logout') }}" onclick="event.preventDefault() ; document.getElementById('logout').submit()" class=" btn nav-btn">تسجيل الخروج</a>
                 </li>
+                <form action="{{ route('logout') }}" hidden disabled id="logout"  method="post">
+                @method('post')
+                @csrf
+                </form>
             @else
                 <li><a href='/login'>تسجيل الدخول</a></li>
             @endif

@@ -18,8 +18,7 @@
                             @csrf
                             <input type="file" name="image" hidden id="ipt"
                                 accept="image/png, image/gif, image/jpeg , image/svg , image/jpg">
-                            <button href="" id="btn" class="btn80 btn-primary" disabled>تغيير الصورة
-                                الشخصية</button>
+                            <button href="" id="btn" class="btn80 btn-primary" disabled>تغيير الصورة الشخصية</button>
                         </form>
                     </div>
                 </div>
@@ -367,7 +366,7 @@
                         } else if (data.status == 1) {
                             $('#imgform')[0].reset[0]
                             $('#btn').text('تغيير الصورة الشخصية')
-                            $("#profileImg").attr('src', 'images/' + data.imgname);
+                            $("#profileImg").attr('src', 'images/' + data.image);
                             console.log('success');
                         }
                     }
