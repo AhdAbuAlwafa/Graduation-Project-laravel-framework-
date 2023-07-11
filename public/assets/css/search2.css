@@ -1,0 +1,178 @@
+/* === Google Font Import - Poppins === */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+
+    display: flex;
+    align-items: right;
+    justify-content: right;
+    background: #e4e3e3;
+}
+
+section {
+    position: relative;
+    height: 300px;
+    width: 300px;
+    display: flex;
+    top: 400px;
+    margin-right: 150px;
+    align-items: center;
+}
+
+.card {
+    position: relative;
+    background: #fff;
+    border-radius: 20px;
+    margin: 20px 0;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.card::before {
+    content: "";
+    position: absolute;
+    height: 30%;
+    width: 100%;
+    background: #004985;
+    border-radius: 20px 20px 0 0;
+}
+
+.card .card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+    position: relative;
+    z-index: 100;
+}
+
+section .card .image {
+    height: 140px;
+    width: 140px;
+    border-radius: 50%;
+    padding: 4px;
+    margin-top: 10px;
+    background: #004985;
+}
+
+section .card .image img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid #ffffff;
+}
+
+
+.card .name-profession {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+    color: #000000;
+}
+
+.name-profession .name {
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.name-profession .profession {
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.place {
+    font-size: 20px;
+    color: #000533;
+}
+
+/*
+.card .rating {
+    display: flex;
+    align-items: center;
+    margin-top: 18px;
+}
+
+.card .rating i {
+    font-size: 18px;
+    margin: 0 2px;
+    color: #000000;
+}
+*/
+.center {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.center .stars {
+    height: 150px;
+    width: 50px;
+    text-align: center;
+
+}
+
+.stars input {
+    display: none;
+}
+
+.stars label {
+    float: right;
+    font-size: 30px;
+    color: rgb(0, 0, 0);
+    margin: 0 5px;
+    text-shadow: 1px 1px #5e5e5e;
+
+}
+
+.stars label:before {
+    content: '★';
+    color: gold;
+}
+
+.stars input:checked~label {
+    color: gold;
+    text-shadow: 1px 1px #c60;
+
+}
+
+.stars:not(:checked)>label:hover,
+.stars:not(:checked)>label:hover~label {
+    color: gold;
+}
+
+.stars input:checked>label:hover,
+.stars input:checked>label:hover~label {
+    color: gold;
+    text-shadow: 1px 1px goldenrod;
+}
+
+
+.card .button {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    margin-top: -85px;
+}
+
+.card .button button {
+    background: #004985;
+    outline: none;
+    border: none;
+    color: #fff;
+    padding: 8px 22px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.button button:hover {
+    background: #070577;
+}
