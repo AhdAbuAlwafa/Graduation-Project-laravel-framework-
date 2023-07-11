@@ -108,7 +108,7 @@ Route::prefix('/crafts')->group(function(){
 
 
    Route::get('userprofile',[UserProfileController::class, 'show'])->name('userPage.userProfile')->middleware('auth');
-   Route::get('userprofile',[OtherUserProfileController::class, 'show'])->name('userPage.otherUserProfile')->middleware('auth');
+   Route::get('otheruserprofile',[OtherUserProfileController::class, 'show'])->name('userPage.otherUserProfile')->middleware('auth');
 
 
    Route::patch('/update1', [UserProfileController::class, 'update'])->name('userPage.update')->middleware('auth');;
