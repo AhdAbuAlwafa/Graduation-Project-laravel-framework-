@@ -115,4 +115,45 @@ class PublicController extends Controller
         return view('userPage.searchPage', compact('users', 'cities', 'villages', 'crafts', 'selectedProfession','selectedCraft'));
     }
  
+
+public function nameSearch(Request $request)
+{
+    $selectedCraft = $request->input('craft_name', 'all');
+    $crafts = Craft::get();
+    $cities = Address::distinct()->pluck('city_name', 'city_name')->toArray();
+
+    $searchQuery = $request->input('search');
+
+    // Perform the search query to retrieve matching users
+    $users = User::where('fname', 'LIKE', '%' . $searchQuery . '%')
+                 ->orWhere('lname', 'LIKE', '%' . $searchQuery . '%')
+                 ->paginate();
+
+    // Pass the list of matching users to the view
+    return view('userPage.searchPage', compact('users', 'crafts', 'cities', 'selectedCraft'));
+}
+
+
+
+// public function liveSearch(Request $request)
+// {
+//     $search = $request->input('search');
+//     $users = User::where('fname', 'LIKE', "%$search%")
+//     ->orWhere('lname', 'LIKE', "%$search%")
+//     ->get();
+
+//                  return response()->json(['users' => $users]);
+                
+                
+// }
+
+
+public function fiveAd(Request $request)
+{
+    
+    return redirect()->back()->with('message', 'Ad created successfully!');
+}
+
+
+
 }

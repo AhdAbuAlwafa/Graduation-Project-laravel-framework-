@@ -93,6 +93,33 @@ class WorkeProfilerController extends Controller
         return redirect(route('workerPage.workerProfile', $id ));
     }
 
+    public function deleteCraft(Request $request)
+{
+    $user = User::findOrFail($request->input('user'));
+    $craft = $request->input('craft');
+
+    try {
+        $user->crafts()->detach($craft);
+
+        return response()->json(['message' => 'Craft deleted successfully']);
+    } catch (\Exception $e) {
+        return response()->json(['message' => 'Failed to delete craft'], 500);
+    }
+}
+
+public function deleteAllCrafts(Request $request)
+{
+    $user = User::findOrFail($request->input('user'));
+
+    try {
+        $user->crafts()->detach();
+
+        return response()->json(['message' => 'All crafts deleted successfully']);
+    } catch (\Exception $e) {
+        return response()->json(['message' => 'Failed to delete all crafts'], 500);
+    }
+}
+
     /**
      * Remove the specified resource from storage.
      */

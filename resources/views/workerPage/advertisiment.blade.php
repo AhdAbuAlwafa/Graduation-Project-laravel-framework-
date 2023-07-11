@@ -25,7 +25,8 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body"  >
-        <form action="{{route('workerPage.store')}}" method="post" >
+        <form action="{{route('workerPage.store')}}" method="post" id="advertisementForm" >
+          
           @method('post')
           {{ csrf_field() }}
 
@@ -133,6 +134,13 @@
   
               </div>
         </form>
+
+        <div id="messageModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p id="messageText"></p>
+    </div>
+</div>
       </div>
       
     </div>

@@ -73,6 +73,7 @@ class AdvertisementController extends Controller
 
 
     }
+    
 
     /**
      * Display the specified resource.
