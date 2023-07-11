@@ -54,6 +54,7 @@ class UserProfileController extends Controller
         $village = Address::pluck('village_name', 'id');
         $advertisements=Advertisement::get()->where('user_id', auth() ->user()->id);
 
+
         return view('userPage.userProfile',compact('user','cities','village','advertisements','crafts'));
     }
     
@@ -114,7 +115,8 @@ class UserProfileController extends Controller
 
     if ($validator->fails()) {
         return response()->json(['success' => false, 'error' => $validator->errors()->toArray()]);
-    }else{
+    }else
+    {
 
        $user= User::where('id',auth()->user()->id)->first();
        $user->description = $request->input('craft_description');
@@ -122,15 +124,12 @@ class UserProfileController extends Controller
         $user->save();
         $user->crafts()->attach($request->input('craft_name'));
 
-
-
         return response()->json(['success' => true]);
     }
 
+     }
 
-
-}
-
+   
 
 
     public function changePassword(Request $request)
@@ -152,6 +151,7 @@ class UserProfileController extends Controller
         return back()->with("status", "تم تغيير كلمة السر بنجاح");
 
     }
+    
     public function showPassChange(){
 
         return (view('userpage.changepass'));
@@ -204,31 +204,10 @@ public function deleteAllCrafts(Request $request)
 }
 
 
-public function becomeWorker(Request $request)
-     {
-        $validator = Validator::make($request->all(), [
-        'craft_name' => 'required',
-        'craft_description' => 'required|min:100|max:1500|string',
-    ]);
-
-    if ($validator->fails()) {
-        return response()->json(['success' => false, 'error' => $validator->errors()->toArray()]);
-    }else{
-
-       $user= User::where('id',auth()->user()->id)->first();
-       $user->description = $request->input('craft_description');
-       $user->is_worker=1;
-        $user->save();
-        $user->crafts()->attach($request->input('craft_name'));
 
 
 
-        return response()->json(['success' => true]);
-    }
 
-
-
-}
 
     public function destroy(string $id)
     {

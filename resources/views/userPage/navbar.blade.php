@@ -89,62 +89,128 @@
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  
-    <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const stars = document.querySelectorAll('.star');
-    const selectedRatingDisplay = document.getElementById('selected-rating');
-    const resetButton = document.getElementById('reset-rating');
-    let selectedRating = 0;
+    
+ 
 
-    stars.forEach(function(star) {
-      star.addEventListener('mouseenter', function() {
-        const rating = parseInt(star.dataset.rating);
-        highlightStars(rating);
-      });
+<!-- <script>
+    // Get the input field and form elements
+    const liveFilterInput = document.getElementById('liveFilterInput');
+    const liveFilterForm = document.getElementById('liveFilterForm');
 
-      star.addEventListener('mouseleave', function() {
-        highlightStars(selectedRating);
-      });
+    // Add an event listener to the input field
+    liveFilterInput.addEventListener('input', function() {
+        // Submit the form to perform the live filtering
+        liveFilterForm.submit();
+    });
+</script> -->
 
-      star.addEventListener('click', function() {
-        const rating = parseInt(star.dataset.rating);
-        selectedRating = rating;
-        updateRatingDisplay();
-        resetButton.removeAttribute('disabled');
-      });
+<!-- <script>
+ $(document).ready(function() {
+    var timeoutId; // Variable to store timeout ID for delaying AJAX request
+
+    $("#Inputsearch").on("keyup", function() {
+        clearTimeout(timeoutId); // Clear previous timeout
+
+        var value = $(this).val().toLowerCase();
+
+        // Delay AJAX request to avoid sending multiple requests for each keystroke
+        timeoutId = setTimeout(function() {
+            // Send AJAX request
+            $.ajax({
+                url: '{{ route("userPage.liveSearch") }}',
+                type: 'GET',
+                data: { search: value },
+                success: function(response) {
+                    displaySearchResults(response.users);
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        }, 500); // Delay of 500 milliseconds
     });
 
-    resetButton.addEventListener('click', function() {
-      selectedRating = 0;
-      updateRatingDisplay();
-      resetButton.setAttribute('disabled', true);
-    });
+    // Function to display search results
+    function displaySearchResults(users) {
+        var searchResultsDiv = $('#searchResults');
+        searchResultsDiv.empty(); // Clear previous search results
 
-    function highlightStars(rating) {
-      stars.forEach(function(star) {
-        const starRating = parseInt(star.dataset.rating);
-        if (starRating <= rating) {
-          star.classList.add('active');
+        if (users.length > 0) {
+            // Iterate over the returned users and display them in the search results div
+            users.forEach(function(user) {
+                var userHtml = '<div class="searchResult">' +
+                    '<h4>' + user.fname + ' ' + user.lname + '</h4>' +
+                    // Add other user details as needed
+                    '</div>';
+
+                searchResultsDiv.append(userHtml);
+            });
         } else {
-          star.classList.remove('active');
+            searchResultsDiv.html('<p>No results found.</p>');
         }
-      });
     }
+});
 
-    function updateRatingDisplay() {
-      if (selectedRating !== 0) {
-        selectedRatingDisplay.textContent = 'You selected ' + selectedRating + ' stars.';
-      } else {
-        selectedRatingDisplay.textContent = 'No rating selected.';
-        stars.forEach(function(star) {
-          star.classList.remove('active');
+</script> -->
+<script>
+$(document).ready(function() {
+    $('.delete-craft').click(function(e) {
+        e.preventDefault();
+        var user = $(this).data('user');
+        var craft = $(this).data('craft');
+
+        deleteCraft(user, craft);
+    });
+
+    $('#delete-all-crafts').click(function(e) {
+        e.preventDefault();
+        var user = $(this).data('user');
+
+        deleteAllCrafts(user);
+    });
+
+    function deleteCraft(user, craft) {
+        $.ajax({
+            url: '/delete-craft',
+            type: 'POST',
+            data: {
+                user: user,
+                craft: craft,
+                _token: '{{ csrf_token() }}'
+            },
+            success: function(response) {
+                // Craft deleted successfully
+                console.log(response.message);
+                // Reload or update the craft list
+            },
+            error: function(xhr) {
+                // Failed to delete craft
+                console.error('Failed to delete craft');
+            }
         });
-      }
     }
-  });
-</script>
 
+    function deleteAllCrafts(user) {
+        $.ajax({
+            url: '/delete-all-crafts',
+            type: 'POST',
+            data: {
+                user: user,
+                _token: '{{ csrf_token() }}'
+            },
+            success: function(response) {
+                // All crafts deleted successfully
+                console.log(response.message);
+                // Reload or update the craft list
+            },
+            error: function(xhr) {
+                // Failed to delete all crafts
+                console.error('Failed to delete all crafts');
+            }
+        });
+    }
+});
+</script>
 
 <script>
     $(document).ready(function() {
@@ -179,10 +245,13 @@
                         location.reload();
                     } else {
                         // Error message
+                        console.log(response);
+
                         alert('Failed to become a worker. Please try again.');
                     }
                 },
                 error: function(xhr, status, error) {
+                    console.log(error);
                     // Error message
                     alert('An error occurred. Please try again.');
                 }
@@ -191,9 +260,129 @@
     });
 </script>
 
-    <script>
+<!-- <script>
+    $(document).ready(function() {
+        $('.delete-craft').click(function(e) {
+            e.preventDefault();
+            var user = $(this).data('user');
+            var craft = $(this).data('craft');
 
+            deleteCraft(user, craft);
+        });
 
+        $('#delete-all-crafts').click(function(e) {
+            e.preventDefault();
+            var user = $(this).data('user');
+
+            deleteAllCrafts(user);
+        });
+
+        function deleteCraft(user, craft) {
+            $.ajax({
+                url: '{{ route('craft.delete') }}',
+                type: 'POST',
+                data: {
+                    user: user,
+                    craft: craft,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    // Craft deleted successfully
+                    console.log(response.message);
+                    // Reload or update the craft list
+                },
+                error: function(xhr) {
+                    // Failed to delete craft
+                    console.error('Failed to delete craft');
+                }
+            });
+        }
+
+        function deleteAllCrafts(user) {
+            $.ajax({
+                url: '{{ route('craft.deleteAll') }}',
+                type: 'POST',
+                data: {
+                    user: user,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    // All crafts deleted successfully
+                    console.log(response.message);
+                    // Reload or update the craft list
+                },
+                error: function(xhr) {
+                    // Failed to delete all crafts
+                    console.error('Failed to delete all crafts');
+                }
+            });
+        }
+    });
+</script> -->
+
+<script>
+    $(document).ready(function() {
+        $('.delete-craft').click(function(e) {
+            e.preventDefault();
+            var user = $(this).data('user');
+            var craft = $(this).data('craft');
+
+            deleteCraft(user, craft, $(this));
+        });
+
+        $('#delete-all-crafts').click(function(e) {
+            e.preventDefault();
+            var user = $(this).data('user');
+
+            deleteAllCrafts(user);
+        });
+
+        function deleteCraft(user, craft, element) {
+            $.ajax({
+                url: '{{ route('craft.delete') }}',
+                type: 'POST',
+                data: {
+                    user: user,
+                    craft: craft,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    // Craft deleted successfully
+                    console.log(response.message);
+                    // Remove the craft item from the DOM
+                    element.closest('.craft-item').remove();
+                },
+                error: function(xhr) {
+                    // Failed to delete craft
+                    console.error('Failed to delete craft');
+                }
+            });
+        }
+
+        function deleteAllCrafts(user) {
+            $.ajax({
+                url: '{{ route('craft.deleteAll') }}',
+                type: 'POST',
+                data: {
+                    user: user,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    // All crafts deleted successfully
+                    console.log(response.message);
+                    // Remove all craft items from the DOM
+                    $('.craft-item').remove();
+                },
+                error: function(xhr) {
+                    // Failed to delete all crafts
+                    console.error('Failed to delete all crafts');
+                }
+            });
+        }
+    });
+</script>
+
+<script>
 $(document).ready(function() {
     $("#Inputsearch").on("keyup", function() {
             var value = $(this).val().toLowerCase();
