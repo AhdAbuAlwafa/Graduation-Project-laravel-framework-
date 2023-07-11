@@ -102,7 +102,7 @@ Route::prefix('/crafts')->group(function(){
 
 
 
-   Route::post('/logout',[LogoutController::class,'destroy'])->name('logout');
+//    Route::post('/logout',[LogoutController::class,'destroy'])->name('logout');
 
   
 
