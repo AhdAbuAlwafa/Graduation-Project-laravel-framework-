@@ -14,6 +14,7 @@ use App\Http\Controllers\UserControllers\AdvertisementController;
 use App\Http\Controllers\CrafttController;
 use App\Http\Controllers\RequestController;
 use App\Http\Controllers\UserProfileController;
+use App\Http\Controllers\OtherUserProfileController;
 use App\Http\Controllers\WorkeProfilerController;
 use App\Http\Controllers\WorkerControllers\AddvertisimentController;
 use App\Http\Controllers\WorkerPageController;
@@ -107,6 +108,7 @@ Route::prefix('/crafts')->group(function(){
 
 
    Route::get('userprofile',[UserProfileController::class, 'show'])->name('userPage.userProfile')->middleware('auth');
+   Route::get('userprofile',[OtherUserProfileController::class, 'show'])->name('userPage.otherUserProfile')->middleware('auth');
 
 
    Route::patch('/update1', [UserProfileController::class, 'update'])->name('userPage.update')->middleware('auth');;
