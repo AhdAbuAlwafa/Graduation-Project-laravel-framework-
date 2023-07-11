@@ -1,0 +1,340 @@
+/*
+ ⚡MAKE SURE TO SUBSCRIBE PROGRAMMER CLOUD⚡
+*/
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
+
+body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    min-height: 100vh;
+    font-family: "Poppins", sans-serif;
+}
+
+ul  {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+a {
+    text-decoration: none;
+}
+
+.header__wrapper header {
+    width: 100%;
+    background: url("../img/bg.jpeg") no-repeat 50% 20% / cover;
+    min-height: calc(100px + 15vw);
+}
+
+.header__wrapper .cols__container .left__col {
+    padding: 25px 20px;
+    text-align: center;
+    max-width: 350px;
+    position: relative;
+    margin: 0 auto;
+}
+
+.header__wrapper .cols__container .left__col .img__container {
+    position: absolute;
+    top: -200px;
+    left: 50%;
+    transform: translatex(-50%);
+}
+
+.header__wrapper .cols__container .left__col .img__container img {
+    width: 300px;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+    box-shadow: 3px 5px 14px rgba(0, 0, 0, 0.5);
+    border: 6px solid #fff;
+}
+
+.header__wrapper .cols__container .left__col .img__container span {
+    position: absolute;
+    background: #2afa6a;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    bottom: 3px;
+    right: 11px;
+    border: 2px solid #fff;
+}
+
+.header__wrapper .cols__container .left__col h2 {
+    margin-top: 10px;
+    font-weight: 600;
+    font-size: 25px;
+    margin-bottom: 9px;
+}
+
+.center1 {
+    display: flex;
+    align-items: center;
+    margin-right: 290px;
+    margin-top: 1px;
+}
+
+.center1 .stars1 {
+    height: 150px;
+    width: 50px;
+    text-align: center;
+
+}
+
+.stars1 input {
+    display: none;
+}
+
+.stars1 label {
+    float: right;
+    font-size: 30px;
+    color: rgb(0, 0, 0);
+    margin: 0 5px;
+    text-shadow: 1px 1px #5e5e5e;
+
+}
+
+.stars1 label:before {
+    content: '★';
+    color: gold;
+}
+
+.stars1 input:checked~label {
+    color: gold;
+    text-shadow: 1px 1px #c60;
+
+}
+
+.stars1:not(:checked)>label:hover,
+.stars1:not(:checked)>label:hover~label {
+    color: gold;
+}
+
+.stars1 input:checked>label:hover,
+.stars1 input:checked>label:hover~label {
+    color: gold;
+    text-shadow: 1px 1px goldenrod;
+}
+
+.header__wrapper .cols__container .left__col p {
+    font-size: 0.9rem;
+    color: #818181;
+    margin: 0;
+}
+
+.header__wrapper .cols__container .left__col .evaluation {
+    justify-content: space-between;
+    position: relative;
+    margin: 20px 0;
+    right: 100px;
+}
+
+.header__wrapper .cols__container .left__col .evaluation li {
+    display: flex;
+    flex-direction: column;
+    color: #818181;
+    font-size: 0.9rem;
+}
+
+.header__wrapper .cols__container .left__col .evaluation li span {
+    color: #1d1d1d;
+    font-weight: 600;
+}
+
+.header__wrapper .cols__container .left__col .evaluation:after {
+    position: absolute;
+    content: "";
+    bottom: -16px;
+    left: 90px;
+    display: block;
+    background: #cccccc;
+    height: 1px;
+    width: 100%;
+}
+
+.header__wrapper .cols__container .content p {
+    font-size: 1.5rem;
+    color: #1d1d1d;
+    line-height: 1.8em;
+}
+
+
+.header__wrapper .cols__container .right__col nav {
+    display: flex;
+    align-items: center;
+    padding: 60px 0;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.header__wrapper .cols__container .right__col nav ul {
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    padding-left: 190px;
+}
+
+.header__wrapper .cols__container .right__col nav ul li a {
+    text-transform: uppercase;
+    color: #818181;
+}
+
+.header__wrapper .cols__container .right__col nav ul li:nth-child(1) a {
+    /*كلمه رقم الهاتف*/
+    color: #1d1d1d;
+    font-weight: 600;
+    font-size: 30px;
+}
+
+.header__wrapper .cols__container .right__col nav ul li:nth-child(2) a {
+    color: #1d1d1d;
+    font-weight: 600;
+    font-size: 30px;
+}
+
+
+
+.center {
+    display: flex;
+    align-items: center;
+    margin-top: 2px;
+    margin-bottom: -100px;
+    margin-left: 50px;
+}
+
+.center .stars {
+    height: 150px;
+    width: 200px;
+
+}
+
+.stars input {
+    display: none;
+}
+
+.stars label {
+    float: right;
+    font-size: 35px;
+    color: lightgrey;
+    margin: 0 5px;
+    text-shadow: 1px 1px #bbb;
+
+}
+
+.stars label:before {
+    content: '★';
+}
+
+.stars input:checked~label {
+    color: gold;
+    text-shadow: 1px 1px #c60;
+
+}
+
+.stars:not(:checked)>label:hover,
+.stars:not(:checked)>label:hover~label {
+    color: gold;
+}
+
+.stars input:checked>label:hover,
+.stars input:checked>label:hover~label {
+    color: gold;
+    text-shadow: 1px 1px goldenrod;
+}
+
+.second-part {
+    padding: 15px 20px;
+    text-align: center;
+    max-width: 450px;
+    position: relative;
+    margin: 0 auto;
+    margin-right: 250px;
+    top: 140px;
+}
+
+.second-part .place {
+    margin-top: 30px;
+    font-weight: 600;
+    font-size: 22px;
+    margin-bottom: 5px;
+    margin-right: 100px;
+}
+
+.second-part .phone-num {
+    margin-top: 30px;
+    font-weight: 600;
+    font-size: 22px;
+    margin-bottom: 5px;
+    margin-right: 100px;
+}
+
+.second-part .worker-gender {
+    margin-top: 30px;
+    font-weight: 600;
+    font-size: 22px;
+    margin-bottom: 5px;
+    margin-right: 100px;
+}
+
+#vertical-line {
+    width: 400px;
+    height: 1px;
+    background-color: silver;
+    display: block;
+    margin-right: 100px;
+}
+
+.comment {
+    background-color: rgb(202, 202, 202);
+}
+
+/* Responsiveness */
+
+@media (min-width: 868px) {
+    .header__wrapper .cols__container {
+        max-width: 1200px;
+        margin: 0 auto;
+        width: 90%;
+        justify-content: space-between;
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 50px;
+    }
+
+    .header__wrapper .cols__container .left__col {
+        padding: 25px 0px;
+    }
+
+    .header__wrapper .cols__container .right__col nav ul {
+        flex-direction: row;
+        gap: 30px;
+    }
+
+    .header__wrapper .cols__container .right__col .photos {
+        height: 365px;
+        overflow: auto;
+        padding: 0 0 30px;
+    }
+}
+
+@media (min-width: 1017px) {
+    .header__wrapper .cols__container .left__col {
+        margin: 0;
+        margin-right: auto;
+    }
+
+    .header__wrapper .cols__container .right__col nav {
+        flex-direction: row;
+    }
+
+    .header__wrapper .cols__container .right__col nav button {
+        margin-top: 0;
+    }
+}
