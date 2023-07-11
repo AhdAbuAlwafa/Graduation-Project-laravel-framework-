@@ -79,10 +79,10 @@ Route::prefix('/crafts')->group(function(){
    Route::get('/showWorker/{id}',[PublicController::class,'showWorker'])->name('userPage.showWorker');
    Route::get('/filter',[PublicController::class,'filterNav'])->name('userPage.mysearch');
    Route::get('/search/{profession?}', [PublicController::class, 'openCraft'])->name('userPage.getAllUser');
-
-
+   Route::get('/users/search',[PublicController::class,'nameSearch'])->name('users.search');
    Route::get('/worker/{id}', [WorkerPageController::class, 'show'])->name('workerPage.showWorker');
 
+   Route::get('/live-search',[PublicController::class,'liveSearch'])->name('userPage.liveSearch');
 
 
 
@@ -130,6 +130,9 @@ Route::prefix('/crafts')->group(function(){
    
 
 
-
+   Route::post('/delete-craft', [WorkeProfilerController::class, 'deleteCraft'])->name('craft.delete');
+   Route::post('/delete-all-crafts', [WorkeProfilerController::class, 'deleteAllCrafts'])->name('craft.deleteAll');
+   
    Auth::routes();
    Route::get('/',[HomeController::class, 'index'])->name('home');
+   Route::post('sendrate',[WorkerPageController::class , 'rate']);

@@ -141,6 +141,7 @@
                             </div>
 
 
+
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>المهنة</label>
@@ -241,6 +242,38 @@
                     
                     
                 </div>
+
+                @if ($user->is_worker==0)
+
+                <div id="toggleBoxContainer">
+    <input class="form-check-input" type="checkbox" id="toggleBox" name="is_worker">
+    <label class="form-check-label" for="toggleBox">Become a Worker</label>
+</div>
+
+<!-- Craft Fields -->
+<div id="craftFields" style="display: none;">
+    <form id="becomeWorkerForm" action="{{ route('userPage.becomeWorker', ['id' => $user->id])}}" method="POST">
+        @csrf
+        <div class="form-group">
+            <label for="craft_name">Craft:</label>
+            <select class="form-control" id="craft_name" name="craft_name">
+                <option value="all">All Crafts</option>
+                @foreach ($crafts as $craft)
+                    <option value="{{ $craft->id }}">{{ $craft->craft_name }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="craft_description">Craft Description:</label>
+            <textarea class="form-control" id="craft_description" name="craft_description"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</div>
+@endif
+
+
+
 
                 <div class="tab-pane fade" id="application" role="tabpanel" aria-labelledby="application-tab">
                     <h3 class="mb-4">اعلاناتي</h3>

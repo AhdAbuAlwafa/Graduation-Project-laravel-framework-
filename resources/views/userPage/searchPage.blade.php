@@ -62,6 +62,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
 
+
     <!-- Small button groups (default and split) -->
     <form class="form-inline" style="justify-content: center; margin-right: -10px; margin-top: 200px;" method="GET" action="{{ route('userPage.getAllUser') }}">
         @csrf
