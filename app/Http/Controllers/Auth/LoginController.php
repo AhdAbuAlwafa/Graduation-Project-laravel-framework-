@@ -81,4 +81,8 @@ class LoginController extends Controller
         $crafts=Craft::get();
         return view('auth.login' , compact('address', 'crafts','cities'));
     }
+    public function logout(){
+        auth()->logout();
+        return redirect(route('home'));
+    }
 }
