@@ -11,10 +11,15 @@
             <li><a href='#'>اعلانات العمل</a></li>
             <li><a href='{{ route('who-are-we') }}'>من نحن </a></li>
             <li><a href='{{ route('userPage.userProfile') }}'>حسابي</a></li>
-
-
+          
+           
             @if (auth()->user())
-                <li><a href=' #'>تسجيل خروج</a></li>
+            <li>
+                <form action="{{ route('logout') }}" method="POST">
+                   @csrf
+                   <button type="submit" class="inline-3">الخروج</button>
+                </form>
+                </li>
             @else
                 <li><a href='/login'>تسجيل الدخول</a></li>
             @endif
