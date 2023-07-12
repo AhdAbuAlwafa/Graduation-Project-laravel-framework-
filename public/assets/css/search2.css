@@ -11,17 +11,16 @@
 body {
 
     display: flex;
-    align-items: right;
-    justify-content: right;
+    align-items: center;
+    justify-content: center;
     background: #e4e3e3;
 }
 
-section {
+.cardsection {
     position: relative;
     height: 300px;
-    width: 300px;
-    display: flex;
-    top: 400px;
+    width: 100%;
+    top: 300px;
     margin-right: 150px;
     align-items: center;
 }
@@ -32,6 +31,7 @@ section {
     border-radius: 20px;
     margin: 20px 0;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
 }
 
 .card::before {
