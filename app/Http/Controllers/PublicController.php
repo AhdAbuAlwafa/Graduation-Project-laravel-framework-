@@ -16,8 +16,7 @@ class PublicController extends Controller
         return view('who-are-we');
 
     }
-
-
+    
     public function getVillages(Request $request)
  {
     $city = $request->input('city_name');
