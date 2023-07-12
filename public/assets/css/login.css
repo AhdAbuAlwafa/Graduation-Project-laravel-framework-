@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
 
+
 * {
     margin: 0;
     padding: 0;
@@ -7,7 +8,7 @@
     font-family: 'Poppins', sans-serif;
 }
 
-.continer {
+.connn{
     display: flex;
     height: 130vh;
     background-image: linear-gradient(rgba(49, 46, 43, 0.7), rgba(59, 57, 54, 0.7)), url(../img/worker.jpg);
@@ -20,7 +21,7 @@
     align-items: center;
 }
 
-.navbar {
+/*.navbar {
     display: flex;
     align-items: center;
     padding: 80px;
@@ -90,13 +91,13 @@ nav ul li a:hover {
     align-content: first baseline;
     border-radius: 30px;
     background-color: #bc6202;
-}
+}*/
 
 .box {
     display: flex;
     flex-direction: row;
     position: relative;
-    height: 1300px;
+    height: 900px;
     width: 480px;
     background-color: rgb(255, 220, 220, 0.4);
     border-radius: 30px;
@@ -104,13 +105,12 @@ nav ul li a:hover {
     backdrop-filter: blur(3px);
     overflow: hidden;
     border: 3px solid rgb(255, 220, 220, 0.4);
-    top: 170px;
+    top: 75px;
 }
 
 .box-login {
     position: absolute;
     width: 100%;
-
     transition: .5s ease-in-out;
     top: 50px;
 }
@@ -127,6 +127,12 @@ nav ul li a:hover {
 .top-header {
     text-align: center;
     margin: 70px 0;
+    padding-left: 30px;
+}
+.top-header2 {
+    text-align: center;
+    margin: 70px 0;
+    padding-left: 65px;
 }
 
 .top-header h3 {
@@ -136,8 +142,20 @@ nav ul li a:hover {
     /* text-shadow: 7px 7px 7px black;*/
     font-family: 'Courier New', Courier, monospace;
 }
+.top-header2 h3 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 0px;
+    /* text-shadow: 7px 7px 7px black;*/
+    font-family: 'Courier New', Courier, monospace;
+}
 
 .top-header small {
+    font-size: 23px;
+    /*text-shadow: 5px 5px 5px black;*/
+    font-family: 'Courier New', Courier, monospace;
+}
+.top-header2 small {
     font-size: 23px;
     /*text-shadow: 5px 5px 5px black;*/
     font-family: 'Courier New', Courier, monospace;
@@ -405,32 +423,6 @@ nav ul li a:hover {
 }
 
 
-
-.container {
-    max-width: 700px;
-    width: 100%;
-    background-color: #fff;
-    padding: 25px 30px;
-    border-radius: 5px;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
-}
-
-.container .title {
-    font-size: 25px;
-    font-weight: 500;
-    position: relative;
-}
-
-.container .title::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    height: 3px;
-    width: 30px;
-    border-radius: 5px;
-    background: linear-gradient(135deg, #71b7e6, #9b59b6);
-}
 
 .content form .user-details {
     display: flex;

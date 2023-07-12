@@ -19,7 +19,7 @@ body{
     color: #000;
     margin-bottom: 25px;
     position: relative;
-    top: 200px;
+    top: 150px;
     left: 360px;
 }
 h1.active,h1:hover{
@@ -39,7 +39,6 @@ h1.active,h1:hover{
     width: 90%;
     margin: 0 auto;
     padding: 10px 20px;
-    padding-top: 200px;
 }
 .about{
     display: flex;

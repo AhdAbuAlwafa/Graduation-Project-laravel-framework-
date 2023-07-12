@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
 
 <head>
     <meta charset="UTF-8">
@@ -10,28 +9,66 @@
     <title> الرئيسيه</title>
     <link href="{{ asset('assets/css/home.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/navbar.css') }}" rel="stylesheet">
+    <!-----bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 
 <body>
-    <div class="container">
-        <div class="up-page">
-            <!----------------navbar------------------->
-            @include('shared.navbar')
+    <!-------bootstrap-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+        integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+        integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+        crossorigin="anonymous"></script>
+    <!-----------------coursal------------------>
 
-            <!----------------content of pic-------------->
-            <h2 class="content-pic1"> ابحث عن افضل العمال من كافة المهن لانجاز اعمالك</h2>
-            <h3 class="content-pic2">هل تعرف اسم المهني ؟ قم بالبحث عنه </h3>
-            <!-----------------search on pic----------------->
-            <div class="searchbox1">
-                <div class="searchbox2">
-                    <input type='text' placeholder="ابحث عن عامل">
-                    <a href="#">
-                        <i class="fa fa-magnifying-glass"></i>
-                    </a>
+    <div class="carousel slide" style="width: 100%;" data-bs-ride="carousel" id="carouselExampleIndicators">
+
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img alt="..." class="d-block w-100" src="assets/img/bghome.webp">
+                <div class="carousel-caption">
+                    <h5>ابحث عن افضل العمال في منطقتك </h5>
+                    <p style="font-size: 23px;  width: 60%; margin: auto; line-height: 1.9;">قيم العمال وتصفح التعليقات على صفحاتهم الشخصيه واختر افضل العمال باقل وقت واقل جهد</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img alt="..." class="d-block w-100" src="assets/img/bghome3.jpg">
+                <div class="carousel-caption">
+                     <h5>ابحث عن افضل العمال في منطقتك </h5>
+                     <p style="font-size: 23px;  width: 60%; margin: auto; line-height: 1.9;">قيم العمال وتصفح التعليقات على صفحاتهم الشخصيه واختر افضل العمال باقل وقت واقل جهد</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img alt="..." class="d-block w-100" src="assets\img\bghome2.jpeg">
+                <div class="carousel-caption">
+                    <h5>ابحث عن افضل العمال في منطقتك </h5>
+                    <p style="font-size: 23px;  width: 60%; margin: auto; line-height: 1.9;">قيم العمال وتصفح التعليقات على صفحاتهم الشخصيه واختر افضل العمال باقل وقت واقل جهد</p>
                 </div>
             </div>
         </div>
-        <!--------------- bottom-page---------------->
+    </div>
+    <div class="container">
+        <div class="up-page">
+            <!-----------------search----------------->
+            <div class="searchbox1">
+                <div class="searchbox2">
+                    <input type='text' placeholder="ابحث عن عامل " style="color: black;">
+                    <a href="#">
+                        <i class="fa fa-magnifying-glass" style="font-size: 30px; color: rgb(38, 0, 255); "></i>
+                    </a>
+                </div>
+            </div>
+            
+        </div>
+        <!----------------navbar------------------->
+        @include('shared.navbar')
         <!---------------------start of crafts --------------->
         <div class="crafts">
 
@@ -50,22 +87,24 @@
                 <br>
                 <div class="btn-contener">
 
-                    <a href="{{ route('userPage.getAllUser', ['profession' => $craft->id]) }}" class="btn btn-primary">{{ $craft->craft_name }} </a>
+                    <a href="{{ route('userPage.getAllUser', ['profession' => $craft->id]) }}"
+                        class="btn btn-primary">{{ $craft->craft_name }} </a>
 
                 </div>
             </div>
             @endforeach
+            
         </div>
 
-        <!------------------------start of adds-------------------->
+        <!------------------------start of adds
         <div class="adds">
             <div class="center2">
                 <h1>اعلانات البحث عن مهني</h1>
 
             </div>
         </div>
-        <br><br><br>
-        <!------------------------adss of free work---------------->
+        <br><br><br>-------------------->
+        <!------------------------adss of free work
         <div class="adds1">
             <div class="center3">
                 <h1>اعلانات البحث عن مهني</h1>
@@ -104,5 +143,6 @@
 
         <br><br><br> <br><br><br> <br><br><br>
 
-    </div>
+    </div>---------------->
 </body>
+</html>
