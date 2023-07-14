@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 
 <head>
     <meta charset="UTF-8">
@@ -16,10 +16,10 @@
 
 <body>
     <div>
-        <div>
-            <!----------------navbar------------------->
-            @include('shared.navbar')
-        </div>
+        <!----------------navbar------------------->
+        @include('shared.navbar')
+    </div>
+    <div dir="rtl">
 
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
             integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
