@@ -50,7 +50,7 @@ class PublicController extends Controller
         // Apply filters based on craft, city, and village
         if ($village == $city && $city == $craft && $craft == 'all') {
             // No filters selected, retrieve all users
-            $query->orderBy('all_evl', 'desc');
+            $query->orderBy( 'desc');
         } else if ($craft != 'all') {
             if ($village != 'all') {
                 // Filter by craft and village
@@ -86,7 +86,7 @@ class PublicController extends Controller
             }
         }
     
-        $users = $query->orderBy('all_evl', 'desc')->paginate(12);
+        $users = $query->orderBy( 'desc')->paginate(12);
     
         // Append the query parameters to the pagination links
         $users->appends($request->query());
@@ -110,7 +110,7 @@ class PublicController extends Controller
             });
         }
     
-        $users = $query->orderBy('all_evl', 'desc')->paginate(12);
+        $users = $query->paginate(12);
     
         return view('userPage.searchPage', compact('users', 'cities', 'villages', 'crafts', 'selectedProfession','selectedCraft'));
     }
