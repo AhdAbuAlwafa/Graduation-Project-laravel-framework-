@@ -75,6 +75,8 @@
         </div>
         <!----------------navbar------------------->
         @include('shared.navbar')
+
+
         <!---------------------start of crafts --------------->
         <section class="services section-padding" id="services">
 
@@ -111,13 +113,22 @@
 
 
         <!-----------------coursal for addv------------------------>
-        <div class="row">
-            <div class="col-md-12">
+        <div class="row" >
+
+            <div class="col-lg-2 col-md-12 col-12" style="margin-left: 100px; margin-top: 40px;">
+                <form class="form-inline my-2 my-lg-0">
+                    <button type="button" class="btn btn-lg btn-outline-primary"
+                        style="border-width: 0px; background-color: #004985; color: white; ">اضف اعلان</button>
+                </form>
+            </div>
+
+            <div class="col-lg-7 col-md-12 col-12">
                 <div class="section-header text-center pb-5">
                     <h2 style="font-size: 50px;">اعلانات العمال</h2>
                     <p style="font-size: 28px;">تصفح اعلانات العمال واحصل على فرص عمل اكثر</p>
                 </div>
             </div>
+
         </div>
         <section style="  position: relative;  
         height: 550px;
@@ -345,15 +356,24 @@
 
         <!---------------second part of adv------------>
         <div class="row" style="margin-top: 200px;">
-            <div class="col-md-12">
+
+            <div class="col-lg-2 col-md-12 col-12" style="margin-left: 100px; margin-top: 40px;">
+                <form class="form-inline my-2 my-lg-0">
+                    <button type="button" class="btn btn-lg btn-outline-primary"
+                        style="border-width: 0px; background-color: #004985; color: white; ">اضف اعلان</button>
+                </form>
+            </div>
+
+            <div class="col-lg-7 col-md-12 col-12">
                 <div class="section-header text-center pb-5">
                     <h2 style="font-size: 50px;">اعلانات العمل الحر</h2>
                     <p style="font-size: 28px;">تصفح اعلانات العمل الحر واحصل على فرص عمل اكثر</p>
                 </div>
             </div>
         </div>
+
         <section style="  position: relative;  
-        height: 450px;
+        height: 450px; margin-bottom: 200px;
         align-items: center; ">
 
             <div class="row">
