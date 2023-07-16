@@ -11,6 +11,7 @@ use App\Http\Controllers\ComentController;
 use App\Http\Controllers\UserNameController;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\UserControllers\AdvertisementController;
+use App\Http\Controllers\AdvertisementController2;
 use App\Http\Controllers\CrafttController;
 use App\Http\Controllers\RequestController;
 use App\Http\Controllers\UserProfileController;
@@ -55,6 +56,7 @@ Route::prefix('/crafts')->group(function(){
     Route::patch('/update', [CrafttController::class, 'update'])->name('crafts.update');
     Route::post('/destroy',[CrafttController::class,'destroy'])->name('crafts.destroy'); });
 
+   Route::get('/advertisiment2',[AdvertisementController2::class,'show'])->name('advertisiment2')->middleware('auth');
    Route::get('/advertisiment',[AddvertisimentController::class,'index'])->name('worker.advertisiment')->middleware('auth');
    Route::post('/advertisiment/store',[AddvertisimentController::class,'store'])->name('workerPage.store')->middleware('auth');
    Route::get('/showAdvertisements', [AddvertisimentController::class, 'show'])->name('userPage.advertisements');
