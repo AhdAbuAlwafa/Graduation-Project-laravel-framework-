@@ -184,9 +184,9 @@ class UserProfileController extends Controller
     try {
         $user->crafts()->detach($craft);
 
-        return response()->json(['message' => 'Craft deleted successfully']);
+        return response()->json(['message' => 'تم حذف المهنة بنجاح']);
     } catch (\Exception $e) {
-        return response()->json(['message' => 'Failed to delete craft'], 500);
+        return response()->json(['message' => 'لقد فشل في حذف المهنة'], 500);
     }
 }
 
@@ -197,12 +197,11 @@ public function deleteAllCrafts(Request $request)
     try {
         $user->crafts()->detach();
 
-        return response()->json(['message' => 'All crafts deleted successfully']);
+        return response()->json(['message' => 'لقد تم حذف جميع المهن بنجاح']);
     } catch (\Exception $e) {
-        return response()->json(['message' => 'Failed to delete all crafts'], 500);
+        return response()->json(['message' => 'لقدفش في حذف جميع المهن'], 500);
     }
 }
-
 
 
 
