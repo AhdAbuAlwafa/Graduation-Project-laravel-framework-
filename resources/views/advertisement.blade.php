@@ -38,17 +38,12 @@
     <div class="container">
 
         <div class="row" style="align-items: center;  margin-top: 200px; " dir="rtl">
-            <div class="col-lg-2 col-md-12 col-12">
-                <form class="form-inline my-2 my-lg-0">
-                    <button type="button" class="btn btn-lg btn-outline-primary"
-                        style="border-width: 0px; background-color: #004985; color: white; ">ابحث</button>
-                </form>
-            </div>
-            <div class="col-lg-2 col-md-12 col-12">
-                <div class="btn-group">
-                    <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-toggle="dropdown"
+
+            <div class="col-lg-2 col-md-12 col-12" >
+                <div class="btn-group" >
+                    <button class="btn btn-secondary btn-lg dropdown-toggle"  type="button" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false"
-                        style="background-color:  #004985; margin-left: 10px;">
+                        style="background-color:  #004985;  margin-left: 10px;  width: 170px;">
                         المدينة
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -62,7 +57,7 @@
                 <div class="btn-group">
                     <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false"
-                        style="background-color:  #004883; margin-left: 10px;">
+                        style="background-color:  #004883; margin-left: 10px;  width: 170px;">
                         القرية
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -77,7 +72,7 @@
                 <div class="btn-group">
                     <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false"
-                        style="background-color:  #004883; margin-left: 10px;">
+                        style="background-color:  #004883; margin-left: 10px;  width: 170px;">
                         المهن
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -92,7 +87,7 @@
                 <div class="btn-group">
                     <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false"
-                        style="background-color:  #004883; margin-left: 10px;">
+                        style="background-color:  #004883; margin-left: 10px; width: 170px;">
                         نوع الاعلان
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -100,6 +95,12 @@
                         <a class="dropdown-item" href="#">عمل حر</a>
                     </div>
                 </div>
+            </div>
+            <div class="col-lg-2 col-md-12 col-12">
+                <form class="form-inline my-2 my-lg-0">
+                    <button type="button" class="btn btn-lg btn-outline-primary"
+                        style="border-width: 0px; background-color: #004985; color: white;  width: 110px; margin-right: 100px; ">ابحث</button>
+                </form>
             </div>
 
         </div>
