@@ -131,7 +131,7 @@ nav ul li a:hover {
 }
 .top-header2 {
     text-align: center;
-    margin: 70px 0;
+    margin: 40px 0;
     padding-left: 65px;
 }
 
@@ -345,7 +345,7 @@ nav ul li a:hover {
 }
 
 .input-submit2 {
-    width: 80%;
+    width: 400px;
     height: 50px;
     font-size: 29px;
     font-weight: bold;
@@ -357,11 +357,12 @@ nav ul li a:hover {
     box-shadow: 0px 4px 20px rgba(62, 9, 9, 0.145);
     cursor: pointer;
     transition: .4s;
+    margin-left: 90px;
 }
 
 .gender-option {
     display: flex;
-    column-gap: 70px;
+    column-gap: 10px;
 }
 
 .input-submit:hover {
@@ -494,9 +495,7 @@ form .category label .dot {
     border-color: #d9d9d9;
 }
 
-form input[type="radio"] {
-    display: none;
-}
+
 
 form .button {
     height: 45px;
@@ -584,57 +583,6 @@ form .button input:hover {
     column-gap: 15px;
 }
 
-.gender-box {
-    display: inline-flex;
-    margin-left: 230px;
-
-    margin-top: 20px;
-}
-
-.gender-box h3 {
-    color: #333;
-    font-size: 1rem;
-    font-weight: 400;
-    margin-bottom: 8px;
-}
-
-.form :where(.gender-option, .gender) {
-    display: flex;
-    align-items: center;
-    column-gap: 50px;
-    flex-wrap: wrap;
-}
-
-.form .gender {
-    column-gap: 5px;
-}
-
-.gender input {
-    accent-color: rgb(130, 106, 251);
-}
-
-.form :where(.gender input, .gender label) {
-    cursor: pointer;
-}
-
-.gender label {
-    color: #000000;
-    font-size: 30px;
-}
-
-.address :where(input, .select-box) {
-    margin-top: 15px;
-}
-
-.select-box select {
-    height: 100%;
-    width: 100%;
-    outline: none;
-    border: none;
-    color: #707070;
-    font-size: 1rem;
-}
-
 .form button {
     height: 55px;
     width: 100%;
@@ -652,13 +600,3 @@ form .button input:hover {
     background: rgb(88, 56, 250);
 }
 
-/*Responsive*/
-@media screen and (max-width: 500px) {
-    .form .column {
-        flex-wrap: wrap;
-    }
-
-    .form :where(.gender-option, .gender) {
-        row-gap: 15px;
-    }
-}
