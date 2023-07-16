@@ -65,17 +65,20 @@
             <!-----------------search----------------->
             <div class="searchbox1">
                 <div class="searchbox2" dir="rtl">
-                    <input type='text' placeholder="ابحث عن عامل " style="color: black;">
-                    <a href="#">
+                    <form action="/users/search" method="GET">
+
+                    <input type='text'name="search" placeholder="ابحث عن عامل " style="color: black;">
+                    <a href="#"onclick="event.preventDefault(); this.closest('form').submit();">
                         <i class="fa fa-magnifying-glass" style="font-size: 30px; color: rgb(38, 0, 255); "></i>
                     </a>
+                    </form>
                 </div>
             </div>
 
         </div>
         <!----------------navbar------------------->
         @include('shared.navbar')
-
+        
 
         <!---------------------start of crafts --------------->
         <section class="services section-padding" id="services">
@@ -837,6 +840,23 @@
             cardEl.classList.toggle('opened');
         })
     </script>
+    <script>
+        $(document).ready(function() {
+            $("#Inputsearch").on("keyup", function() {
+                    var value = $(this).val().toLowerCase();
+                    
+                    $('div[data-role="user"]').each(function() {
+                        var userName = $(this).find('h3').text().toLowerCase();
+                        if (userName.indexOf(value) > -1) {
+                            $(this).show();
+                        } else {
+                            $(this).hide();
+                        }
+                    });
+                });
+            });
+             
+            </script>
 
 
 </body>

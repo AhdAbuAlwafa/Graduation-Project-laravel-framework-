@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ar">
 
@@ -8,9 +9,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    <title> الرئيسيه</title>
+    <title> البحث</title>
     <link href="{{ asset('assets/css/search2.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/navbar.css') }}" rel="stylesheet">
+
 </head>
 
 <body>
