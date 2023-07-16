@@ -167,8 +167,9 @@
                                 <div class="craft-item">
                                     <label class="namecraftuser"> {{ $craft->craft_name }}</label>
                                     <a href="#" class="delete-craft" data-user="{{ $user->id }}"
-                                        data-craft="{{ $craft->id }}"><i class="fa-solid fa-trash-can"
+                                        data-craft="{{ $craft->id }}" name=""><i class="fa-solid fa-trash-can"
                                             style="color: #e23f08;"></i></a>
+                                           
 
                                 </div>
                             @endforeach
@@ -176,6 +177,7 @@
                             <br>
                             <button class="btn btn-danger" style="color:azure;"id="delete-all-crafts"
                                 data-user="{{ $user->id }}">حذف جميع المهن </button>
+
                             <br>
                             <br>
                         </div>
@@ -260,12 +262,22 @@
                 <option value="all">All Crafts</option>
                 @foreach ($crafts as $craft)
                     <option value="{{ $craft->id }}">{{ $craft->craft_name }}</option>
+                    @error('craft_name')
+                                        <div class="text-red-500 mt-2 text-sm">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                 @endforeach
             </select>
         </div>
         <div class="form-group">
             <label for="craft_description">Craft Description:</label>
             <textarea class="form-control" id="craft_description" name="craft_description"></textarea>
+            @error('craft_description')
+                                        <div class="text-red-500 mt-2 text-sm">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
         </div>
         <button type="submit" class="btn btn-primary">Save</button>
     </form>

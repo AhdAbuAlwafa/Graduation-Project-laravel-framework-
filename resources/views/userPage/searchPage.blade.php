@@ -19,15 +19,15 @@
         @include('shared.navbar')
     </div>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-        crossorigin="anonymous"></script>
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous">
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
-        integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
-        crossorigin="anonymous"></script>
-        <script>
+        integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous">
+    </script>
+    <script>
         $(document).ready(function() {
             $('#city_name_select').on('change', function() {
                 var selectedCity = $(this).val();
@@ -42,10 +42,13 @@
                         success: function(data) {
                             console.log(data);
                             // Clear the previous options
-                            $('#village_name_select').html('<option value="all">جميع القرى</option>');
+                            $('#village_name_select').html(
+                                '<option value="all">جميع القرى</option>');
                             // Append new options based on the received data
                             $.each(data, function(key, value) {
-                                $('#village_name_select').append('<option value="' + value + '">' + value + '</option>');
+                                $('#village_name_select').append('<option value="' +
+                                    value.id + '">' + value.village_name +
+                                    '</option>');
                             });
                         },
 
@@ -64,25 +67,29 @@
 
 
     <!-- Small button groups (default and split) -->
-    <form class="form-inline" style="justify-content: center; margin-right: -10px; margin-top: 200px;" method="GET" action="{{ route('userPage.getAllUser') }}">
+    <form class="form-inline" style="justify-content: center; margin-right: -10px; margin-top: 200px;" method="GET"
+        action="{{ route('userPage.getAllUser') }}">
         @csrf
 
         <div class="row" style="align-items: center; ">
             <div class="col">
                 <form class="form-inline my-2 my-lg-0" method="GET" action="{{ route('userPage.getAllUser') }}">
-                    <button type="submit" class="btn btn-lg btn-outline-primary" style="border-width: 0px; background-color: #004985; color: white; ">ابحث</button>
+                    <button type="submit" class="btn btn-lg btn-outline-primary"
+                        style="border-width: 0px; background-color: #004985; color: white; ">ابحث</button>
                 </form>
             </div>
 
 
             <div class="col">
                 <div class="btn-group">
-                    <select id="craft_name_select" name="craft_name" class="btn btn-secondary btn-lg dropdown-toggle" ata-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color:  #004883; margin-left: 100px;">
+                    <select id="craft_name_select" name="craft_name" class="btn btn-secondary btn-lg dropdown-toggle"
+                        ata-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                        style="background-color:  #004883; margin-left: 100px;">
                         <option value="all" {{ $selectedCraft == 'all' ? 'selected' : '' }}>جميع المهن</option>
                         @foreach ($crafts as $craft)
-                        <option value="{{ $craft->id }}" {{ $selectedCraft == $craft->id ? 'selected' : '' }}>
-                            {{ $craft->craft_name }}
-                        </option>
+                            <option value="{{ $craft->id }}" {{ $selectedCraft == $craft->id ? 'selected' : '' }}>
+                                {{ $craft->craft_name }}
+                            </option>
                         @endforeach
                     </select>
                 </div>
@@ -90,12 +97,14 @@
 
             <div class="col">
                 <div class="btn-group">
-                    <select id="city_name_select" name="city_name" class="btn btn-secondary btn-lg dropdown-toggle" ata-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color:  #004883; margin-left: 100px;">
+                    <select id="city_name_select" name="city_name" class="btn btn-secondary btn-lg dropdown-toggle"
+                        ata-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                        style="background-color:  #004883; margin-left: 100px;">
                         <option value="all">جميع المدن</option>
-                        @foreach($cities as $cityName)
-                        <option value="{{ $cityName }}">
-                            {{ $cityName }}
-                        </option>
+                        @foreach ($cities as $cityName)
+                            <option value="{{ $cityName }}">
+                                {{ $cityName }}
+                            </option>
                         @endforeach
                     </select>
                 </div>
@@ -106,7 +115,9 @@
 
             <div class="col">
                 <div class="btn-group">
-                    <select id="village_name_select" name="village_name" class="btn btn-secondary btn-lg dropdown-toggle" ata-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color:  #004883; margin-left: 100px;">
+                    <select id="village_name_select" name="village_name"
+                        class="btn btn-secondary btn-lg dropdown-toggle" ata-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false" style="background-color:  #004883; margin-left: 100px;">
                         <option value="all">جميع القرى</option>
                     </select>
                 </div>
@@ -118,77 +129,72 @@
 
 
     <section style="margin-top: 400px;" class="cardsection">
-        
-      @if($users->count() > 0)
 
-        <div class="card1">
-          <form method="GET" action="{{route('userPage.getAllUser')}}">
-            @csrf
-            <div class="row" style="align-items: center; margin-top: -400px; ;">
-              @foreach($users as $user)
+        @if ($users->count() > 0)
 
-                <div class="col">
-                    <div class="content">
-                        <div class=" card">
-                            <div class="card-content">
-                                <div class="image">
-                                    <img src="assets/img/search-pic.jpg" alt="" />
-                                </div>
+            <div class="card1">
+                <form method="GET" action="{{ route('userPage.getAllUser') }}">
+                    @csrf
+                    <div class="row" style="align-items: center; margin-top: -400px; ;">
+                        @foreach ($users as $user)
+                            <div class="col">
+                                <div class="content">
+                                    <div class=" card">
+                                        <div class="card-content">
+                                            <div class="image">
+                                                <img src="assets/img/search-pic.jpg" alt="" />
+                                            </div>
 
 
-                                <div class="name-profession">
-                                    <span class="name">{{ $user->fname }}</span>
-                                    <span class="profession"> @foreach($user->crafts as $craft)
-                                      {{ $craft->craft_name }} 
-                                      @endforeach</span>
-                                </div>
-                                <div class="place">
-                                    <span class="city">{{ $user->addresses->city_name }} </span>
-                                    <label>/</label>
-                                    <span class="village">  {{ $user->addresses->village_name }}</span>
-                                </div>
+                                            <div class="name-profession">
+                                                <span class="name">{{ $user->fname }}</span>
+                                                <span class="profession">
+                                                    @foreach ($user->crafts as $craft)
+                                                        {{ $craft->craft_name }}
+                                                    @endforeach
+                                                </span>
+                                            </div>
+                                            <div class="place">
+                                                <span class="city">{{ $user->addresses->city_name }} </span>
+                                                <label>/</label>
+                                                <span class="village"> {{ $user->addresses->village_name }}</span>
+                                            </div>
 
-                                <div class="center">
+                                            <div class="center">
 
-                                    <div class="stars">
-                                        <input type="radio" id="one" name="rate" value="1">
-                                        <label for="one"></label>
-                                        <span class="result"></span>
+                                                <div class="stars">
+                                                    <input type="radio" id="one" name="rate" value="1">
+                                                    <label for="one"></label>
+                                                    <span class="result"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="button">
+                                                <a href="{{ route('userPage.otherUserProfile') }}"
+                                                    class="btn btn-primary">انتقل لصفحة العامل </a>
+
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-
-                                <div class="button">
-                                  <a href="{{ route('userPage.otherUserProfile')}}"
-                                    class="btn btn-primary">انتقل لصفحة العامل </a>
-            
-                                </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                @endforeach
+                        @endforeach
 
-                
-          </div>
+
+                    </div>
 
             </div>
             {{ $users->links() }}
-
-            @else
+        @else
             <div class="col">
                 <div class="alert alert-danger" role="alert">
                     No workers
                 </div>
             </div>
-            @endif
-          </form>
+        @endif
+        </form>
         </div>
 
 
     </section>
 </body>
-
-
-
-
-

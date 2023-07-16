@@ -48,10 +48,18 @@ class AddvertisimentController extends Controller
     {
 
         $validated = $request->validate([
-            'work_hour'=> ($request->is_worker == 1) ? ['required']: '',
-            'adv_req'=> ($request->is_worker == 1) ? ['required','min:20','max:1500','string']: '',
-            //'job_des'=>['required','min:20','max:1500','string']
-        
+           // 'work_hour'=> ($request->is_worker == 1) ? ['required']: '',
+            //'adv_req'=> ($request->is_worker == 1) ? ['required','min:20','max:1500','string']: '',
+            'job_des'=>['required','min:20','max:1500','string'],
+             'job_name'=>['required','string'],
+             'adv_period'=>['required'],
+             'work_period'=>['required'],
+             'gender'=>['required'],
+             'village_name'=>['required'],
+             'city_name'=>['required'],
+
+
+
         ]);
         
         $advertisements = new Advertisement;
@@ -98,10 +106,8 @@ class AddvertisimentController extends Controller
     
         if ($user && $user->is_worker == 0) {
             $user->ads_count++;
-            $user->save();
         } elseif ($user && $user->is_worker == 1) {
             $user->ads_count++;
-            $user->save();
         }
     
         return redirect(route('home'));

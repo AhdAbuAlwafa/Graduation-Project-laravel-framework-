@@ -37,12 +37,17 @@
                       <option selected value="" selected Disabled>اختر مدة الاعلان</option>
                       <option value="1">يوم</option>
                       <option value="2">يومان</option>
-                      <option value="3">ثلاثة ايام</option>
-                      <option value="4">اربعة ايام</option>
-                      <option value="5">خمسة ايام</option>
-                      <option value="6">ستة ايام</option>
+                      <option value="3 ">ثلاثة ايام</option>
+                      <option value="4 ">اربعة ايام</option>
+                      <option value="5 ">خمسة ايام</option>
+                      <option value="6 ">ستة ايام</option>
                       <option value="7">سبعة ايام</option>
                     </select>
+                    @error('adv_period')
+                    <div class="text-red-500 mt-2 text-sm">
+                        {{ $message }}
+                    </div>
+                @enderror
                   
               </div>
               <div class="col">
@@ -54,7 +59,13 @@
                         <option value="{{$craft->craft_name}}">{{$craft->craft_name}}</option>
                         @endforeach
                       </select>
+                     
                       </div>
+                      @error('job_name')
+                      <div class="text-red-500 mt-2 text-sm">
+                          {{ $message }}
+                      </div>
+                  @enderror
               </div>
             </div>
             <div class="row"  dir="rtl">
@@ -64,7 +75,11 @@
                       <option   >اخترالقرية/البلدة</option>
                       
                     </select>
-                  
+                    @error('village_name')
+                    <div class="text-red-500 mt-2 text-sm">
+                        {{ $message }}
+                    </div>
+                @enderror
               </div>
               <div class="col">
                   <select class="form-control8 form-select mt-3" aria-label="Default select example" id="city_name_select" name="city_name" >
@@ -76,6 +91,11 @@
                       </option>
                   @endforeach
                     </select>
+                    @error('city_name')
+                    <div class="text-red-500 mt-2 text-sm">
+                        {{ $message }}
+                    </div>
+                @enderror
               </div>
             </div>
             <div class="row"dir="rtl">
@@ -96,7 +116,7 @@
             <div class="form-check form-check-inline">
               <label class="form-check-label" for="inlineRadio1">نهارية وليلية </label>
               <input class="form-check-input" type="radio" name="work_period" id="IR4" value="نهارية وليلية" >
-             
+              
             </div>
             <div class="form-check form-check-inline">
               <label class="form-check-label" for="inlineRadio1">ليلية </label>
@@ -171,7 +191,11 @@
                             <option value="6">ستة ايام</option>
                             <option value="7">سبعة ايام</option>
                           </select>
-                        
+                          @error('adv_period')
+                          <div class="text-red-500 mt-2 text-sm">
+                              {{ $message }}
+                          </div>
+                      @enderror
                     </div>
                     <div class="col">
                         <div class="select1">
@@ -183,6 +207,11 @@
                               @endforeach
                             </select>
                             </div>
+                            @error('job_name')
+                      <div class="text-red-500 mt-2 text-sm">
+                          {{ $message }}
+                      </div>
+                  @enderror
                     </div>
                   </div>
                   <div class="row"dir="rtl">
@@ -192,7 +221,11 @@
                         <option   >اخترالقرية/البلدة</option>
                         
                       </select>
-                        
+                      @error('village_name')
+                      <div class="text-red-500 mt-2 text-sm">
+                          {{ $message }}
+                      </div>
+                  @enderror
                     </div>
                     <div class="col">
                         <select class="form-control8 form-select mt-3" aria-label="Default select example"  id="city_name_select1" name="city_name">
@@ -204,6 +237,11 @@
                             </option>
                         @endforeach
                           </select>
+                          @error('city_name')
+                      <div class="text-red-500 mt-2 text-sm">
+                          {{ $message }}
+                      </div>
+                  @enderror
                     </div>
                   </div>
                   <div class="row"dir="rtl">
@@ -211,16 +249,20 @@
                         <select class="form-control8 form-select mt-3  justify-content-end" aria-label="Default select example" name="work_hour" >
           
                             <option selected >عدد ساعات العمل</option>
-                            <option value="1">8</option>
-                            <option value="2">4</option>
-                            <option value="3">5</option>
-                            <option value="4">10</option>
-                            <option value="5">14</option>
-                            <option value="6">12</option>
-                            <option value="7">6</option>
+                            <option value="8">8</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="14">14</option>
+                            <option value="12">12</option>
+                            <option value="6">6</option>
                           </select>
                       
-                        
+                          @error('work_hour')
+                          <div class="text-red-500 mt-2 text-sm">
+                              {{ $message }}
+                          </div>
+                      @enderror
                     </div>
                   </div>
                   <div class="row"dir="rtl">

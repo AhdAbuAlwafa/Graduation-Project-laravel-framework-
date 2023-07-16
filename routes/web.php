@@ -37,7 +37,7 @@ use Illuminate\Support\Facades\Auth;
 
 
 
-Route::get('/whoWE',[PublicController::class,'index'])->name('who-are-we');
+Route::get('/whoWE',[PublicController::class,'index'])->name('who-are-we')->middleware('auth');
 
 Route::get('/admin',[AdminController::class,'show'])->name('welcome')->middleware('auth');
 
@@ -48,13 +48,13 @@ Route::post('/addAdv/store',[AdvertisementController::class,'store'])->name('use
 Route::get('/address',[AddressController::class,'index'])->name('address');
 
 Route::prefix('/crafts')->group(function(){
-    Route::get('/list',[CrafttController::class,'index'])->name('crafts.list');
-    Route::get('/add',[CrafttController::class,'add'])->name('crafts.add');
-    Route::post('/add',[CrafttController::class,'store']);
-    Route::get('/edit/{id}', [CrafttController::class, 'edit'])->name('crafts.edit');
+    Route::get('/list',[CrafttController::class,'index'])->name('crafts.list')->middleware('auth');
+    Route::get('/add',[CrafttController::class,'add'])->name('crafts.add')->middleware('auth');
+    Route::post('/add',[CrafttController::class,'store'])->middleware('auth');
+    Route::get('/edit/{id}', [CrafttController::class, 'edit'])->name('crafts.edit')->middleware('auth');
 
-    Route::patch('/update', [CrafttController::class, 'update'])->name('crafts.update');
-    Route::post('/destroy',[CrafttController::class,'destroy'])->name('crafts.destroy'); });
+    Route::patch('/update', [CrafttController::class, 'update'])->name('crafts.update')->middleware('auth');
+    Route::post('/destroy',[CrafttController::class,'destroy'])->name('crafts.destroy')->middleware('auth'); });
 
    Route::get('/advertisiment2',[AdvertisementController2::class,'show'])->name('advertisiment2')->middleware('auth');
    Route::get('/advertisiment',[AddvertisimentController::class,'index'])->name('worker.advertisiment')->middleware('auth');
@@ -82,6 +82,7 @@ Route::prefix('/crafts')->group(function(){
    Route::get('/filter',[PublicController::class,'filterNav'])->name('userPage.mysearch');
    Route::get('/search/{profession?}', [PublicController::class, 'openCraft'])->name('userPage.getAllUser');
    Route::get('/users/search',[PublicController::class,'nameSearch'])->name('users.search');
+
    Route::get('/worker/{id}', [WorkerPageController::class, 'show'])->name('workerPage.showWorker');
 
    Route::get('/live-search',[PublicController::class,'liveSearch'])->name('userPage.liveSearch');

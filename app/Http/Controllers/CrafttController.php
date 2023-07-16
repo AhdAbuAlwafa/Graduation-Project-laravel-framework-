@@ -69,7 +69,9 @@ class CrafttController extends Controller
             $craft->update([
             
                 'craft_name' => $request->input('craft_name'),
-                $craft->image_path = $imgName,
+                'image_path' => $request->input('image_path'),
+
+               // $craft->image_path = $imgName,
                 
             ]);
 
