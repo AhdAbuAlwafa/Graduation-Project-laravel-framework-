@@ -701,6 +701,9 @@ button:hover {
     position: relative;
     color: #000000;
     font-size: 1.4em;
+    direction:rtl;
+    margin-right: 10px;
+    margin-left: 10px;
 }
 
 p.name {

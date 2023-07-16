@@ -118,7 +118,7 @@
             <div class="col-lg-2 col-md-12 col-12" style="margin-left: 100px; margin-top: 40px;">
                 <form class="form-inline my-2 my-lg-0">
                     <button type="button" class="btn btn-lg btn-outline-primary"
-                        style="border-width: 0px; background-color: #004985; color: white; ">اضف اعلان</button>
+                        style="box-shadow: 0 0 32px rgba(0, 0, 0, 0.5) ;border-radius: 20px; background-color: #a3c5d6; color: rgb(0, 0, 0); ">اضف اعلان</button>
                 </form>
             </div>
 
@@ -360,7 +360,7 @@
             <div class="col-lg-2 col-md-12 col-12" style="margin-left: 100px; margin-top: 40px;">
                 <form class="form-inline my-2 my-lg-0">
                     <button type="button" class="btn btn-lg btn-outline-primary"
-                        style="border-width: 0px; background-color: #004985; color: white; ">اضف اعلان</button>
+                        style="box-shadow: 0 0 32px rgba(0, 0, 0, 0.5) ;border-radius: 20px; background-color: #a3c5d6; color: rgb(0, 0, 0); ">اضف اعلان</button>
                 </form>
             </div>
 
