@@ -38,6 +38,17 @@ public function evaluations()
     return $this->hasMany(UserEvaluation::class, 'worker_id');
 }
 
+public function comments()
+{
+    return $this->hasMany(User_Comment::class, 'user_id');
+}
+
+public function receivedComments()
+{
+    return $this->hasMany(User_Comment::class, 'worker_id');
+}
+
+
 
     /**
      * The attributes that should be hidden for serialization.

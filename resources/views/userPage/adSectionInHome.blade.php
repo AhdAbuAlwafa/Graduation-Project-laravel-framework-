@@ -21,22 +21,6 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
-    <script>
-        $(document).ready(function() {
-            $("#Inputsearch").on("keyup", function() {
-                var value = $(this).val().toLowerCase();
-
-                $('div[data-role="user"]').each(function() {
-                    var userName = $(this).find('h3').text().toLowerCase();
-                    if (userName.indexOf(value) > -1) {
-                        $(this).show();
-                    } else {
-                        $(this).hide();
-                    }
-                });
-            });
-        });
-    </script>
 
     <!-----------------coursal------------------>
 
@@ -74,80 +58,28 @@
             <!-----------------search----------------->
             <div class="searchbox1">
                 <div class="searchbox2" dir="rtl">
-                    <form action="/users/search" method="GET">
-
-                    <input type='text'name="search" placeholder="ابحث عن عامل " style="color: black;">
-                    <a href="#"onclick="event.preventDefault(); this.closest('form').submit();">
+                    <input type='text' placeholder="ابحث عن عامل " style="color: black;">
+                    <a href="#">
                         <i class="fa fa-magnifying-glass" style="font-size: 30px; color: rgb(38, 0, 255); "></i>
                     </a>
-                    </form>
                 </div>
             </div>
 
         </div>
         <!----------------navbar------------------->
         @include('shared.navbar')
-        
 
-        <!---------------------start of crafts --------------->
-        <section class="services section-padding" id="services">
 
-            <div class="crafts">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="section-header text-center pb-5">
-                                <h2 style="font-size: 50px;">المهن</h2>
-                                <p style="font-size: 28px;">اختر المهنه لتتصفح قائمه امهر العمال</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @foreach ($crafts as $craft)
-                <div class="contener">
-                    <div class="img-contener">
-
-                        <img src="{{asset('/images/'.$craft->image_path)}}">
-                    </div>
-                    <br>
-                    <br>
-                    <div class="btn-contener">
-
-                        <a href="{{ route('userPage.getAllUser', ['profession' => $craft->id]) }}" class="btn btn-primary">{{ $craft->craft_name }} </a>
-
-                    </div>
-                </div>
-                @endforeach
-            </div>
-        </section>
-
-@if($user->is_worker ==1)
-
-        <!-----------------coursal for addv------------------------>
-        <div class="row" >
-
-            <div class="col-lg-2 col-md-12 col-12" style="margin-left: 100px; margin-top: 40px;">
-                <form class="form-inline my-2 my-lg-0">
-                    <button type="button" class="btn btn-lg btn-outline-primary"
-                        style="box-shadow: 0 0 32px rgba(0, 0, 0, 0.5) ;border-radius: 20px; background-color: #a3c5d6; color: rgb(0, 0, 0); ">اضف اعلان</button>
-                </form>
-            </div>
-
-            <div class="col-lg-2 col-md-12 col-12" style="margin-top: 40px;">
-                <form class="form-inline my-2 my-lg-0">
-                    <button type="button" class="btn btn-lg btn-outline-primary"
-                        style="box-shadow: 0 0 32px rgba(0, 0, 0, 0.5) ;border-radius: 20px; background-color: #a3c5d6; color: rgb(0, 0, 0); ">جميع الاعلانات</button>
-                </form>
-            </div>
-
-            <div class="col-lg-7 col-md-12 col-12">
+        <div class="row">
+            <div class="col-md-12">
                 <div class="section-header text-center pb-5">
                     <h2 style="font-size: 50px;">اعلانات العمال</h2>
                     <p style="font-size: 28px;">تصفح اعلانات العمال واحصل على فرص عمل اكثر</p>
                 </div>
             </div>
-
         </div>
+        <a href="{{ route('userPage.advertisements', ['advertisement_type' => 'workshops']) }}" class="btn btn-primary mt-3">Click to show all Workshop Ads</a>
+
         <section style="  position: relative;  
         height: 550px;
         align-items: center;">
@@ -157,15 +89,13 @@
                     <div class="swiper mySwiper container">
                         <div class="swiper-wrapper content">
 
-
-                        @foreach($workshopAds as $ad)
+                            @foreach($workshopAds as $ad)
                             <div class="swiper-slide">
                                 <div class="card">
                                     <section class="main">
-                                    <p class="name">{{ $ad->users->fname }} {{ $ad->users->lname }}</p>
+                                        <p class="name">{{ $ad->users->fname }} {{ $ad->users->lname }}</p>
                                         <p>{{ $ad->job_des }}</p>
                                         <p>{{ $ad->adv_req }}</p>
-
                                     </section>
 
                                     <section class="more">
@@ -188,7 +118,7 @@
                                             </a>
                                             <a class="addvdate">
                                                 <label for=""> تاريخ انتهاء الاعلان : </label>
-                                                <label for=""> {{ $ad->expires_at }}</label>
+                                                <label for="">{{ $ad->expires_at }}</label>
                                             </a>
                                         </div>
                                     </section>
@@ -205,8 +135,8 @@
                                     </section>
                                 </div>
                             </div>
-                            @endforeach
 
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -237,25 +167,10 @@
             });
         </script>
 
-@endif
+
         <!---------------second part of adv------------>
         <div class="row" style="margin-top: 200px;">
-
-            <div class="col-lg-2 col-md-12 col-12" style="margin-left: 100px; margin-top: 40px;">
-                <form class="form-inline my-2 my-lg-0">
-                    <button type="button" class="btn btn-lg btn-outline-primary"
-                        style="box-shadow: 0 0 32px rgba(0, 0, 0, 0.5) ;border-radius: 20px; background-color: #a3c5d6; color: rgb(0, 0, 0); ">اضف اعلان</button>
-                </form>
-            </div>
-
-            <div class="col-lg-2 col-md-12 col-12" style="margin-top: 40px;">
-                <form class="form-inline my-2 my-lg-0">
-                    <button type="button" class="btn btn-lg btn-outline-primary"
-                        style="box-shadow: 0 0 32px rgba(0, 0, 0, 0.5) ;border-radius: 20px; background-color: #a3c5d6; color: rgb(0, 0, 0); ">جميع الاعلانات</button>
-                </form>
-            </div>
-
-            <div class="col-lg-7 col-md-12 col-12">
+            <div class="col-md-12">
                 <div class="section-header text-center pb-5">
                     <h2 style="font-size: 50px;">اعلانات العمل الحر</h2>
                     <p style="font-size: 28px;">تصفح اعلانات العمل الحر واحصل على فرص عمل اكثر</p>
@@ -263,17 +178,16 @@
             </div>
         </div>
 
+        <a href="{{ route('userPage.advertisements', ['advertisement_type' => 'workAlone']) }}" class="btn btn-primary mt-3">Click to show all workAlone Ads</a>
         <section style="  position: relative;  
-        height: 450px; margin-bottom: 200px;
+        height: 450px;
         align-items: center; ">
 
             <div class="row">
                 <div class="col-md-12">
                     <div class="swiper mySwiper container">
                         <div class="swiper-wrapper content">
-
-
-                        @foreach($workAloneAds as $ad)
+                            @foreach($workAloneAds as $ad)
                             <div class="swiper-slide">
                                 <div class="card">
                                     <section class="main">
@@ -361,25 +275,6 @@
             cardEl.classList.toggle('opened');
         })
     </script>
-    <script>
-        $(document).ready(function() {
-            $("#Inputsearch").on("keyup", function() {
-                    var value = $(this).val().toLowerCase();
-                    
-                    $('div[data-role="user"]').each(function() {
-                        var userName = $(this).find('h3').text().toLowerCase();
-                        if (userName.indexOf(value) > -1) {
-                            $(this).show();
-                        } else {
-                            $(this).hide();
-                        }
-                    });
-                });
-            });
-             
-            </script>
-
-
 </body>
 
 </html>

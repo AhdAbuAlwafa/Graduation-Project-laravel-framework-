@@ -34,7 +34,10 @@ class HomeController extends Controller
     public function index()
     {  
         $crafts=Craft::get();
-        return view('home',compact('crafts'));
+        $user = Auth::user();
+        $workAloneAds = Advertisement::where('advertisement_type', 'workAlone')->limit(6)->get();
+        $workshopAds = Advertisement::where('advertisement_type', 'workshops')->limit(6)->get();
+        return view('home', compact( 'crafts','workAloneAds', 'workshopAds','user'));    
     }
 
 
@@ -57,6 +60,7 @@ class HomeController extends Controller
 
 
     }
+    
     public function openCraft(Request $request,$profession = null)
     {
         $selectedCraft = $request->input('craft_name', 'all');
