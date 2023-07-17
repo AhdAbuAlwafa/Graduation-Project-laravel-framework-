@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use App\Models\Advertisement;
 use App\Models\Craft;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,12 +21,12 @@ class AddvertisimentController extends Controller
     public function index()
     {
         
-       
+        $user = Auth::user();
         $addresses=Address::get();
         $crafts=Craft::get();
         $cities = Address::distinct()->pluck('city_name', 'city_name')->toArray();
 
-     return view('workerPage.advertisiment')->with('crafts',$crafts)->with('cities',$cities);
+     return view('workerPage.advertisiment')->with('crafts',$crafts)->with('cities',$cities)->with('user',$user);
        
     }
 
@@ -40,13 +41,18 @@ class AddvertisimentController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * {{ auth()->user()->id }}
-     */
+    public function adsInHome()
+    {
+    $user = Auth::user();
+     $workAloneAds = Advertisement::where('advertisement_type', 'workAlone')->limit(6)->get();
+     $workshopAds = Advertisement::where('advertisement_type', 'workshops')->limit(6)->get();
+     return view('home', compact( 'workAloneAds', 'workshopAds','user'));       
+ }
+  
+ 
     public function store(Request $request)
     {
-
+        $user = Auth::user();
         $validated = $request->validate([
            // 'work_hour'=> ($request->is_worker == 1) ? ['required']: '',
             //'adv_req'=> ($request->is_worker == 1) ? ['required','min:20','max:1500','string']: '',
@@ -61,33 +67,28 @@ class AddvertisimentController extends Controller
 
 
         ]);
-        
-        $advertisements = new Advertisement;
-        $advertisements->adv_req = $request->adv_req;
-        $advertisements->job_des = $request->job_des;
-        $advertisements-> job_name= $request->job_name;
-        $advertisements->work_hour=$request->work_hour ||null;
-        $advertisements->address_id= $request->village_name;
-
-        $advertisements->work_period=$request->work_period;
-        $advertisements->gender=$request->gender;
-        $advertisements->adv_period=$request->adv_period;
-        $advertisements->user_id=auth()->user()->id;
-
-        $advertisements->save();
          
-         return redirect(route('worker.advertisiment' ));
 
-        $user = Auth::user();
-    
-        $maxAdsCount = 5;
-        if ($user && $user->is_worker == 1 && $user->ads_count >= $maxAdsCount) {
-            // Worker has reached the maximum allowed ads
-            return response()->json(['message' => 'Worker, you have reached the maximum number of allowed ads']);
-        } elseif ($user && $user->is_worker == 0 && $user->ads_count >= $maxAdsCount) {
+        if ($request->input('advertisement_type') === 'workshops') {
+            $ads_type = 'workshops';
+        } else {
+            $ads_type = 'workAlone';
+        }
+
+        $currentMonthAdsCount = Advertisement::where('user_id', $user->id)
+        ->whereMonth('created_at', Carbon::now()->month)
+        ->count();
+
+        $maxDownloadsPerMonth = 5;
+        if ($user && $user->is_worker == 1 && $currentMonthAdsCount >= $maxDownloadsPerMonth) {
+            // User has reached the maximum allowed downloads for the current month
+            return response()->json(['message' => 'You have reached the maximum number of allowed downloads for this month']);
+        }elseif ($user && $user->is_worker == 0 && $currentMonthAdsCount >= $maxDownloadsPerMonth) {
             // Regular user has reached the maximum allowed ads
             return response()->json(['message' => 'User, you have reached the maximum number of allowed ads']);
         }
+    
+
     
         $advertisement = new Advertisement;
         $advertisement->adv_req = $request->adv_req;
@@ -101,7 +102,8 @@ class AddvertisimentController extends Controller
         $advertisement->user_id = auth()->user()->id;
         $advertisement->created_at = Carbon::now();
         $advertisement->expires_at = Carbon::now()->addDays($request->input('adv_period'));
-    
+        $advertisement->advertisement_type = $ads_type;
+        $advertisement->created_at = Carbon::now();
         $advertisement->save();
     
         if ($user && $user->is_worker == 0) {
@@ -110,58 +112,10 @@ class AddvertisimentController extends Controller
             $user->ads_count++;
         }
     
-        return redirect(route('home'));
+        return redirect(route('worker.advertisiment' ));
+
     }
-    
-    
      
-
-
-    // public function stor1e(Request $request)
-    // {
-
-    //     $user = Auth::user(); 
-
-    // $maxAdsCount = 5;
-    // if ($user && $user->is_worker == 0 && $user->ads_count >= $maxAdsCount) {
-    //     // Regular user has reached the maximum allowed ads
-    //     return redirect()->back()->with('message', ' User , You have reached the maximum number of allowed ads.');
-    // } elseif ($user && $user->is_worker == 1 && $user->ads_count >= $maxAdsCount) {
-    //     // Worker has reached the maximum allowed ads
-    //     return redirect()->back()->with('message', 'Worker , You have reached the maximum number of allowed ads.');
-    // }
-
-    // // Increment the ads_count field for the user or worker
-    // if ($user->is_worker == 0) {
-    //     $user->ads_count++;
-    //     $user->save();
-    // } elseif ($user->is_worker == 1) {
-    //     $user->ads_count++;
-    //     $user->save();
-    // }
-
-
-    //     $advertisements = new Advertisement;
-    //     $advertisements->adv_req = $request->adv_req;
-    //     $advertisements->job_des = $request->job_des || 'null';
-    //     $advertisements->job_name = $request->job_name;
-    //     $advertisements->work_hour = $request->work_hour || 'null';
-    //     $advertisements->address_id = $request->address_id || 'null';
-    //     $advertisements->work_period = $request->work_period;
-    //     $advertisements->gender = $request->gender;
-    //     $advertisements->adv_period = $request->adv_period;
-    //     $advertisements->user_id = auth()->user()->id;
-    //     $advertisements->created_at = Carbon::now();
-    //     $advertisements->expires_at = Carbon::now()->addDays($request->input('adv_period'));
-    
-        
-    //     // Save the advertisement
-    //     $advertisements->save();
-         
-    //     return redirect(route('workerPage.advertisiment'));
-    // }
-    
-
 
 
     /**
@@ -176,7 +130,8 @@ class AddvertisimentController extends Controller
         $selectedCraft = $request->input('craft_name');
         $selectedCity = $request->input('city_name');
         $selectedVillage = $request->input('village_name');
-    
+        $selectedType = $request->input('advertisement_type');
+
         $query = Advertisement::query();
     
         if ($selectedCraft && $selectedCraft !== 'all') {
@@ -195,6 +150,10 @@ class AddvertisimentController extends Controller
             });
         }
     
+        if ($selectedType && $selectedType !== 'all') {
+            $query->where('advertisement_type', $selectedType);
+        }
+
         $advertisements = $query->orderBy('created_at', 'desc')->paginate(12);
     
         return view('userPage.advertisementsPage', compact('advertisements', 'crafts', 'cities', 'villages', 'selectedCraft','selectedCity','selectedVillage'));

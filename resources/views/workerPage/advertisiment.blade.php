@@ -1,21 +1,30 @@
 @extends('userpage.navbar')
 
 @section('content')
-<div>
-    <a href="#" data-id="" class="btn btn-primary delete"
-    data-bs-toggle="modal" data-bs-target="#advertisiment-modal">إضافة اعلان عمل حر</a>
+
+<form id="advertisementForm">
+    @method('post')
+    {{ csrf_field() }}
 
 
+    @if (Auth::user()->is_worker == 1)
+    <div>
+      
+      <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#advertisiment-modal1" onclick="submitForm('workshops')">إضافة اعلان ورشات عمل</a>
 
-</div>
+    </div>
+    <div>
+     
+      <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#advertisiment-modal" onclick="submitForm('workAlone')">إضافة اعلان عمل حر</a>
 
-<div>
-    <a href="#" data-id="" class="btn btn-primary delete"
-    data-bs-toggle="modal" data-bs-target="#advertisiment-modal1">إضافة اعلان ورشات عمل </a>
+    </div>
+    @elseif(Auth::user()->is_worker == 0)
+    <div>
+    <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#advertisiment-modal" onclick="submitForm('workAlone')">إضافة اعلان عمل حر</a>
 
-
-
-</div>
+    </div>
+    @endif
+  </form>
 
 <div class="modal" tabindex="-1" id="advertisiment-modal" >
   <div class="modal-dialog">
@@ -25,10 +34,11 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body"  >
-        <form action="{{route('workerPage.store')}}" method="post" id="advertisementForm" >
+        <form action="{{route('workerPage.store')}}" method="post" id="advertisementFormSubmit" >
           
           @method('post')
           {{ csrf_field() }}
+          <input type="hidden" name="advertisement_type" value="workAlone">
 
           <div class="row"  dir="rtl">
               <div class="col">
@@ -71,8 +81,7 @@
             <div class="row"  dir="rtl">
               <div class="col">
                   <select class="form-control8 form-select mt-3 " aria-label="Default select example" id="village_name_select" name="village_name">
-
-                      <option   >اخترالقرية/البلدة</option>
+                      <option value="all" selected >اخترالقرية/البلدة</option>
                       
                     </select>
                     @error('village_name')
@@ -83,8 +92,7 @@
               </div>
               <div class="col">
                   <select class="form-control8 form-select mt-3" aria-label="Default select example" id="city_name_select" name="city_name" >
-
-                      <option  selected>اختر المدينة</option>
+                      <option value="all" selected>اختر المدينة</option>
                       @foreach($cities as $cityName)
                       <option value="{{ $cityName }}">
                           {{ $cityName }}
@@ -132,14 +140,12 @@
             </div>
             <div class="t-work">
               <div class="form-check form-check-inline" >
-
-                 <input class="form-check-input" type="radio" name="gender" id="IR1" value="ذكر">
+                 <input class="form-check-input" type="radio" name="gender" id="IR1" value="male">
                  <label class="form-check-label" for="inlineRadio1">ذكر</label>
                </div>
                <div class="form-check form-check-inline">
                  <label class="form-check-label" for="inlineRadio1">انثى </label>
-
-                 <input class="form-check-input" type="radio" name="gender" id="IR2" value="انثى" >
+                 <input class="form-check-input" type="radio" name="gender" id="IR2" value="female" >
                </div>
                <div class="form-check form-check-inline">
                   <label class="form-check-label" for="inlineRadio1">جنس المهني</label>
@@ -148,11 +154,10 @@
                  
               </div>
 
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">الغاء</button>
-                <button type="submit" class="btn btn-secondary" >انشر</button>
-  
-              </div>
+                    <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">الغاء</button>
+            <button type="submit" class="btn btn-secondary" >انشر</button>
+          </div>
         </form>
 
         <div id="messageModal" class="modal">
@@ -175,8 +180,11 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
             <div class="modal-body">
-              <form  action="{{route('workerPage.store')}}" method="post">
+              <form  action="{{route('workerPage.store')}}" method="post" id="advertisementFormSubmit">
                 @csrf
+
+                {{ csrf_field() }}
+                <input type="hidden" name="advertisement_type" value="workshops ">
 
                 <div class="row" dir="rtl">
                     <div class="col">
@@ -217,20 +225,15 @@
                   <div class="row"dir="rtl">
                     <div class="col">
 
-                      <select class="form-control8 form-select mt-3 " aria-label="Default select example" id="village_name_select1" name="village_name">
-                        <option   >اخترالقرية/البلدة</option>
+                        <select class="form-control8 form-select mt-3 " aria-label="Default select example" id="village_name_select1" name="village_name">
+                            <option value="all" selected>اخترالقرية/البلدة</option>
+                            
+                          </select>
                         
-                      </select>
-                      @error('village_name')
-                      <div class="text-red-500 mt-2 text-sm">
-                          {{ $message }}
-                      </div>
-                  @enderror
                     </div>
                     <div class="col">
                         <select class="form-control8 form-select mt-3" aria-label="Default select example"  id="city_name_select1" name="city_name">
-
-                            <option  selected>اختر المدينة</option>
+                            <option value="all" selected>اختر المدينة</option>
                             @foreach($cities as $cityName)
                             <option value="{{ $cityName }}">
                                 {{ $cityName }}
@@ -282,25 +285,7 @@
                       </div>
                       @enderror
                     </div>
-                  </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                  
+                  </div>                
 
                   <div class="form-check form-check-inline">
                     <label class="form-check-label" for="inlineRadio1">غير محدد </label>
@@ -326,14 +311,12 @@
                   </div>
                   <div class="t-work">
                     <div class="form-check form-check-inline">
-
-                       <input class="form-check-input" type="radio" name="gender" id="IR1" value="ذكر">
+                       <input class="form-check-input" type="radio" name="gender" id="IR1" value="male">
                        <label class="form-check-label" for="inlineRadio1">ذكر</label>
                      </div>
                      <div class="form-check form-check-inline">
                        <label class="form-check-label" for="inlineRadio1">انثى </label>
-
-                       <input class="form-check-input" type="radio" name="gender" id="IR2" value="انثى" >
+                       <input class="form-check-input" type="radio" name="gender" id="IR2" value="female" >
                      </div>
                      <div class="form-check form-check-inline">
                         <label class="form-check-label" for="inlineRadio1">جنس المهني</label>
@@ -347,9 +330,9 @@
                       
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">الغاء</button>
-                      <button type="submit" class="btn btn-secondary" >انشر</button>
-                    </div>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">الغاء</button>
+            <button type="submit" class="btn btn-secondary" >انشر</button>
+          </div>
               </form>
             </div>
            
@@ -359,4 +342,78 @@
     
 
 @endsection
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<script>
+  $(document).ready(function() {
+    $('#advertisementForm').submit(function(event) {
+      event.preventDefault(); 
+
+      var formData = $(this).serialize();
+
+      $.ajax({
+        type: 'POST',
+        url: '{{ route("workerPage.store") }}',
+        data: formData,
+        success: function(response) {
+         
+          $('#messageText').text(response.message);
+          $('#messageModal').modal('show');
+        },
+        error: function(xhr, status, error) {
+         
+          console.error(xhr.responseText);
+        }
+      });
+    });
+  });
+</script>
+
+<script>
+  function submitForm(advertisementType) {
+    $('input[name="advertisement_type"]').val(advertisementType);
+
+    $('#advertisementForm').submit();
+  }
+</script>
+
+<script>
+$(document).ready(function() {
+  $('#advertisementFormSubmit').submit(function(event) {
+    event.preventDefault(); 
+
+    var formData = $(this).serialize();
+
+    $.ajax({
+      type: 'POST',
+      url: '{{ route("workerPage.store") }}',
+      data: formData,
+      success: function(response) {
+        if (response.message) {
+          alert(response.message);
+        } else {
+          $('#advertisementForm')[0].reset();
+          // Display a success message
+          alert('Advertisement posted successfully!');
+        }
+      },
+      error: function(xhr, status, error) {
+        // Handle error response here
+        // Display the error message in the console for debugging
+        console.error(xhr.responseText);
+      }
+    });
+  });
+});
+
+</script>
 

@@ -33,7 +33,6 @@ class PublicController extends Controller
 
 
     }
-
     public function filterNav(Request $request)
     {
         $selectedCraft = $request->input('craft_name', 'all');
@@ -45,13 +44,14 @@ class PublicController extends Controller
         $village = $request->input('village_name');
     
         
-        $query = User::with('addresses')->with('crafts');
+        $query = User::where('is_worker', 1)->with('addresses')->with('crafts');
     
         // Apply filters based on craft, city, and village
         if ($village == $city && $city == $craft && $craft == 'all') {
             // No filters selected, retrieve all users
-            $query->orderBy( 'desc');
-        } else if ($craft != 'all') {
+        } 
+      
+        else if ($craft != 'all') {
             if ($village != 'all') {
                 // Filter by craft and village
                 $IDs = Address::select('id')->where('village_name', $village)->get();
@@ -84,15 +84,18 @@ class PublicController extends Controller
                 $IDs = Address::select('id')->where('city_name', $city)->get();
                 $query->whereIn('address_id', $IDs);
             }
+        
         }
+        
     
-        $users = $query->orderBy( 'desc')->paginate(12);
+        $users = $query->paginate(12);
     
         // Append the query parameters to the pagination links
         $users->appends($request->query());
     
         return view('userPage.searchPage', compact('users', 'crafts', 'cities', 'selectedCraft'));
     }
+
 
     public function openCraft(Request $request,$profession = null)
     {
@@ -102,7 +105,7 @@ class PublicController extends Controller
         $cities = Address::distinct()->pluck('city_name', 'city_name')->toArray();
         $villages = [];
     
-        $query = User::query ();
+        $query = User::query()->where('is_worker', 1);
     
         if ($selectedProfession != 'all') {
             $query->whereHas('crafts', function ($query) use ($selectedProfession) {
@@ -125,9 +128,12 @@ public function nameSearch(Request $request)
     $searchQuery = $request->input('search');
 
     // Perform the search query to retrieve matching users
-    $users = User::where('fname', 'LIKE', '%' . $searchQuery . '%')
-                 ->orWhere('lname', 'LIKE', '%' . $searchQuery . '%')
-                 ->paginate();
+    $users = User::where(function ($query) use ($searchQuery) {
+        $query->where('fname', 'LIKE', '%' . $searchQuery . '%')
+            ->orWhere('lname', 'LIKE', '%' . $searchQuery . '%');
+    })
+    ->where('is_worker', 1)
+    ->paginate();
 
     // Pass the list of matching users to the view
     return view('userPage.searchPage', compact('users', 'crafts', 'cities', 'selectedCraft'));

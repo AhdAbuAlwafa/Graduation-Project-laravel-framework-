@@ -30,6 +30,7 @@
     <option value="all">Select Village</option>
 </select>
 
+
     <button type="submit" class="btn btn-primary">Search</button>
 </form>
 
@@ -40,12 +41,12 @@
                 <div class="col-md-6 col-lg-4 mb-4">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">{{ $advertisement->job_name }}</h5>
+                        <h5 class="card-title">{{ $advertisement->job_name }}</h5>
                             <p class="card-text">{{ $advertisement->job_des }}</p>
-                            <p class="card-text">City: {{ $advertisement->addresses->city_name }}</p>
-                            <p class="card-text">Village: {{ $advertisement->addresses->village_name }}</p>
+                            <p class="card-text">City: {{ optional($advertisement->addresses)->city_name }}</p>
+                            <p class="card-text">village: {{ optional($advertisement->addresses)->village_name }}</p>
                             <p class="card-text">Work Hours: {{ $advertisement->work_hour }}</p>
-                            <!-- Add more details as needed -->
+                            <p class="card-text">advertisement_type: {{ $advertisement->advertisement_type }}</p>
                         </div>
                     </div>
                 </div>
