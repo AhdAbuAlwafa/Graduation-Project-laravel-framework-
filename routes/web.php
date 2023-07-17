@@ -60,10 +60,12 @@ Route::prefix('/crafts')->group(function(){
    Route::get('/advertisiment',[AddvertisimentController::class,'index'])->name('worker.advertisiment')->middleware('auth');
    Route::post('/advertisiment/store',[AddvertisimentController::class,'store'])->name('workerPage.store')->middleware('auth');
    Route::get('/showAdvertisements', [AddvertisimentController::class, 'show'])->name('userPage.advertisements');
-   
+   Route::get('/adSectionInHome', [AddvertisimentController::class, 'adsInHome'])->name('userPage.adsInHome');
+
    Route::get('/worker',[CommentController::class,'index'])->name('user_comment.addComment');
    Route::post('/worker/store',[CommentController::class,'store'])->name('user_comment.store');
    Route::post('/user/{id}/become-worker', [UserProfileController::class, 'becomeWorker'])->name('userPage.becomeWorker');
+   Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
 
         
    Route::get('/edit1/{id}',[CommentController::class,'edit'])->name('user_comment.editComment');
@@ -78,12 +80,12 @@ Route::prefix('/crafts')->group(function(){
    Route::post('/destroy',[ComentController::class,'destroy'])->name('user_comment.destroy');
 
    Route::get('/get-villages', [PublicController::class, 'getVillages'])->name('get-villages');
-   Route::get('/showWorker/{id}',[PublicController::class,'showWorker'])->name('userPage.showWorker');
+   Route::get('/otherUserProfile2/{id}',[WorkerPageController::class,'show'])->name('userPage.otherUserProfile2');
    Route::get('/filter',[PublicController::class,'filterNav'])->name('userPage.mysearch');
    Route::get('/search/{profession?}', [PublicController::class, 'openCraft'])->name('userPage.getAllUser');
-   Route::get('/users/search',[PublicController::class,'nameSearch'])->name('users.search');
 
    Route::get('/worker/{id}', [WorkerPageController::class, 'show'])->name('workerPage.showWorker');
+   Route::get('/users/search',[PublicController::class,'nameSearch'])->name('users.search');
 
    Route::get('/live-search',[PublicController::class,'liveSearch'])->name('userPage.liveSearch');
 
@@ -110,9 +112,6 @@ Route::prefix('/crafts')->group(function(){
 
   
 
-   Route::get('userprofile', [UserProfileController::class, 'show'])->name('userPage.userProfile')->middleware('auth');
-
-
    Route::get('userprofile',[UserProfileController::class, 'show'])->name('userPage.userProfile')->middleware('auth');
    Route::get('otheruserprofile',[OtherUserProfileController::class, 'show'])->name('userPage.otherUserProfile')->middleware('auth');
 
@@ -124,13 +123,6 @@ Route::prefix('/crafts')->group(function(){
    Route::post('/delete-craft', [UserProfileController::class, 'deleteCraft'])->name('craft.delete');
    Route::post('/delete-all-crafts', [UserProfileController::class, 'deleteAllCrafts'])->name('craft.deleteAll');
 
-
-
-
-
-
-   
-   
 
 
    Route::post('/delete-craft', [WorkeProfilerController::class, 'deleteCraft'])->name('craft.delete');
