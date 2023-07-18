@@ -27,7 +27,7 @@
             <!----------------navbar------------------->
             @include('shared.navbar')
         </div>
-
+      
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
@@ -243,43 +243,47 @@
         </script>
 
 <script>
-    $(document).ready(function() {
-        // Intercept the form submission event
-        $('#commentForm').submit(function(event) {
-            event.preventDefault(); // Prevent the form from submitting normally
+  $(document).ready(function() {
+    // Intercept the form submission event
+    $('#commentForm').submit(function(event) {
+        event.preventDefault(); // Prevent the form from submitting normally
 
-            // Get the form data
-            var formData = $(this).serialize();
+        // Get the form data
+        var formData = $(this).serialize();
 
-            // Send an AJAX request to submit the form
-            $.ajax({
-                type: 'POST',
-                url: $(this).attr('action'),
-                data: formData,
-                success: function(response) {
-                    // Clear the comment textarea
-                    $('#commentadd').val('');
+        // Send an AJAX request to submit the form
+        $.ajax({
+            type: 'POST',
+            url: $(this).attr('action'),
+            data: formData,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response) {
+                // Clear the comment textarea
+                $('#commentadd').val('');
 
-                    // Append the new comment HTML to the comments container
-                    var newComment = $(response.commentHtml);
-                    newComment.css('background-color', 'red');
-                    $('#commentsContainer').append(newComment);
+                // Append the new comment HTML to the comments container
+                var newComment = $(response.commentHtml);
+                newComment.css('background-color', 'red');
+                $('#commentsContainer').append(newComment);
 
-                    // Remove the background color after 3 seconds
-                    setTimeout(function() {
-                        newComment.css('background-color', 'transparent');
-                    }, 3000);
-                },
-                error: function(xhr, textStatus, errorThrown) {
-                    console.error(errorThrown);
-                }
-            });
-        });
-
-        // Handle the click event of the "نشر التعليق" button
-        $('#postCommentBtn').click(function() {
-            $('#commentForm').submit();
+                // Remove the background color after 3 seconds
+                setTimeout(function() {
+                    newComment.css('background-color', 'transparent');
+                }, 3000);
+            },
+            error: function(xhr, textStatus, errorThrown) {
+                console.error(errorThrown);
+            }
         });
     });
+
+    // Handle the click event of the "نشر التعليق" button
+    $('#postCommentBtn').click(function() {
+        $('#commentForm').submit();
+    });
+});
+
 </script>
 </body>
