@@ -296,10 +296,9 @@
                                     <div class="card-body">
                                         <h5 class="card-title"> المهنة:{{ $advertisement->job_name }}</h5>
                                         <p class="card-text">وصف المهنة:{{ $advertisement->job_des }}</p>
-                                        <p class="card-text">المدينة: {{ $advertisement->addresses->city_name }}</p>
-
+                                        <p class="card-text">المدينة: {{ $advertisement->city_name }}</p>
                                         <p class="card-text">القرية/البلدة:
-                                            {{ $advertisement->addresses->village_name }}</p>
+                                            {{ $advertisement->village_name }}</p>
                                         <p class="card-text">عدد ساعات العمل المطلوبة::
                                             {{ $advertisement->work_hour }}</p>
                                         <p class="card-text"> متطلبات العمل: {{ $advertisement->adv_req }}</p>
