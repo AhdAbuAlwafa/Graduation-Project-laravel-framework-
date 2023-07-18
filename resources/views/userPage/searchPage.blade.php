@@ -31,6 +31,7 @@
         integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous">
     </script>
 
+
     <script>
         $(document).ready(function() {
             $('#city_name_select').on('change', function() {
@@ -50,7 +51,7 @@
                             $('#village_name_select').html('<option value="all"> جميع القرى</option>');
                             // Append new options based on the received data
                             $.each(data, function(key, value) {
-                                $('#village_name_select').append('<option value="' + value.village_name + '">' + value.village_name + '</option>');
+                                $('#village_name_select').append('<option value="' + value.id + '">' + value.village_name + '</option>');
                             });
                         }, 
 
@@ -122,15 +123,6 @@
 
 
 
-            <div class="col">
-                <div class="btn-group">
-                    <select id="village_name_select" name="village_name"
-                        class="btn btn-secondary btn-lg dropdown-toggle" ata-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false" style="background-color:  #004883; margin-left: 100px;">
-                        <option value="all">جميع القرى</option>
-                    </select>
-                </div>
-            </div>
 
 
 
@@ -158,7 +150,7 @@
 
 
                                     <div class="name-profession">
-                                        <span class="name">{{ $user->fname }}</span>
+                                        <span class="name">{{ $user->fname }} {{ $user->lname }}</span>
                                         <span class="profession"> @foreach($user->crafts as $craft)
                                             {{ $craft->craft_name }}
                                             @endforeach</span>
@@ -180,7 +172,7 @@
                                     </div>
 
                                     <div class="button">
-                                        <a href="{{ route('userPage.otherUserProfile')}}" class="btn btn-primary">انتقل لصفحة العامل </a>
+                                    <a href="{{ route('userPage.otherUserProfile2', ['id' => $user->id]) }}" class="btn btn-primary"> انتقل الى صفحة المهني</a>
 
                                     </div>
                                 </div>
