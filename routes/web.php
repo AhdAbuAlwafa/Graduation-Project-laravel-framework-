@@ -57,16 +57,15 @@ Route::prefix('/crafts')->group(function(){
     Route::post('/destroy',[CrafttController::class,'destroy'])->name('crafts.destroy')->middleware('auth'); });
 
    Route::get('/advertisiment2',[AdvertisementController2::class,'show'])->name('advertisiment2')->middleware('auth');
-   Route::get('/advertisiment',[AddvertisimentController::class,'index'])->name('worker.advertisiment')->middleware('auth');
-   Route::post('/advertisiment/store',[AddvertisimentController::class,'store'])->name('workerPage.store')->middleware('auth');
+   Route::get('/advertisiment',[HomeController::class,'index'])->name('worker.advertisiment')->middleware('auth');
+   Route::post('/advertisiment/store',[HomeController::class,'store'])->name('workerPage.store')->middleware('auth');
    Route::get('/showAdvertisements', [AddvertisimentController::class, 'show'])->name('userPage.advertisements');
    Route::get('/adSectionInHome', [AddvertisimentController::class, 'adsInHome'])->name('userPage.adsInHome');
 
    Route::get('/worker',[CommentController::class,'index'])->name('user_comment.addComment');
-   Route::post('/worker/store',[CommentController::class,'store'])->name('user_comment.store');
+   Route::post('/worker/store/{id}',[CommentController::class,'store'])->name('user_comment.store');
    Route::post('/user/{id}/become-worker', [UserProfileController::class, 'becomeWorker'])->name('userPage.becomeWorker');
    Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
-
         
    Route::get('/edit1/{id}',[CommentController::class,'edit'])->name('user_comment.editComment');
 
