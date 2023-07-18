@@ -6,7 +6,7 @@
                              border: 4px solid #fff;">
                                             <div class="d-flex flex-column justify-content-start ml-2" style="font-size: 21px; padding-left: 20px;">
 
-                                                <span class="d-block font-weight-bold name">{{ $comment->fname }} {{ $comment->name }}</span>
+                                                <span class="d-block font-weight-bold name">{{ $comment->user->fname }} {{ $comment->user->lname }}</span>
                                                 <span class="date text-black-50">{{ $comment->created_at }}</span>
                                             </div>
                                         </div>
