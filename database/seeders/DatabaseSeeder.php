@@ -62,10 +62,25 @@ class DatabaseSeeder extends Seeder
         //     'password' => Hash::make('9876')
         // ]);
 
+        // \App\Models\User::factory()->create([
+        //     'fname' => 'malaak',
+        //     'lname' => 'melhem',
+        //     'number' => 1209,
+        //     'image' =>'',
+        //     'description'=> '',
+        //     'num_evl'=> 0,
+        //     'all_evl'=> 0,
+        //     'gender'=> 0,
+        //     'is_worker'=> 1,
+        //     'is_active'=> 0,
+        //     'address_id'=> $addresses->id, 
+        //     'password' => Hash::make('1209')
+        // ]);
+        
         \App\Models\User::factory()->create([
-            'fname' => 'malaak',
-            'lname' => 'melhem',
-            'number' => 1209,
+            'fname' => 'leena',
+            'lname' => 'kasem',
+            'number' => 123456,
             'image' =>'',
             'description'=> '',
             'num_evl'=> 0,
@@ -74,7 +89,7 @@ class DatabaseSeeder extends Seeder
             'is_worker'=> 1,
             'is_active'=> 0,
             'address_id'=> $addresses->id, 
-            'password' => Hash::make('1209')
+            'password' => Hash::make('123456')
         ]);
     }
 }
