@@ -13,27 +13,136 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
     <!-- ===== Link Swiper's CSS for carousal ===== -->
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </head>
 
 <body>
     <!-------bootstrap-->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
+    <!-- Keep only one instance of jQuery, load it before your custom script -->
+    <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl-js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/js/all.min.js" integrity="sha512-DWllpPHujNak1yadQKk5tN6+m4fASERcBr1JPB1b3a+w4YNfLInR39q6Q8TnZtULPST/dFw2H9ktWZddg18hg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
+
     <script>
         $(document).ready(function() {
-            $("#Inputsearch").on("keyup", function() {
-                var value = $(this).val().toLowerCase();
+            $('#advertisementFormSubmit').submit(function(event) {
+                event.preventDefault();
 
-                $('div[data-role="user"]').each(function() {
-                    var userName = $(this).find('h3').text().toLowerCase();
-                    if (userName.indexOf(value) > -1) {
-                        $(this).show();
-                    } else {
-                        $(this).hide();
+                var formData = $(this).serialize();
+
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ route("workerPage.store") }}',
+                    data: formData,
+                    success: function(response) {
+                        if (response.message) {
+                            alert(response.message);
+                        } else {
+                            $('#advertisementForm')[0].reset();
+                                                           alert('Advertisement posted successfully!');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+
+                        console.error(xhr.responseText);
                     }
                 });
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#advertisementFormSubmit2').submit(function(event) {
+                event.preventDefault();
+
+                var formData = $(this).serialize();
+
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ route("workerPage.store") }}',
+                    data: formData,
+                    success: function(response) {
+                        if (response.message) {
+                            alert(response.message);
+                        } else {
+                            $('#advertisementForm')[0].reset();
+                                                       alert('Advertisement posted successfully!');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+
+                        console.error(xhr.responseText);
+                    }
+                });
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#city_name_select1').on('change', function() {
+                var selectedCity = $(this).val();
+                if (selectedCity) {
+                    // Send an Ajax request to get the villages based on the selected city
+                    $.ajax({
+                        url: "{{ route('get-villages') }}",
+                        type: "GET",
+                        data: {
+                            city_name: selectedCity
+                        },
+                        success: function(data) {
+                            console.log(data);
+                            // Clear the previous options
+
+                            $('#village_name_select1').html('<option value="all"> جميع القرى</option>');
+                            // Append new options based on the received data
+                            $.each(data, function(key, value) {
+                                $('#village_name_select1').append('<option value="' + value.id + '">' + value.village_name + '</option>');
+                            });
+                        },
+
+                    });
+                } else {
+                    // If no city is selected, clear the villages dropdown
+                    $('#village_name_select1').html('<option value="all">جميع القرى </option>');
+                }
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#city_name_select').on('change', function() {
+                var selectedCity = $(this).val();
+                if (selectedCity) {
+                    // Send an Ajax request to get the villages based on the selected city
+                    $.ajax({
+                        url: "{{ route('get-villages') }}",
+                        type: "GET",
+                        data: {
+                            city_name: selectedCity
+                        },
+                        success: function(data) {
+                            console.log(data);
+                            // Clear the previous options
+                            $('#village_name_select').html('<option value="all">جميع القرى </option>');
+                            // Append new options based on the received data
+                            $.each(data, function(key, value) {
+
+                                $('#village_name_select').append('<option value="' + value.id + '">' + value.village_name + '</option>');
+                            });
+                        },
+
+                    });
+                } else {
+                    // If no city is selected, clear the villages dropdown
+                    $('#village_name_select').html('<option value="all">جميع القرى </option>');
+                }
             });
         });
     </script>
@@ -75,11 +184,10 @@
             <div class="searchbox1">
                 <div class="searchbox2" dir="rtl">
                     <form action="/users/search" method="GET">
-
-                    <input type='text'name="search" placeholder="ابحث عن عامل " style="color: black;">
-                    <a href="#"onclick="event.preventDefault(); this.closest('form').submit();">
-                        <i class="fa fa-magnifying-glass" style="font-size: 30px; color: rgb(38, 0, 255); "></i>
-                    </a>
+                        <input type="text" name="search" placeholder="ابحث عن عامل" style="color: black;">
+                        <a href="#" onclick="event.preventDefault(); this.closest('form').submit();">
+                            <i class="fa fa-search" style="font-size: 30px; color: rgb(38, 0, 255);"></i>
+                        </a>
                     </form>
                 </div>
             </div>
@@ -87,7 +195,7 @@
         </div>
         <!----------------navbar------------------->
         @include('shared.navbar')
-        
+
 
         <!---------------------start of crafts --------------->
         <section class="services section-padding" id="services">
@@ -121,24 +229,194 @@
             </div>
         </section>
 
-@if($user->is_worker ==1)
+        @if($user->is_worker ==1)
 
         <!-----------------coursal for addv------------------------>
-        <div class="row" >
+        <div class="row">
 
             <div class="col-lg-2 col-md-12 col-12" style="margin-left: 100px; margin-top: 40px;">
                 <form class="form-inline my-2 my-lg-0">
-                    <button type="button" class="btn btn-lg btn-outline-primary"
-                        style="box-shadow: 0 0 32px rgba(0, 0, 0, 0.5) ;border-radius: 20px; background-color: #a3c5d6; color: rgb(0, 0, 0); ">اضف اعلان</button>
+                    <a href="{{ route('advertisiment2', ['advertisement_type' => 'workshops']) }}" class="btn btn-lg btn-outline-primary" style="box-shadow: 0 0 32px rgba(0, 0, 0, 0.5) ;border-radius: 20px; background-color: #a3c5d6; color: rgb(0, 0, 0); "> جميع الاعلانات</a>
                 </form>
             </div>
 
+
             <div class="col-lg-2 col-md-12 col-12" style="margin-top: 40px;">
-                <form class="form-inline my-2 my-lg-0">
-                    <button type="button" class="btn btn-lg btn-outline-primary"
-                        style="box-shadow: 0 0 32px rgba(0, 0, 0, 0.5) ;border-radius: 20px; background-color: #a3c5d6; color: rgb(0, 0, 0); ">جميع الاعلانات</button>
+                <form class="form-inline my-2 my-lg-0" id="advertisementForm">
+                    @method('post')
+                    {{ csrf_field() }}
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#advertisiment-modal1" onclick="submitForm('workshops')" class="btn btn-lg btn-outline-primary" style="box-shadow: 0 0 32px rgba(0, 0, 0, 0.5) ;border-radius: 20px; background-color: #a3c5d6; color: rgb(0, 0, 0); "> اضف اعلان</a>
                 </form>
             </div>
+
+            <div class="modal" tabindex="-1" id="advertisiment-modal1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">إضافة اعلان ورشات عمل </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{route('workerPage.store')}}" method="post" id="advertisementFormSubmit">
+                                @csrf
+
+                                {{ csrf_field() }}
+                                <input type="hidden" name="advertisement_type" value="workshops ">
+
+                                <div class="row" dir="rtl">
+                                    <div class="col">
+                                        <select class="form-control8 form-select mt-3  justify-content-end" aria-label="Default select example" name="adv_period">
+
+                                            <option selected>اختر مدة الاعلان</option>
+                                            <option value="1">يوم</option>
+                                            <option value="2">يومان</option>
+                                            <option value="3">ثلاثة ايام</option>
+                                            <option value="4">اربعة ايام</option>
+                                            <option value="5">خمسة ايام</option>
+                                            <option value="6">ستة ايام</option>
+                                            <option value="7">سبعة ايام</option>
+                                        </select>
+                                        @error('adv_period')
+                                        <div class="text-red-500 mt-2 text-sm">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+                                    <div class="col">
+                                        <div class="select1">
+
+                                            <select class="form-control8 form-select mt-3" aria-label="Default select example" name="job_name">
+                                                <option selected>اختر المهنة المطلوبة</option>
+                                                @foreach($crafts as $craft)
+                                                <option value="{{$craft->craft_name}}">{{$craft->craft_name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        @error('job_name')
+                                        <div class="text-red-500 mt-2 text-sm">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="row" dir="rtl">
+                                    <div class="col">
+
+                                        <select class="form-control8 form-select mt-3 " aria-label="Default select example" id="village_name_select" name="village_name">
+                                            <option value="all" selected>اخترالقرية/البلدة</option>
+
+                                        </select>
+
+                                    </div>
+                                    <div class="col">
+                                        <select class="form-control8 form-select mt-3" aria-label="Default select example" id="city_name_select" name="city_name">
+                                            <option value="all" selected>اختر المدينة</option>
+                                            @foreach($cities as $cityName)
+                                            <option value="{{ $cityName }}">
+                                                {{ $cityName }}
+                                            </option>
+                                            @endforeach
+                                        </select>
+                                        @error('city_name')
+                                        <div class="text-red-500 mt-2 text-sm">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="row" dir="rtl">
+                                    <div class="col">
+                                        <select class="form-control8 form-select mt-3  justify-content-end" aria-label="Default select example" name="work_hour">
+
+                                            <option selected>عدد ساعات العمل</option>
+                                            <option value="8">8</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="10">10</option>
+                                            <option value="14">14</option>
+                                            <option value="12">12</option>
+                                            <option value="6">6</option>
+                                        </select>
+
+                                        @error('work_hour')
+                                        <div class="text-red-500 mt-2 text-sm">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="row" dir="rtl">
+                                    <div class="col">
+                                        <textarea class="form-control8" id="IP" cols="45" rows="2" name="job_des" placeholder="وصف الوظيفة"></textarea>
+                                        @error('job_des')
+                                        <div class="text-red-500 mt-2 text-sm">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+                                    <div class="col">
+                                        <textarea class="form-control8" id="IP" cols="45" rows="2" name="adv_req" placeholder="متطلبات الوظيفة"></textarea>
+                                        @error('adv_req')
+                                        <div class="text-red-500 mt-2 text-sm">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label" for="inlineRadio1">غير محدد </label>
+                                    <input class="form-check-input" type="radio" name="work_period" id="IR3" value="غير محدد">
+
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label" for="inlineRadio1">نهارية وليلية </label>
+                                    <input class="form-check-input" type="radio" name="work_period" id="IR4" value="نهارية وليلية">
+
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label" for="inlineRadio1">ليلية </label>
+                                    <input class="form-check-input" type="radio" name="work_period" id="IR5" value="ليلية">
+
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label" for="inlineRadio1">نهارية </label>
+                                    <input class="form-check-input" type="radio" name="work_period" id="IR6" value="نهارية">
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label" for="inlineRadio1">الفتره</label>
+                                </div>
+                                <div class="t-work">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="gender" id="IR1" value="male">
+                                        <label class="form-check-label" for="inlineRadio1">ذكر</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <label class="form-check-label" for="inlineRadio1">انثى </label>
+                                        <input class="form-check-input" type="radio" name="gender" id="IR2" value="female">
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <label class="form-check-label" for="inlineRadio1">جنس المهني</label>
+
+                                    </div>
+
+
+
+
+
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">الغاء</button>
+                                    <button type="submit" class="btn btn-secondary">انشر</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
 
             <div class="col-lg-7 col-md-12 col-12">
                 <div class="section-header text-center pb-5">
@@ -158,11 +436,11 @@
                         <div class="swiper-wrapper content">
 
 
-                        @foreach($workshopAds as $ad)
+                            @foreach($workshopAds as $ad)
                             <div class="swiper-slide">
                                 <div class="card">
                                     <section class="main">
-                                    <p class="name">{{ $ad->users->fname }} {{ $ad->users->lname }}</p>
+                                        <p class="name">{{ $ad->users->fname }} {{ $ad->users->lname }}</p>
                                         <p>{{ $ad->job_des }}</p>
                                         <p>{{ $ad->adv_req }}</p>
 
@@ -237,22 +515,169 @@
             });
         </script>
 
-@endif
+        @endif
         <!---------------second part of adv------------>
         <div class="row" style="margin-top: 200px;">
 
+
             <div class="col-lg-2 col-md-12 col-12" style="margin-left: 100px; margin-top: 40px;">
-                <form class="form-inline my-2 my-lg-0">
-                    <button type="button" class="btn btn-lg btn-outline-primary"
-                        style="box-shadow: 0 0 32px rgba(0, 0, 0, 0.5) ;border-radius: 20px; background-color: #a3c5d6; color: rgb(0, 0, 0); ">اضف اعلان</button>
+                <form class="form-inline my-2 my-lg-0" id="advertisementForm">
+                    @method('post')
+                    {{ csrf_field() }}
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#advertisiment-modal" onclick="submitForm('workAlone')" class="btn btn-lg btn-outline-primary" style="box-shadow: 0 0 32px rgba(0, 0, 0, 0.5) ;border-radius: 20px; background-color: #a3c5d6; color: rgb(0, 0, 0); ">اضف اعلان</a>
                 </form>
             </div>
 
+
             <div class="col-lg-2 col-md-12 col-12" style="margin-top: 40px;">
                 <form class="form-inline my-2 my-lg-0">
-                    <button type="button" class="btn btn-lg btn-outline-primary"
-                        style="box-shadow: 0 0 32px rgba(0, 0, 0, 0.5) ;border-radius: 20px; background-color: #a3c5d6; color: rgb(0, 0, 0); ">جميع الاعلانات</button>
+                    <a href="{{ route('advertisiment2', ['advertisement_type' => 'workAlone']) }}" class="btn btn-lg btn-outline-primary" style="box-shadow: 0 0 32px rgba(0, 0, 0, 0.5) ;border-radius: 20px; background-color: #a3c5d6; color: rgb(0, 0, 0); ">جميع الاعلانات</a>
                 </form>
+            </div>
+            <div class="modal" tabindex="-1" id="advertisiment-modal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">إضافة اعلان عمل حر</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{route('workerPage.store')}}" method="post" id="advertisementFormSubmit2">
+
+                                @method('post')
+                                {{ csrf_field() }}
+                                <input type="hidden" name="advertisement_type" value="workAlone">
+
+                                <div class="row" dir="rtl">
+                                    <div class="col">
+                                        <select class="form-control8 form-select mt-3  justify-content-end" aria-label="Default select example" name="adv_period">
+
+                                            <option selected value="" selected Disabled>اختر مدة الاعلان</option>
+                                            <option value="1">يوم</option>
+                                            <option value="2">يومان</option>
+                                            <option value="3 ">ثلاثة ايام</option>
+                                            <option value="4 ">اربعة ايام</option>
+                                            <option value="5 ">خمسة ايام</option>
+                                            <option value="6 ">ستة ايام</option>
+                                            <option value="7">سبعة ايام</option>
+                                        </select>
+                                        @error('adv_period')
+                                        <div class="text-red-500 mt-2 text-sm">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+
+                                    </div>
+                                    <div class="col">
+                                        <div class="select1">
+
+                                            <select class="form-control8 form-select mt-3" aria-label="Default select example" name="job_name">
+                                                <option selected>اختر المهنة المطلوبة</option>
+                                                @foreach($crafts as $craft)
+                                                <option value="{{$craft->craft_name}}">{{$craft->craft_name}}</option>
+                                                @endforeach
+                                            </select>
+
+                                        </div>
+                                        @error('job_name')
+                                        <div class="text-red-500 mt-2 text-sm">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="row" dir="rtl">
+                                    <div class="col">
+                                        <select class="form-control8 form-select mt-3 " aria-label="Default select example" id="village_name_select1" name="village_name">
+                                            <option value="all" selected>اخترالقرية/البلدة</option>
+
+                                        </select>
+                                        @error('village_name')
+                                        <div class="text-red-500 mt-2 text-sm">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+                                    <div class="col">
+                                        <select class="form-control8 form-select mt-3" aria-label="Default select example" id="city_name_select1" name="city_name">
+                                            <option value="all" selected>اختر المدينة</option>
+                                            @foreach($cities as $cityName)
+                                            <option value="{{ $cityName }}">
+                                                {{ $cityName }}
+                                            </option>
+                                            @endforeach
+                                        </select>
+                                        @error('city_name')
+                                        <div class="text-red-500 mt-2 text-sm">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="row" dir="rtl">
+                                    <div class="col">
+                                        <textarea class="form-control8" id="IP" cols="45" rows="2" name="job_des" placeholder="وصف الوظيفة"></textarea>
+                                        @error('job_des')
+                                        <div class="text-red-500 mt-2 text-sm">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label" for="inlineRadio1">غير محدد </label>
+                                    <input class="form-check-input" type="radio" name="work_period" id="IR3" value="غير محدد">
+
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label" for="inlineRadio1">نهارية وليلية </label>
+                                    <input class="form-check-input" type="radio" name="work_period" id="IR4" value="نهارية وليلية">
+
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label" for="inlineRadio1">ليلية </label>
+                                    <input class="form-check-input" type="radio" name="work_period" id="IR5" value="ليلية">
+
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label" for="inlineRadio1">نهارية </label>
+                                    <input class="form-check-input" type="radio" name="work_period" id="IR6" value="نهارية">
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label" for="inlineRadio1">الفتره</label>
+                                </div>
+                                <div class="t-work">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="gender" id="IR1" value="male">
+                                        <label class="form-check-label" for="inlineRadio1">ذكر</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <label class="form-check-label" for="inlineRadio1">انثى </label>
+                                        <input class="form-check-input" type="radio" name="gender" id="IR2" value="female">
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <label class="form-check-label" for="inlineRadio1">جنس المهني</label>
+                                    </div>
+
+
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">الغاء</button>
+                                    <button type="submit" class="btn btn-secondary">انشر</button>
+                                </div>
+                            </form>
+
+                            <div id="messageModal" class="modal">
+                                <div class="modal-content">
+                                    <span class="close">&times;</span>
+                                    <p id="messageText"></p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
             </div>
 
             <div class="col-lg-7 col-md-12 col-12">
@@ -273,11 +698,11 @@
                         <div class="swiper-wrapper content">
 
 
-                        @foreach($workAloneAds as $ad)
+                            @foreach($workAloneAds as $ad)
                             <div class="swiper-slide">
                                 <div class="card">
                                     <section class="main">
-                                    <p class="name">{{ $ad->users->fname }} {{ $ad->users->lname }}</p>
+                                        <p class="name">{{ $ad->users->fname }} {{ $ad->users->lname }}</p>
                                         <p>{{ $ad->job_des }}</p>
                                         <p>{{ $ad->adv_req }}</p>
 
@@ -332,7 +757,58 @@
 
         </section>
         <!-- Swiper JS -->
-        <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+        <script>
+            $(document).ready(function() {
+                $("input[name='search']").on("keyup", function() {
+                    var value = $(this).val().toLowerCase();
+
+                    $('div[data-role="user"]').each(function() {
+                        var userName = $(this).find('.name').text().toLowerCase();
+                        if (userName.indexOf(value) > -1) {
+                            $(this).show();
+                        } else {
+                            $(this).hide();
+                        }
+                    });
+                });
+            });
+        </script>
+
+        <script>
+            $(document).ready(function() {
+                $('#advertisementForm').submit(function(event) {
+                    event.preventDefault();
+
+                    var formData = $(this).serialize();
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '{{ route("workerPage.store") }}',
+                        data: formData,
+                        success: function(response) {
+
+                            $('#messageText').text(response.message);
+                            $('#messageModal').modal('show');
+                        },
+                        error: function(xhr, status, error) {
+
+                            console.error(xhr.responseText);
+                        }
+                    });
+                });
+            });
+        </script>
+
+        <script>
+            function submitForm(advertisementType) {
+                $('input[name="advertisement_type"]').val(advertisementType);
+
+                $('#advertisementForm').submit();
+            }
+        </script>
+
+
         <!-- Initialize Swiper -->
         <script>
             var swiper = new Swiper(".mySwiper", {
@@ -364,21 +840,19 @@
     <script>
         $(document).ready(function() {
             $("#Inputsearch").on("keyup", function() {
-                    var value = $(this).val().toLowerCase();
-                    
-                    $('div[data-role="user"]').each(function() {
-                        var userName = $(this).find('h3').text().toLowerCase();
-                        if (userName.indexOf(value) > -1) {
-                            $(this).show();
-                        } else {
-                            $(this).hide();
-                        }
-                    });
+                var value = $(this).val().toLowerCase();
+
+                $('div[data-role="user"]').each(function() {
+                    var userName = $(this).find('h3').text().toLowerCase();
+                    if (userName.indexOf(value) > -1) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
                 });
             });
-             
-            </script>
-
+        });
+    </script>
 
 </body>
 
