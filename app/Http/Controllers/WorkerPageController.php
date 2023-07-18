@@ -25,7 +25,7 @@ class WorkerPageController extends Controller
     
 
 
-        return view('workerPage.showWorker', compact('worker','userRate','isRated','receivedComments','user'));
+        return view('userPage.otherUserProfile2', compact('worker','userRate','isRated','receivedComments','user'));
     }
 
     public function rate(Request $request ){
