@@ -92,10 +92,10 @@
 						<a class="nav-link" style="color: rgb(0, 0, 0);" href='{{ route('userPage.userProfile') }}'>حسابي</a>
 					</li>
                         <li class="nav-item">
-                            <a class="nav-link"style="color: rgb(0, 0, 0);" href='{{ route('userPage.getAllUser') }}''>المهنيين</a>
+                            <a class="nav-link"style="color: rgb(0, 0, 0);" href='{{ route('userPage.getAllUser') }}'>المهنيين</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" style="color: rgb(0, 0, 0);" href='#'>اعلانات العمل</a>
+                            <a class="nav-link" style="color: rgb(0, 0, 0);" href='{{ route('advertisiment2') }}'>اعلانات العمل</a>
                         </li>
                         <li class="nav-item" >
                             <a class="nav-link" style="color: rgb(0, 0, 0);" href='/'>الرئيسية</a>
