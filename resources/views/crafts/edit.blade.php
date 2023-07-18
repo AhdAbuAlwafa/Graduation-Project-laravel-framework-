@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
 
-        <form action="{{ route('crafts.update', $craft->id) }}" method="POST" enctype="multipart/form-data">
+        <form action="/crafts/update/{{ $craft->id }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PATCH')
 
@@ -18,7 +18,7 @@
                     </div>
                 @enderror
             </div>
-          
+            
             <div class="mb-3">
                 <label for="formGroupExampleInput" class="form-label"> New screenshot of project</label>
                 
