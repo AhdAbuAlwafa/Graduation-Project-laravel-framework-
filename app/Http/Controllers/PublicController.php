@@ -40,7 +40,7 @@ class PublicController extends Controller
             });
         }
 
-        $users = $query->orderBy('all_evl', 'desc')->paginate(12);
+        $users = $query->paginate(12);
 
         return view('userPage.searchPage', compact('users', 'cities', 'villages', 'crafts', 'selectedProfession', 'selectedCraft'));
     }

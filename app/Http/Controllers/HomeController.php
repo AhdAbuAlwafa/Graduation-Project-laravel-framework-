@@ -71,7 +71,7 @@ class HomeController extends Controller
         ->whereMonth('created_at', Carbon::now()->month)
         ->count();
 
-        $maxDownloadsPerMonth = 12;
+        $maxDownloadsPerMonth = 40;
         if ($user && $user->is_worker == 1 && $currentMonthAdsCount >= $maxDownloadsPerMonth) {
             // User has reached the maximum allowed downloads for the current month
             return response()->json(['message' => 'You have reached the maximum number of allowed downloads for this month']);

@@ -54,8 +54,8 @@ class AddvertisimentController extends Controller
     {
         $user = Auth::user();
         $validated = $request->validate([
-            // 'work_hour'=> ($request->is_worker == 1) ? ['required']: '',
-            //'adv_req'=> ($request->is_worker == 1) ? ['required','min:20','max:1500','string']: '',
+             'work_hour'=> ($request->advertisement_type == 'workshops') ? ['required']: '',
+            'adv_req'=> ($request->advertisement_type == 'workshops') ? ['required','min:20','max:1500','string']: '',
             'job_des' => ['required', 'min:20', 'max:1500', 'string'],
             'job_name' => ['required', 'string'],
             'adv_period' => ['required'],
