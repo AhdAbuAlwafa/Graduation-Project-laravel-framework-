@@ -92,6 +92,126 @@
     
  
 
+<!-- <script>
+    // Get the input field and form elements
+    const liveFilterInput = document.getElementById('liveFilterInput');
+    const liveFilterForm = document.getElementById('liveFilterForm');
+
+    // Add an event listener to the input field
+    liveFilterInput.addEventListener('input', function() {
+        // Submit the form to perform the live filtering
+        liveFilterForm.submit();
+    });
+</script> -->
+
+<!-- <script>
+ $(document).ready(function() {
+    var timeoutId; // Variable to store timeout ID for delaying AJAX request
+
+    $("#Inputsearch").on("keyup", function() {
+        clearTimeout(timeoutId); // Clear previous timeout
+
+        var value = $(this).val().toLowerCase();
+
+        // Delay AJAX request to avoid sending multiple requests for each keystroke
+        timeoutId = setTimeout(function() {
+            // Send AJAX request
+            $.ajax({
+                url: '',
+                type: 'GET',
+                data: { search: value },
+                success: function(response) {
+                    displaySearchResults(response.users);
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        }, 500); // Delay of 500 milliseconds
+    });
+
+    // Function to display search results
+    function displaySearchResults(users) {
+        var searchResultsDiv = $('#searchResults');
+        searchResultsDiv.empty(); // Clear previous search results
+
+        if (users.length > 0) {
+            // Iterate over the returned users and display them in the search results div
+            users.forEach(function(user) {
+                var userHtml = '<div class="searchResult">' +
+                    '<h4>' + user.fname + ' ' + user.lname + '</h4>' +
+                    // Add other user details as needed
+                    '</div>';
+
+                searchResultsDiv.append(userHtml);
+            });
+        } else {
+            searchResultsDiv.html('<p>No results found.</p>');
+        }
+    }
+});
+
+</script> -->
+<script>
+$(document).ready(function() {
+    $('.delete-craft').click(function(e) {
+        e.preventDefault();
+        var user = $(this).data('user');
+        var craft = $(this).data('craft');
+
+        deleteCraft(user, craft);
+    });
+
+    $('#delete-all-crafts').click(function(e) {
+        e.preventDefault();
+        var user = $(this).data('user');
+
+        deleteAllCrafts(user);
+    });
+
+    function deleteCraft(user, craft) {
+        $.ajax({
+            url: '/delete-craft',
+            type: 'POST',
+            data: {
+                user: user,
+                craft: craft,
+                _token: '{{ csrf_token() }}'
+            },
+            success: function(response) {
+                // Craft deleted successfully
+                console.log(response.message);
+                // Reload or update the craft list
+            },
+            error: function(xhr) {
+                // Failed to delete craft
+                console.error('Failed to delete craft');
+            }
+        });
+    }
+
+    function deleteAllCrafts(user) {
+        $.ajax({
+            url: '/delete-all-crafts',
+            type: 'POST',
+            data: {
+                user: user,
+                _token: '{{ csrf_token() }}'
+            },
+            success: function(response) {
+                // All crafts deleted successfully
+                console.log(response.message);
+                // Reload or update the craft list
+            },
+            error: function(xhr) {
+                // Failed to delete all crafts
+                console.error('Failed to delete all crafts');
+            }
+        });
+    }
+});
+</script>
+
 <script>
     $(document).ready(function() {
         // Listen for change event on ToggleBox

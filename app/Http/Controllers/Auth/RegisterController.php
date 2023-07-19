@@ -75,7 +75,7 @@ class RegisterController extends Controller
             'lname' => ['required', 'string', 'max:255'],
             'number' => ['required', 'string',  'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'description'=> ($req->is_worker == 0) ? ['required','min:100','max:1500','string']: '',
+            'description'=> ($req->is_worker == 1) ? ['required','min:10','max:1500','string']: '',
             'is_worker'=>['required','in:1,0'],
             'gender'=>['required','in:1,0'],
 
@@ -90,7 +90,7 @@ class RegisterController extends Controller
             $user->lname = $req['lname'];
             $user->number = $req['number'];
             $user->password = Hash::make($req['password']);
-            $user->address_id =$req['village'];
+            $user->address_id =$req['village_name'];
             $user->description = $req['description'];
             $user->gender = $req['gender'];
             $user->is_worker=$req['is_worker'];
