@@ -1,356 +1,51 @@
-@extends('userPage.navbar')
-@section('content')
+<!DOCTYPE html>
+<html lang="en">
 
-<section class="py-5 my-5">
-    <div class="container"dir="rtl">
-        <h1 class="mb-5">حسابي</h1>
-        <div class="bg-white shadow rounded-lg d-block d-sm-flex">
-            <div class="profile-tab-nav border-right">
-                <div class="p-4">
-                    <div class="img-circle text-center mb-3">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-                        <img src="{{ 'images/' . auth()->user()->image }}" alt="Image" class="shadow" id="profileImg">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-                    </div>
-                    <div>
-                        <form action="{{ route('uploadimg') }}" method="post" id="imgform">
-                            @method('post')
-                            @csrf
-                            <input type="file" name="image" hidden id="ipt"
-                                accept="image/png, image/gif, image/jpeg , image/svg , image/jpg">
-                            <button href="" id="btn" class="btn80 btn-primary" disabled>تغيير الصورة الشخصية</button>
-                        </form>
-                    </div>
-                </div>
-                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                    <a class="nav-link active" id="account-tab" data-toggle="pill" href="#account" role="tab" aria-controls="account" aria-selected="true">
-                        <i class="fa fa-home text-center mr-1"></i> 
-                        المعلومات الشخصية
-                    </a>
-                    <a class="nav-link" id="password-tab" data-toggle="pill" href="#password" role="tab" aria-controls="password" aria-selected="false">
-                        <i class="fa fa-key text-center mr-1"></i> 
-                    اعدادات كلمة المرور
-                    </a>
-
-                    @if (!$user->is_worker)
-                    <a class="nav-link" id="security-tab" data-toggle="pill" href="#toggleBoxContainer" role="tab" aria-controls="security" aria-selected="false">
-                        <i class="fa fa-user text-center mr-1"></i> 
-                        تحويل الحساب
-                    </a>
-                    @endif
-
-                    <a class="nav-link" id="application-tab" data-toggle="pill" href="#application" role="tab" aria-controls="application" aria-selected="false">
-                        <i class="fa fa-tv text-center mr-1"></i> 
-                        الاعلانات
-                    </a>
-
-                </div>
-            </div>
-            <div class="tab-content p-4 p-md-5" id="v-pills-tabContent">
-                <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="account-tab">
-                    <h3 class="mb-4">تعديل المعلومات الشخصية</h3>
-                    <form action="{{ route('userPage.update') }}"method="POST" enctype="multipart/form-data">
-                        @csrf
-
-                        @method('PATCH')
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>الاسم الاول</label>
-                                    <input type="text" class="form-control" name="fname"
-                                        value="{{ $user->fname }}">
-                                    @error('fname')
-                                        <div class="text-red-500 mt-2 text-sm">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>اسم العائلة</label>
-                                    <input type="text" class="form-control" name="lname"
-                                        value="{{ $user->lname }}">
-                                    @error('lname')
-                                        <div class="text-red-500 mt-2 text-sm">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>رقم الهاتف</label>
-                                    <input type="text" class="form-control" name="number"
-                                        value="{{ $user->number }}">
-                                    @error('number')
-                                        <div class="text-red-500 mt-2 text-sm">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-    
-                                    <label>المدينة</label>
-    
-                                    <select class="form-control form-select mt-3" aria-label="Default select example"
-                                        id="city_name" name="city_name">
-    
-                                        @foreach ($cities as $id => $name)
-                                            <option value="{{ $name }}"
-                                                {{ $user->addresses->city_name == $name ? 'selected' : '' }}>
-                                                {{ $name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-    
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>القرية</label>
-                                <select class="form-control form-select mt-3" aria-label="Default select example"
-                                    id="village_name" name="village_name">
-                                    @foreach ($village as $id => $name)
-                                        <option value="{{ $name }}"
-                                            {{ $user->addresses->village_name == $name ? 'selected' : '' }}>
-                                            {{ $name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-
-                            </div>
-                        </div>
-                        @if ($user->is_worker == 1)
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>وصف المهنة</label>
-                                    <textarea class="form-control" rows="4" name="description"> {{ $user->description }}</textarea>
-                                    @error('description')
-                                        <div class="text-red-500 mt-2 text-sm">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                            </div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet"href="{{ asset('style/css/style.css?version=1') }}">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="{{ asset('style/plugins/ijabo/ijaboCropTool.min.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
 
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css">
+    <link href="{{ asset('assets/css/navbar.css') }}" rel="stylesheet">
 
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>المهنة</label>
-                                    <select class=" form-select form-select-sm"
-                                        aria-label=".form-select-sm example" name="craft_name">
-                                        @foreach ($crafts as $craft)
-                                            <option selected disabled></option>
-                                            <option value="{{ $craft->id }}">{{ $craft->craft_name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="crafts">
+    <!-- font awesome style -->
+    <link href="css/font-awesome.min.css" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <link href="css/style.css" rel="stylesheet" />
+    <!-- responsive style -->
+    <link href="css/responsive.css" rel="stylesheet" />
 
-                            <label class="namecraft"> اسم المهنة</label>
-                            <label>حذف المهنة </label>
-
-                            <br>
-
-                            @foreach ($user->crafts as $craft)
-                                <div class="craft-item">
-                                    <label class="namecraftuser"> {{ $craft->craft_name }}</label>
-                                    <a href="#" class="delete-craft" data-user="{{ $user->id }}"
-                                        data-craft="{{ $craft->id }}" name=""><i class="fa-solid fa-trash-can"
-                                            style="color: #e23f08;"></i></a>
-                                           
-
-                                </div>
-                            @endforeach
-                            <br>
-                            <br>
-                            <button class="btn btn-danger" style="color:azure;"id="delete-all-crafts"
-                                data-user="{{ $user->id }}">حذف جميع المهن </button>
-
-                            <br>
-                            <br>
-                        </div>
-
-                        @endif
-                        <div>
-                            <button type="submit" class="btn btn-primary">تعديل</button>
-                            <button class="btn btn-light">الغاء</button>
-                        </div>
-                    </form>
-                </div>
-                    
-                <div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
-                    <h3 class="mb-4">تعديل كلمة المرور</h3>
-                    <form action="{{ route('userPage.changePassword') }}" method="post">
-                        @csrf
-                        @method('post')
-                    @php
-                    
-                    @endphp
-                        @if (session('status'))
-                            <div class="alert alert-success" role="alert">
-                                {{ session('status') }}
-                            </div>
-                        @elseif (session('error'))
-                            <div class="alert alert-danger" role="alert">
-                                {{ session('error') }}
-                            </div>
-                        @endif
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-
-                                    <label for="old">كلمة السر القديمة</label>
-                                    <input type="password" class="form-control" name="old">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-
-                                    <label for="password">كلمة السر الجديدة</label>
-                                    <input type="password" class="form-control" name="password">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-
-                                    <label for="password_confirmation">تأكيد كلمة السر الجديدة</label>
-                                    <input type="password" class="form-control" name="password_confirmation">
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <button type="submit" class="btn btn-primary">تعديل</button>
-                            <button class="btn btn-light">الغاء</button>
-                        </div>
-
-                    </form>
-                </div>
-                <div class="tab-pane fade" id="security" role="tabpanel" aria-labelledby="security-tab">
-                    <h3 class="mb-4">تحويل الحساب</h3>
-                    
-                    
-                </div>
-
-                @if ($user->is_worker==0)
-
-                <div id="toggleBoxContainer">
-    <input class="form-check-input" type="checkbox" id="toggleBox" name="is_worker">
-    <label class="form-check-label" for="toggleBox">Become a Worker</label>
-</div>
-
-<!-- Craft Fields -->
-<div id="craftFields" style="display: none;">
-    <form id="becomeWorkerForm" action="{{ route('userPage.becomeWorker', ['id' => $user->id])}}" method="POST">
-        @csrf
-        <div class="form-group">
-            <label for="craft_name">Craft:</label>
-            <select class="form-control" id="craft_name" name="craft_name">
-                <option value="all">All Crafts</option>
-                @foreach ($crafts as $craft)
-                    <option value="{{ $craft->id }}">{{ $craft->craft_name }}</option>
-                    @error('craft_name')
-                                        <div class="text-red-500 mt-2 text-sm">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                @endforeach
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="craft_description">Craft Description:</label>
-            <textarea class="form-control" id="craft_description" name="craft_description"></textarea>
-            @error('craft_description')
-                                        <div class="text-red-500 mt-2 text-sm">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-        </div>
-        <button type="submit" class="btn btn-primary">Save</button>
-    </form>
-</div>
-@endif
+</head>
 
 
 
 
-                <div class="tab-pane fade" id="application" role="tabpanel" aria-labelledby="application-tab">
-                    <h3 class="mb-4">اعلاناتي</h3>
-                    <div class="row">
-                        @foreach ($advertisements as $advertisement)
-                            <div class="col-md-6 col-lg-4 mb-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title"> المهنة:{{ $advertisement->job_name }}</h5>
-                                        <p class="card-text">وصف المهنة:{{ $advertisement->job_des }}</p>
-                                        <p class="card-text">المدينة: {{ $advertisement->city_name }}</p>
-                                        <p class="card-text">القرية/البلدة:
-                                            {{ $advertisement->village_name }}</p>
-                                        <p class="card-text">عدد ساعات العمل المطلوبة::
-                                            {{ $advertisement->work_hour }}</p>
-                                        <p class="card-text"> متطلبات العمل: {{ $advertisement->adv_req }}</p>
-                                        <p class="card-text">فترة العمل: {{ $advertisement->work_period }}</p>
-                                        <p class="card-text"> جنس المهني : {{ $advertisement->gender }}</p>
 
-                                        <!-- Add more details as needed -->
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
 
-                </div>
-                <div class="tab-pane fade" id="notification" role="tabpanel" aria-labelledby="notification-tab">
-                    <h3 class="mb-4">Notification Settings</h3>
-                    <div class="form-group">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="notification1">
-                            <label class="form-check-label" for="notification1">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum accusantium accusamus, neque cupiditate quis
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="notification2" >
-                            <label class="form-check-label" for="notification2">
-                                hic nesciunt repellat perferendis voluptatum totam porro eligendi.
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="notification3" >
-                            <label class="form-check-label" for="notification3">
-                                commodi fugiat molestiae tempora corporis. Sed dignissimos suscipit
-                            </label>
-                        </div>
-                    </div>
-                    <div>
-                        <button class="btn btn-primary">Update</button>
-                        <button class="btn btn-light">Cancel</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+
+
+
+<body>
+    <div>
+        <!----------------navbar------------------->
+        @include('shared.navbar')
     </div>
-</section>
-
-@endsection
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></script>
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -521,3 +216,384 @@
 
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+
+
+
+
+<section class="py-5 my-5">
+    <div class="container"dir="rtl">
+        <h1 class="mb-5">حسابي</h1>
+        <div class="bg-white shadow rounded-lg d-block d-sm-flex">
+            <div class="profile-tab-nav border-right">
+                <div class="p-4">
+                    <div class="img-circle text-center mb-3">
+                        <img src="{{ 'images/' . auth()->user()->image }}" alt="Image" class="shadow" id="profileImg">
+
+                    </div>
+                    <h4 class="text-center">{{ $user->fname }} {{ $user->lname }}</h4>
+                    <div>
+                        <form action="{{ route('uploadimg') }}" method="post" id="imgform">
+                            @method('post')
+                            @csrf
+                            <input type="file" name="image" hidden id="ipt"
+                                accept="image/png, image/gif, image/jpeg , image/svg , image/jpg">
+                            <button href="" id="btn" class="btn80 btn-primary" disabled>تغيير الصورة الشخصية</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <a class="nav-link active" id="account-tab" data-toggle="pill" href="#account" role="tab" aria-controls="account" aria-selected="true">
+                        <i class="fa fa-home text-center mr-1"></i> 
+                        المعلومات الشخصية
+                    </a>
+                    <a class="nav-link" id="password-tab" data-toggle="pill" href="#password" role="tab" aria-controls="password" aria-selected="false">
+                        <i class="fa fa-key text-center mr-1"></i> 
+                          اعدادات كلمة السر 
+                    </a>
+                    <a class="nav-link" id="security-tab" data-toggle="pill" href="#security" role="tab" aria-controls="security" aria-selected="false">
+                        <i class="fa fa-user text-center mr-1"></i> 
+                        تعديل المعلومات الشخصية
+                    </a>
+                    @if ($user->is_worker == 0)
+                    <a class="nav-link" id="application-tab" data-toggle="pill" href="#application" role="tab" aria-controls="application" aria-selected="false">
+                        <i class="fa fa-tv text-center mr-1"></i> 
+                        تحويل الحساب
+                    </a> 
+                    @endif
+                    
+                    <a class="nav-link" id="notification-tab" data-toggle="pill" href="#notification" role="tab" aria-controls="notification" aria-selected="false">
+                        <i class="fa fa-bell text-center mr-1"></i> 
+                        الاعلانات 
+                    </a>
+                </div>
+            </div>
+            <div class="tab-content p-4 p-md-5" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="account-tab">
+                    <h3 class="mb-4">المعلومات الشخصية</h3>
+                    <div class="row">
+                        
+                        
+                        
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                  <label>رقم الهاتف</label>
+                                  <input type="text" class="form-control" value="{{ auth()->user()->number }}">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                  <label>المدينة</label>
+                                  <input type="text" class="form-control" value="{{ $user->addresses->city_name }}">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                  <label>القرية</label>
+                                  <input type="text" class="form-control" value="{{ $user->addresses->village_name }}">
+                            </div>
+                        </div>
+                        @if ($user->is_worker == 1)
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>وصف المهنة</label>
+                                    <textarea class="form-control" rows="4" name="description"> {{ $user->description }}</textarea>
+                                    @error('description')
+                                        <div class="text-red-500 mt-2 text-sm">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+
+
+
+                            
+                        </div>
+                        <div class="crafts">
+
+                            <label class="namecraft"> اسم المهنة</label>
+
+                            <br>
+
+                            @foreach ($user->crafts as $craft)
+                                <div class="craft-item">
+                                    <label class="namecraftuser"> {{ $craft->craft_name }}</label>
+                                
+                                </div>
+                            @endforeach
+                            
+                        </div>
+
+                        @endif
+
+                    </div>
+                    
+                </div>
+                <div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
+                    <h3 class="mb-4">تعديل كلمة المرور</h3>
+                    <form action="{{ route('userPage.changePassword') }}" method="post">
+                        @csrf
+                        @method('post')
+                    @php
+                    
+                    @endphp
+                        @if (session('status'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('status') }}
+                            </div>
+                        @elseif (session('error'))
+                            <div class="alert alert-danger" role="alert">
+                                {{ session('error') }}
+                            </div>
+                        @endif
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+
+                                    <label for="old">كلمة السر القديمة</label>
+                                    <input type="password" class="form-control" name="old">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+
+                                    <label for="password">كلمة السر الجديدة</label>
+                                    <input type="password" class="form-control" name="password">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+
+                                    <label for="password_confirmation">تأكيد كلمة السر الجديدة</label>
+                                    <input type="password" class="form-control" name="password_confirmation">
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-primary">تعديل</button>
+                            <button class="btn btn-light">الغاء</button>
+                        </div>
+
+                    </form>
+                </div>
+                
+                <div class="tab-pane fade" id="security" role="tabpanel" aria-labelledby="security-tab">
+                    <h3 class="mb-4">تعديل المعلومات الشخصية</h3>
+                    <form action="{{ route('userPage.update') }}"method="POST" enctype="multipart/form-data">
+                        @csrf
+
+                        @method('PATCH')
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>الاسم الاول</label>
+                                    <input type="text" class="form-control" name="fname"
+                                        value="{{ $user->fname }}">
+                                    @error('fname')
+                                        <div class="text-red-500 mt-2 text-sm">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>اسم العائلة</label>
+                                    <input type="text" class="form-control" name="lname"
+                                        value="{{ $user->lname }}">
+                                    @error('lname')
+                                        <div class="text-red-500 mt-2 text-sm">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>رقم الهاتف</label>
+                                    <input type="text" class="form-control" name="number"
+                                        value="{{ $user->number }}">
+                                    @error('number')
+                                        <div class="text-red-500 mt-2 text-sm">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+    
+                                    <label>المدينة</label>
+    
+                                    <select class="form-control form-select mt-3" aria-label="Default select example"
+                                        id="city_name" name="city_name">
+    
+                                        @foreach ($cities as $id => $name)
+                                            <option value="{{ $name }}"
+                                                {{ $user->addresses->city_name == $name ? 'selected' : '' }}>
+                                                {{ $name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>القرية</label>
+                                <select class="form-control form-select mt-3" aria-label="Default select example"
+                                    id="village_name" name="village_name">
+                                    @foreach ($village as $id => $name)
+                                        <option value="{{ $name }}"
+                                            {{ $user->addresses->village_name == $name ? 'selected' : '' }}>
+                                            {{ $name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+
+                            </div>
+                        </div>
+                        @if ($user->is_worker == 1)
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>وصف المهنة</label>
+                                    <textarea class="form-control" rows="4" name="description"> {{ $user->description }}</textarea>
+                                    @error('description')
+                                        <div class="text-red-500 mt-2 text-sm">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>المهنة</label>
+                                    <select class=" form-select form-select-sm"
+                                        aria-label=".form-select-sm example" name="craft_name">
+                                        @foreach ($crafts as $craft)
+                                            <option selected disabled></option>
+                                            <option value="{{ $craft->id }}">{{ $craft->craft_name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="crafts">
+
+                            <label class="namecraft"> اسم المهنة</label>
+                            <label>حذف المهنة </label>
+
+                            <br>
+
+                            @foreach ($user->crafts as $craft)
+                                <div class="craft-item">
+                                    <label class="namecraftuser"> {{ $craft->craft_name }}</label>
+                                    <a href="#" class="delete-craft" data-user="{{ $user->id }}"
+                                        data-craft="{{ $craft->id }}" name=""><i class="fa-solid fa-trash-can"
+                                            style="color: #e23f08;"></i></a>
+                                           
+
+                                </div>
+                            @endforeach
+                            <br>
+                            <br>
+                            <button class="btn btn-danger" style="color:azure;"id="delete-all-crafts"
+                                data-user="{{ $user->id }}">حذف جميع المهن </button>
+
+                            <br>
+                            <br>
+                        </div>
+
+                        @endif
+                        <div>
+                            <button type="submit" class="btn btn-primary">تعديل</button>
+                            <button class="btn btn-light">الغاء</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="tab-pane fade" id="application" role="tabpanel" aria-labelledby="application-tab">
+                    <h3 class="mb-4">تحويل الحساب</h3>
+                    @if ($user->is_worker==0)
+
+                    <div id="toggleBoxContainer">
+        <input class="form-check-input" type="checkbox" id="toggleBox" name="is_worker">
+        <label class="form-check-label" for="toggleBox">تحويل الى عامل</label>
+    </div>
+    
+    <!-- Craft Fields -->
+    <div id="craftFields" style="display: none;">
+        <form id="becomeWorkerForm" action="{{ route('userPage.becomeWorker', ['id' => $user->id])}}" method="POST">
+            @csrf
+            <div class="form-group">
+                <label for="craft_name">المهنة:</label>
+                <select class="form-control" id="craft_name" name="craft_name">
+                    <option value="all">جميع المهن</option>
+                    @foreach ($crafts as $craft)
+                        <option value="{{ $craft->id }}">{{ $craft->craft_name }}</option>
+                        @error('craft_name')
+                                            <div class="text-red-500 mt-2 text-sm">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="craft_description">وصف المهنة:</label>
+                <textarea class="form-control" id="craft_description" name="craft_description"></textarea>
+                @error('craft_description')
+                                            <div class="text-red-500 mt-2 text-sm">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+            </div>
+            <button type="submit" class="btn btn-primary">تحويل الحساب</button>
+        </form>
+    </div>
+    @endif
+    
+                </div>
+                <div class="tab-pane fade" id="notification" role="tabpanel" aria-labelledby="notification-tab">
+                    <h3 class="mb-4">اعلاناتي</h3>
+                    
+                    <div class="row">
+                        @foreach ($advertisements as $advertisement)
+                            <div class="col-md-6 col-lg-4 mb-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title"> المهنة:{{ $advertisement->job_name }}</h5>
+                                        <p class="card-text">وصف المهنة:{{ $advertisement->job_des }}</p>
+                                        <p class="card-text">المدينة: {{ $advertisement->city_name }}</p>
+                                        <p class="card-text">القرية/البلدة:
+                                            {{ $advertisement->village_name }}</p>
+                                        <p class="card-text">عدد ساعات العمل المطلوبة::
+                                            {{ $advertisement->work_hour }}</p>
+                                        <p class="card-text"> متطلبات العمل: {{ $advertisement->adv_req }}</p>
+                                        <p class="card-text">فترة العمل: {{ $advertisement->work_period }}</p>
+                                        <p class="card-text"> جنس المهني : {{ $advertisement->gender }}</p>
+
+                                        <!-- Add more details as needed -->
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
