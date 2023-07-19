@@ -257,13 +257,22 @@
                             </div>-->
                             <div class="row">
                                 <div class="input-field2">
-                                    <input type="file" class="form-control" id="image" name="image"
+                                    <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" name="image"
                                         style="display: none;">
                                     <label for="image" class='input-box2' class="form-label"
                                         style="height: 50px ; width: 350px; border-radius: 6px; border: 1px dashed black;">
                                         اضافة صورة شخصية</label>
+                                        @error('image')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
                                 </div>
                             </div>
+                               
+                                
+
+
                             <!-------------------craft------------------------------->
 
                             <div class="row">
@@ -355,6 +364,7 @@
                                 beforSend: function() {
                                     $(document).find('#errors').empty();
                                     console.log('bd');
+              
                                 },
                                 success: function(data) {
                                     if (data.status == 0) {

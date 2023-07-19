@@ -96,12 +96,11 @@
 
 <script>
     $(document).ready(function() {
-        $('.delete-craft').click(function(e) {
+        if $('.delete-craft').click(function(e) {
             e.preventDefault();
             var user = $(this).data('user');
             var craft = $(this).data('craft');
 
-            deleteCraft(user, craft, $(this));
         });
 
         $('#delete-all-crafts').click(function(e) {
