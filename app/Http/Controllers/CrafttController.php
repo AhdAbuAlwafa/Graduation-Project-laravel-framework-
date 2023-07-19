@@ -52,7 +52,7 @@ class CrafttController extends Controller
 
     
 
-    public function update(Request $request)
+    public function update(Request $request ,string $id)
     {
         $validated = $request->validate([
             
@@ -64,7 +64,7 @@ class CrafttController extends Controller
         //$newImageName = time() . '-' . $request->name . '.' .
         $imgName= md5(time()).'.'.$request->image_path->extension();
         $request->image_path->move(public_path('images'),$imgName);
-           $craft=Craft::where('craft_name',$request->input(('craft_name')))->first();
+           $craft=Craft::where('id',$id)->first();
            
             $craft->update([
             
