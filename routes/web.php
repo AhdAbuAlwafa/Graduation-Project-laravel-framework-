@@ -53,7 +53,7 @@ Route::prefix('/crafts')->group(function(){
     Route::post('/add',[CrafttController::class,'store'])->middleware('auth');
     Route::get('/edit/{id}', [CrafttController::class, 'edit'])->name('crafts.edit')->middleware('auth');
 
-    Route::patch('/update', [CrafttController::class, 'update'])->name('crafts.update')->middleware('auth');
+    Route::patch('/update/{id}', [CrafttController::class, 'update'])->name('crafts.update')->middleware('auth');
     Route::post('/destroy',[CrafttController::class,'destroy'])->name('crafts.destroy')->middleware('auth'); });
 
    Route::get('/advertisiment2',[AdvertisementController2::class,'show'])->name('advertisiment2')->middleware('auth');
@@ -79,14 +79,18 @@ Route::prefix('/crafts')->group(function(){
    Route::post('/destroy',[ComentController::class,'destroy'])->name('user_comment.destroy');
 
    Route::get('/get-villages', [PublicController::class, 'getVillages'])->name('get-villages');
-   Route::get('/otherUserProfile2/{id}',[WorkerPageController::class,'show'])->name('userPage.otherUserProfile2');
-   Route::get('/filter',[PublicController::class,'filterNav'])->name('userPage.mysearch');
-   Route::get('/search/{profession?}', [PublicController::class, 'openCraft'])->name('userPage.getAllUser');
+//   Route::get('/otherUserProfile2/{id}',[WorkerPageController::class,'show'])->name('userPage.otherUserProfile2');
+   //Route::get('/filter',[PublicController::class,'filterNav'])->name('userPage.mysearch');
+  // Route::get('/search/{profession?}', [PublicController::class, 'openCraft'])->name('userPage.getAllUser');
+   Route::get('/showWorker/{id}',[PublicController::class,'showWorker'])->name('userPage.showWorker');
+   Route::get('/filter',[PublicController::class,'filterNav'])->name('userPage.mysearch')->middleware('auth');
+   Route::get('/search/{profession?}', [PublicController::class, 'openCraft'])->name('userPage.getAllUser')->middleware('auth');
+   Route::get('/users/search',[PublicController::class,'nameSearch'])->name('users.search');
 
    Route::get('/worker/{id}', [WorkerPageController::class, 'show'])->name('workerPage.showWorker');
    Route::get('/users/search',[PublicController::class,'nameSearch'])->name('users.search');
 
-   Route::get('/live-search',[PublicController::class,'liveSearch'])->name('userPage.liveSearch');
+  // Route::get('/live-search',[PublicController::class,'liveSearch'])->name('userPage.liveSearch');
 
 
 

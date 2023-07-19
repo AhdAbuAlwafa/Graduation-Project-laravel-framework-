@@ -6,184 +6,487 @@
 
 @endsection
 
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
+@extends('userPage.navbar')
+@section('content')
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
-        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    <title> الرئيسيه</title>
-    <link href="{{ asset('assets/css/search2.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/css/navbar.css') }}" rel="stylesheet">
-</head>
+    <section class="py-5 my-5">
+        <div class="container"dir="rtl">
+            <h1 class="mb-5">حسابي</h1>
+            <div class="bg-white shadow rounded-lg d-block d-sm-flex">
+                <div class="profile-tab-nav border-right">
+                    <div class="p-4">
+                        <div class="img-circle text-center mb-3">
 
-<body>
-    <div>
-        <!----------------navbar------------------->
-        @include('shared.navbar')
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
-        integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
-        crossorigin="anonymous"></script>
+                            <img src="{{ 'images/' . auth()->user()->image }}" alt="Image" class="shadow" id="profileImg">
 
-    <!-- Small button groups (default and split) -->
-    <form class="form-inline" style="justify-content: center; margin-right: -10px; margin-top: 200px;" method="GET" action="{{ route('userPage.mergeSearchPage') }}">
-        @csrf
+                        </div>
+                        <div>
+                            <form action="{{ route('uploadimg') }}" method="post" id="imgform">
+                                @method('post')
+                                @csrf
+                                <input type="file" name="image" hidden id="ipt"
+                                    accept="image/png, image/gif, image/jpeg , image/svg , image/jpg">
+                                <button href="" id="btn" class="btn80 btn-primary" disabled>تغيير الصورة
+                                    الشخصية</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        <a class="nav-link active" id="account-tab" data-toggle="pill" href="#account" role="tab"
+                            aria-controls="account" aria-selected="true">
+                            <i class="fa fa-home text-center mr-1"></i>
+                            المعلومات الشخصية
+                        </a>
+                        <a class="nav-link" id="password-tab" data-toggle="pill" href="#password" role="tab"
+                            aria-controls="password" aria-selected="false">
+                            <i class="fa fa-key text-center mr-1"></i>
+                            اعدادات كلمة المرور
+                        </a>
 
-        <div class="row" style="align-items: center; ">
-            <div class="col">
-                <form class="form-inline my-2 my-lg-0" method="GET" action="{{ route('userPage.mergeSearchPage') }}">
-                    <button type="submit" class="btn btn-lg btn-outline-primary" style="border-width: 0px; background-color: #004985; color: white; ">ابحث</button>
-                </form>
-            </div>
+                        @if (!$user->is_worker)
+                            <a class="nav-link" id="security-tab" data-toggle="pill" href="#toggleBoxContainer"
+                                role="tab" aria-controls="security" aria-selected="false">
+                                <i class="fa fa-user text-center mr-1"></i>
+                                تحويل الحساب
+                            </a>
+                        @endif
 
+                        <a class="nav-link" id="application-tab" data-toggle="pill" href="#application" role="tab"
+                            aria-controls="application" aria-selected="false">
+                            <i class="fa fa-tv text-center mr-1"></i>
+                            الاعلانات
+                        </a>
 
-            <div class="col">
-                <div class="btn-group">
-                    <select id="craft_name_select" name="craft_name" class="btn btn-secondary btn-lg dropdown-toggle" ata-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color:  #004883; margin-left: 100px;">
-                        <option value="all" {{ $selectedCraft == 'all' ? 'selected' : '' }}>جميع المهن</option>
-                        @foreach ($crafts as $craft)
-                        <option value="{{ $craft->id }}" {{ $selectedCraft == $craft->id ? 'selected' : '' }}>
-                            {{ $craft->craft_name }}
-                        </option>
-                        @endforeach
-                    </select>
+                    </div>
                 </div>
-            </div>
+                <div class="tab-content p-4 p-md-5" id="v-pills-tabContent">
+                    <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="account-tab">
+                        <h3 class="mb-4">تعديل المعلومات الشخصية</h3>
+                        <form action="{{ route('userPage.update') }}"method="POST" enctype="multipart/form-data">
+                            @csrf
 
-            <div class="col">
-                <div class="btn-group">
-                    <select id="city_name_select" name="city_name" class="btn btn-secondary btn-lg dropdown-toggle" ata-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color:  #004883; margin-left: 100px;">
-                        <option value="all">جميع المدن</option>
-                        @foreach($cities as $cityName)
-                        <option value="{{ $cityName }}">
-                            {{ $cityName }}
-                        </option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-
-
-
-
-            <div class="col">
-                <div class="btn-group">
-                    <select id="village_name_select" name="village_name" class="btn btn-secondary btn-lg dropdown-toggle" ata-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color:  #004883; margin-left: 100px;">
-                        <option value="all">جميع القرى</option>
-                    </select>
-                </div>
-            </div>
-
-
-    </form>
-
-
-    <section style="margin-top: 400px;" class="cardsection">
-        @if($users->count() > 0)
-
-        <div class="card1">
-            <div class="row" style="align-items: center; margin-top: -400px; ;">
-                @foreach($users as $user)
-
-                <div class="col">
-                    <div class="content">
-                        <div class=" card">
-                            <div class="card-content">
-                                <div class="image">
-                                    <img src="assets/img/search-pic.jpg" alt="" />
-                                </div>
-
-                                <div class="name-profession">
-                                    <span class="name" {{ $user->fname }}</span>
-                                        <span class="profession" id="craft_name"> 
-                                            @foreach($user->crafts as $craft)
-                                            {{ $craft->craft_name }} <b> , </b>
-                                            @endforeach
-                                        </span>
-                                </div>
-                                <div class="place">
-                                    <span class="city">{{ $user->addresses->city_name }} </span>
-                                    <label>/</label>
-                                    <span class="village"> {{ $user->addresses->village_name }}</span>
-                                </div>
-
-                                <div class="center">
-
-                                    <div class="stars">
-                                        <input type="radio" id="one" name="rate" value="1">
-                                        <label for="one">{{ $user->all_evl }}</label>
-                                        <span class="result"></span>
+                            @method('PATCH')
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>الاسم الاول</label>
+                                        <input type="text" class="form-control" name="fname"
+                                            value="{{ $user->fname }}">
+                                        @error('fname')
+                                            <div class="text-red-500 mt-2 text-sm">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>اسم العائلة</label>
+                                        <input type="text" class="form-control" name="lname"
+                                            value="{{ $user->lname }}">
+                                        @error('lname')
+                                            <div class="text-red-500 mt-2 text-sm">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>رقم الهاتف</label>
+                                        <input type="text" class="form-control" name="number"
+                                            value="{{ $user->number }}">
+                                        @error('number')
+                                            <div class="text-red-500 mt-2 text-sm">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
 
-                                <div class="a">
-                                    <a class="aboutMe" class="btn btn-primary" style="font-size: 20px; " href="{{ route('workerPage.showWorker', ['id' => $user->id]) }}"> انظر صفحه العامل</ش>
+                                        <label>المدينة</label>
+
+                                        <select class="form-control form-select mt-3" aria-label="Default select example"
+                                            id="city_name" name="city_name">
+
+                                            @foreach ($cities as $id => $name)
+                                                <option value="{{ $name }}"
+                                                    {{ $user->addresses->city_name == $name ? 'selected' : '' }}>
+                                                    {{ $name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>القرية</label>
+                                    <select class="form-control form-select mt-3" aria-label="Default select example"
+                                        id="village_name" name="village_name">
+                                        @foreach ($village as $id => $name)
+                                            <option value="{{ $name }}"
+                                                {{ $user->addresses->village_name == $name ? 'selected' : '' }}>
+                                                {{ $name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
 
                                 </div>
                             </div>
-                        </div>
+                            @if ($user->is_worker == 1)
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>وصف المهنة</label>
+                                            <textarea class="form-control" rows="4" name="description"> {{ $user->description }}</textarea>
+                                            @error('description')
+                                                <div class="text-red-500 mt-2 text-sm">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>المهنة</label>
+                                            <select class=" form-select form-select-sm"
+                                                aria-label=".form-select-sm example" name="craft_name">
+                                                @foreach ($crafts as $craft)
+                                                    <option selected disabled></option>
+                                                    <option value="{{ $craft->id }}">{{ $craft->craft_name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="crafts">
+
+                                    <label class="namecraft"> اسم المهنة</label>
+                                    <label>حذف المهنة </label>
+
+                                    <br>
+
+                                    @foreach ($user->crafts as $craft)
+                                        <div class="craft-item">
+                                            <label class="namecraftuser"> {{ $craft->craft_name }}</label>
+                                            <a href="#" class="delete-craft" data-user="{{ $user->id }}"
+                                                data-craft="{{ $craft->id }}" name=""><i
+                                                    class="fa-solid fa-trash-can" style="color: #e23f08;"></i></a>
+
+
+                                        </div>
+                                    @endforeach
+                                    <br>
+                                    <br>
+                                    <button class="btn btn-danger" style="color:azure;"id="delete-all-crafts"
+                                        data-user="{{ $user->id }}">حذف جميع المهن </button>
+
+                                    <br>
+                                    <br>
+                                </div>
+                            @endif
+                            <div>
+                                <button type="submit" class="btn btn-primary">تعديل</button>
+                                <button class="btn btn-light">الغاء</button>
+                            </div>
+                        </form>
                     </div>
+
+                    <div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
+                        <h3 class="mb-4">تعديل كلمة المرور</h3>
+                        <form action="{{ route('userPage.changePassword') }}" method="post">
+                            @csrf
+                            @method('post')
+                            @php
+                                
+                            @endphp
+                            @if (session('status'))
+                                <div class="alert alert-success" role="alert">
+                                    {{ session('status') }}
+                                </div>
+                            @elseif (session('error'))
+                                <div class="alert alert-danger" role="alert">
+                                    {{ session('error') }}
+                                </div>
+                            @endif
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+
+                                        <label for="old">كلمة السر القديمة</label>
+                                        <input type="password" class="form-control" name="old">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+
+                                        <label for="password">كلمة السر الجديدة</label>
+                                        <input type="password" class="form-control" name="password">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+
+                                        <label for="password_confirmation">تأكيد كلمة السر الجديدة</label>
+                                        <input type="password" class="form-control" name="password_confirmation">
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <button type="submit" class="btn btn-primary">تعديل</button>
+                                <button class="btn btn-light">الغاء</button>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="security" role="tabpanel" aria-labelledby="security-tab">
+                        <h3 class="mb-4">تحويل الحساب</h3>
+
+                        @if ($user->is_worker == 0)
+                        <div id="toggleBoxContainer">
+                            <input class="form-check-input" type="checkbox" id="toggleBox" name="is_worker">
+                            <label class="form-check-label" for="toggleBox">Become a Worker</label>
+                        </div>
+
+                        <!-- Craft Fields -->
+                        <div id="craftFields" style="display: none;">
+                            <form id="becomeWorkerForm"
+                                action="{{ route('userPage.becomeWorker', ['id' => $user->id]) }}" method="POST">
+                                @csrf
+                                <div class="form-group">
+                                    <label for="craft_name">Craft:</label>
+                                    <select class="form-control" id="craft_name" name="craft_name">
+                                        <option value="all">All Crafts</option>
+                                        @foreach ($crafts as $craft)
+                                            <option value="{{ $craft->id }}">{{ $craft->craft_name }}</option>
+                                            
+                                        @endforeach
+                                    </select>
+                                    @error('craft_name')
+                                                <div class="text-red-500 mt-2 text-sm">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="craft_description">Craft Description:</label>
+                                    <textarea class="form-control" id="craft_description" name="craft_description"></textarea>
+                                    @error('craft_description')
+                                        <div class="text-red-500 mt-2 text-sm">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <button type="submit" class="btn btn-primary">Save</button>
+                            </form>
+                        </div>
+                    @endif
+                    </div>
+
                     
+
+
+
+
+                    <div class="tab-pane fade" id="application" role="tabpanel" aria-labelledby="application-tab">
+                        <h3 class="mb-4">اعلاناتي</h3>
+                        <div class="row">
+                            @foreach ($advertisements as $advertisement)
+                                <div class="col-md-6 col-lg-4 mb-4">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title"> المهنة:{{ $advertisement->job_name }}</h5>
+                                            <p class="card-text">وصف المهنة:{{ $advertisement->job_des }}</p>
+                                            <p class="card-text">المدينة: {{ $advertisement->addresses->city_name }}</p>
+
+                                            <p class="card-text">القرية/البلدة:
+                                                {{ $advertisement->addresses->village_name }}</p>
+                                            <p class="card-text">عدد ساعات العمل المطلوبة::
+                                                {{ $advertisement->work_hour }}</p>
+                                            <p class="card-text"> متطلبات العمل: {{ $advertisement->adv_req }}</p>
+                                            <p class="card-text">فترة العمل: {{ $advertisement->work_period }}</p>
+                                            <p class="card-text"> جنس المهني : {{ $advertisement->gender }}</p>
+
+                                            <!-- Add more details as needed -->
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+
+                    </div>
+                   
                 </div>
-                @endforeach
             </div>
         </div>
-            {{ $users->links() }}
-
-            @else
-            <div class="col">
-                <div class="alert alert-danger" role="alert">
-                    No workers
-                </div>
-            </div>
-            @endif
     </section>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+@endsection
 
-    <script>
-        $(document).ready(function() {
-            $('#city_name_select').on('change', function() {
-                var selectedCity = $(this).val();
-                if (selectedCity) {
-                    // Send an Ajax request to get the villages based on the selected city
-                    $.ajax({
-                        url: "{{ route('get-villages') }}",
-                        type: "GET",
-                        data: {
-                            city_name: selectedCity
-                        },
-                        success: function(data) {
-                            console.log(data);
-                            // Clear the previous options
-                            $('#village_name_select').html('<option value="all">جميع القرى</option>');
-                            // Append new options based on the received data
-                            $.each(data, function(key, value) {
-                                $('#village_name_select').append('<option value="' + value + '">' + value + '</option>');
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+
+
+<script>
+    $(function() {
+        $('#btn').removeAttr('disabled')
+        $('#imgform').on('submit', function(e) {
+            e.preventDefault()
+            if ($('#btn').text() == 'تغيير الصورة الشخصية') {
+                $('#ipt').click()
+                $('#ipt').on('change', function() {
+                    $('#btn').text('تحميل الصورة')
+                })
+            } else {
+                $.ajax({
+                    url: $(this).attr('action'),
+                    method: $(this).attr('method'),
+                    data: new FormData(this),
+                    processData: false,
+                    dataType: 'json',
+                    contentType: false,
+                    beforSend: function() {},
+                    success: function(data) {
+                        if (data.status == 0) {
+                            $.each(data.error, function(prefix, val) {
+                                console.log(val[0]);
                             });
-                        },
+                        } else if (data.status == 1) {
+                            $('#imgform')[0].reset[0]
+                            $('#btn').text('تغيير الصورة الشخصية')
+                            $("#profileImg").attr('src', 'images/' + data.image);
+                            console.log('success');
+                        }
+                    }
+                })
+            }
 
-                    });
-                } else {
-                    // If no city is selected, clear the villages dropdown
-                    $('#village_name_select').html('<option value="all">Select Village</option>');
+        })
+
+    })
+</script>
+
+
+<script>
+    $(document).ready(function() {
+        $('.delete-craft').click(function(e) {
+            e.preventDefault();
+            var user = $(this).data('user');
+            var craft = $(this).data('craft');
+
+            deleteCraft(user, craft, $(this));
+        });
+
+        $('#delete-all-crafts').click(function(e) {
+            e.preventDefault();
+            var user = $(this).data('user');
+
+            deleteAllCrafts(user);
+        });
+
+        function deleteCraft(user, craft, element) {
+            $.ajax({
+                url: '{{ route('craft.delete') }}',
+                type: 'POST',
+                data: {
+                    user: user,
+                    craft: craft,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    // Craft deleted successfully
+                    console.log(response.message);
+                    // Remove the craft item from the DOM
+                    element.closest('.craft-item').remove();
+                },
+                error: function(xhr) {
+                    // Failed to delete craft
+                    console.error('فشل في حذف المهنة ');
+                }
+            });
+        }
+
+        function deleteAllCrafts(user) {
+            $.ajax({
+                url: '{{ route('craft.deleteAll') }}',
+                type: 'POST',
+                data: {
+                    user: user,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    // All crafts deleted successfully
+                    console.log(response.message);
+                    // Remove all craft items from the DOM
+                    $('.craft-item').remove();
+                },
+                error: function(xhr) {
+                    // Failed to delete all crafts
+                    console.error('فشل في حذف جميع المهن ');
+                }
+            });
+        }
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        // Listen for change event on ToggleBox
+        $('#toggleBox').change(function() {
+            if ($(this).is(':checked')) {
+                $('#craftFields').show();
+            } else {
+                $('#craftFields').hide();
+            }
+        });
+
+        // Submit the form via AJAX
+        $('#becomeWorkerForm').submit(function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            var form = $(this);
+            var url = form.attr('action');
+            var data = form.serialize();
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: data,
+                dataType: 'json',
+                success: function(response) {
+                    if (response.success) {
+                        // Success message
+                        alert('لقد تم تحويل الحساب الى عامل بنجاح ');
+
+                        // Refresh the page to hide the toggle box
+                        location.reload();
+                    } else {
+                        // Error message
+                        alert('فشل في تحويل الحساب الى عامل .حاول مرة اخرى');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    // Error message
+                    alert('حدث خطأ.حاول مرة اخرى');
                 }
             });
         });
-    </script>
-</body>
+    });
+</script>
 
 
 
@@ -192,43 +495,12 @@
 
 
 
-    
-<form style="margin-top: -300px ; margin-left: 100px;align-items: center; justify-content: center; width: 900px; ">
 
-    <div class="row" style="align-items: center;  ">
-        <div class="col">
-            <form class="form-inline my-2 my-lg-0">
-                <button type="button" class="btn btn-lg btn-outline-primary"
-                    style="border-width: 0px; background-color: #004985; color: white; ">ابحث</button>
-            </form>
-        </div>
-        <div class="col">
-            <div class="btn-group">
-                <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false"
-                    style="background-color:  #004985; margin-left: 100px;">
-                    المدينه
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">جنين</a>
-                    <a class="dropdown-item" href="#"> نابلس</a>
-                    <a class="dropdown-item" href="#"> رام الله</a>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="btn-group">
-                <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false"
-                    style="background-color:  #004883; margin-left: 100px;">
-                    القريه
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">عنزا</a>
-                    <a class="dropdown-item" href="#"> عجه</a>
-                    <a class="dropdown-item" href="#">السيله</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
