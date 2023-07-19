@@ -37,7 +37,7 @@
             <div class="cols__container">
                 <div class="left__col">
                     <div class="img__container">
-                        <img src="assets/img/user-page.jpg" alt="صائب صلاح " />
+                        <img src="{{ 'images/' . auth()->user()->image }}" alt="صائب صلاح " />
                     </div>
 
                     <div class="center1">

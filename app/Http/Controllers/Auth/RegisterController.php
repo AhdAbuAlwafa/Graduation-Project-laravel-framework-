@@ -78,6 +78,7 @@ class RegisterController extends Controller
             'description'=> ($req->is_worker == 1) ? ['required','min:10','max:1500','string']: '',
             'is_worker'=>['required','in:1,0'],
             'gender'=>['required','in:1,0'],
+            'image' => 'required|file|mimes:jpg,jpeg,png',
 
 
         ]);
@@ -94,7 +95,17 @@ class RegisterController extends Controller
             $user->description = $req['description'];
             $user->gender = $req['gender'];
             $user->is_worker=$req['is_worker'];
+
+
+            if ($req->hasFile('image')) {
+                $imagePath = $req->file('image')->store('images', 'public');
+                $user->image = $imagePath;
+            }
+            
             $user->save();
+
+
+
             $user->crafts()->attach($req['craft']);
 
 
