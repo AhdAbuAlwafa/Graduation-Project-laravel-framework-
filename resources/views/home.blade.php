@@ -764,7 +764,7 @@
                                                 <label for="">{{ optional($ad->addresses)->city_name }}</label>
                                             </a>
                                             <a class="village">
-                                                <label for="">{{ optional($ad->addresses)->village_name }}</label>
+                                                <label for="">{{ optional($ad->addresses)->addresses_id }}</label>
                                             </a>
                                         </div>
                                         <div class="moreinfo2">

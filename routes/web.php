@@ -79,7 +79,7 @@ Route::prefix('/crafts')->group(function(){
    Route::post('/destroy',[ComentController::class,'destroy'])->name('user_comment.destroy');
 
    Route::get('/get-villages', [PublicController::class, 'getVillages'])->name('get-villages');
-//   Route::get('/otherUserProfile2/{id}',[WorkerPageController::class,'show'])->name('userPage.otherUserProfile2');
+  Route::get('/otherUserProfile2/{id}',[WorkerPageController::class,'show'])->name('userPage.otherUserProfile2');
    //Route::get('/filter',[PublicController::class,'filterNav'])->name('userPage.mysearch');
   // Route::get('/search/{profession?}', [PublicController::class, 'openCraft'])->name('userPage.getAllUser');
    Route::get('/showWorker/{id}',[PublicController::class,'showWorker'])->name('userPage.showWorker');
