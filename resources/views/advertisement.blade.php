@@ -92,7 +92,7 @@
                         <select id="city_name_select" name="city_name" class="btn btn-secondary btn-lg dropdown-toggle" ata-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color:  #004883; margin-left: 100px;">
                             <option value="all">جميع المدن</option>
                             @foreach ($cities as $cityName)
-                            <option value="{{ $cityName }}">
+                            <option value="{{ $cityName }}" {{ $selectedCity == $cityName ? 'selected' : '' }}>
                                 {{ $cityName }}
                             </option>
                             @endforeach
