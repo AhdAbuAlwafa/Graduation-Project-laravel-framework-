@@ -96,6 +96,66 @@
 
 <script>
     $(document).ready(function() {
+
+        $('.delete-craft').click(function(e) {
+            e.preventDefault();
+            var user = $(this).data('user');
+            var craft = $(this).data('craft');
+    
+            deleteCraft(user, craft);
+        });
+    
+        $('#delete-all-crafts').click(function(e) {
+            e.preventDefault();
+            var user = $(this).data('user');
+    
+            deleteAllCrafts(user);
+        });
+    
+        function deleteCraft(user, craft) {
+            $.ajax({
+                url: '/delete-craft',
+                type: 'POST',
+                data: {
+                    user: user,
+                    craft: craft,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    // Craft deleted successfully
+                    console.log(response.message);
+                    // Reload or update the craft list
+                },
+                error: function(xhr) {
+                    // Failed to delete craft
+                    console.error('Failed to delete craft');
+                }
+            });
+        }
+    
+        function deleteAllCrafts(user) {
+            $.ajax({
+                url: '/delete-all-crafts',
+                type: 'POST',
+                data: {
+                    user: user,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    // All crafts deleted successfully
+                    console.log(response.message);
+                    // Reload or update the craft list
+                },
+                error: function(xhr) {
+                    // Failed to delete all crafts
+                    console.error('Failed to delete all crafts');
+                }
+            });
+        }
+    });
+    </script>
+<script>
+    $(document).ready(function() {
         // Listen for change event on ToggleBox
         $('#toggleBox').change(function() {
             if ($(this).is(':checked')) {
