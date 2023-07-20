@@ -61,7 +61,7 @@ class AddvertisimentController extends Controller
             'adv_period' => ['required'],
             'work_period' => ['required'],
             'gender' => ['required'],
-            'village_name' => ['required'],
+            'address_id' => ['required'],
             'city_name' => ['required'],
 
 
