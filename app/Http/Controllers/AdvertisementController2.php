@@ -15,7 +15,7 @@ class AdvertisementController2 extends Controller
     {
         $user = Auth::user();
         $isWorker = $user->is_worker;
-
+    
         $crafts = Craft::all();
         $cities = Address::distinct()->pluck('city_name', 'city_name')->toArray();
         $villages = Address::distinct()->pluck('village_name', 'village_name')->toArray();
@@ -27,39 +27,45 @@ class AdvertisementController2 extends Controller
     
         $query = Advertisement::query();
     
-        if ($selectedCraft && $selectedCraft !== 'all') {
+        // Apply filters based on craft, city, village, and type
+        if ($selectedCraft !== 'all') {
             $query->where('job_name', $selectedCraft);
         }
     
-        if ($selectedCity && $selectedCity !== 'all') {
+        if ($selectedCity !== 'all') {
             $query->whereHas('addresses', function ($query) use ($selectedCity) {
                 $query->where('city_name', $selectedCity);
             });
         }
     
-        if ($selectedVillage && $selectedVillage !== 'all') {
+        if ($selectedVillage !== 'all') {
             $query->whereHas('addresses', function ($query) use ($selectedVillage) {
                 $query->where('village_name', $selectedVillage);
             });
         }
     
-        if ($selectedType && $selectedType !== 'all') {
+        if ($selectedType !== 'all') {
             $query->where('advertisement_type', $selectedType);
         }
-        if ($isWorker == 0) {
-           
+    
+        // If the user is a worker, apply additional filtering
+        if ($isWorker) {
+            if ($selectedType === 'workAlone') {
                 $query->where('advertisement_type', 'workAlone');
-            
-        } elseif ($isWorker == 1) {
-            if ($selectedType === 'workshops') {
+            } elseif ($selectedType === 'workshops') {
                 $query->where('advertisement_type', 'workshops');
-            } else {
-                $query->where('advertisement_type', 'workAlone');
             }
         }
     
-        $advertisements = $query->orderBy('created_at', 'desc')->paginate(12);
+        // Retrieve all advertisements if no filters are selected
+        if ($selectedCraft === 'all' && $selectedCity === 'all' && $selectedVillage === 'all' && $selectedType === 'all') {
+            // No filters selected, retrieve all advertisements
+        }
     
-        return view('advertisement', compact('user','advertisements', 'crafts', 'cities', 'villages', 'selectedCraft','selectedCity','selectedVillage','selectedType'));
+        $advertisements = $query->orderBy('created_at', 'desc')->paginate(12);
+        $advertisements->appends($request->query());
+
+        return view('advertisement', compact('user', 'advertisements', 'crafts', 'cities', 'villages', 'selectedCraft', 'selectedCity', 'selectedVillage', 'selectedType'));
     }
+    
 }
