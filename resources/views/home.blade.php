@@ -434,12 +434,12 @@
                                 </div>
                                 <div class="t-work">
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="gender" id="IR1" value="male">
+                                        <input class="form-check-input" type="radio" name="gender" id="IR1" value="ذكر">
                                         <label class="form-check-label" for="inlineRadio1">ذكر</label>
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <label class="form-check-label" for="inlineRadio1">انثى </label>
-                                        <input class="form-check-input" type="radio" name="gender" id="IR2" value="female">
+                                        <input class="form-check-input" type="radio" name="gender" id="IR2" value="انثى">
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <label class="form-check-label" for="inlineRadio1">جنس المهني</label>
@@ -694,12 +694,12 @@
                                 </div>
                                 <div class="t-work">
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="gender" id="IR1" value="male">
+                                        <input class="form-check-input" type="radio" name="gender" id="IR1" value="ذكر">
                                         <label class="form-check-label" for="inlineRadio1">ذكر</label>
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <label class="form-check-label" for="inlineRadio1">انثى </label>
-                                        <input class="form-check-input" type="radio" name="gender" id="IR2" value="female">
+                                        <input class="form-check-input" type="radio" name="gender" id="IR2" value="انثى">
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <label class="form-check-label" for="inlineRadio1">جنس المهني</label>
@@ -764,7 +764,7 @@
                                                 <label for="">{{ optional($ad->addresses)->city_name }}</label>
                                             </a>
                                             <a class="village">
-                                                <label for="">{{ optional($ad->addresses)->addresses_id }}</label>
+                                                <label for="">{{ optional($ad->addresses)->_name }}</label>
                                             </a>
                                         </div>
                                         <div class="moreinfo2">
@@ -806,6 +806,91 @@
         <!-- Swiper JS -->
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+<script>
+                       $(function() {
+                        $('#advertisementFormSubmit2').on('submit', function(e) {
+                            e.preventDefault();
+
+                            $.ajax({
+                                url: $(this).attr('action'),
+                                method: $(this).attr('method'),
+                                data: new FormData(this),
+                                processData: false,
+                                dataType: 'json',
+                                contentType: false,
+                                beforSend: function() {
+                                    $(document).find('#errors').empty();
+                                    console.log('bd');
+              
+                                },
+                                success: function(data) {
+                                    if (data.status == 0) {
+                                    $(document).find('.error-text').text('');
+
+                                        $.each(data.error, function(prefix, val) {
+                                            $('span.' + prefix + '_error').text(val[0]);
+
+                                        });
+
+                                    } else {
+                                        $(document).find('.error-text').text('');
+
+                                        $('#advertisementFormSubmit2').trigger('reset')
+
+                                    }
+                                }
+
+                            })
+
+                        })
+                    })
+</script>
+
+
+
+
+<script>
+    $(function() {
+     $('#advertisementFormSubmit').on('submit', function(e) {
+         e.preventDefault();
+
+         $.ajax({
+             url: $(this).attr('action'),
+             method: $(this).attr('method'),
+             data: new FormData(this),
+             processData: false,
+             dataType: 'json',
+             contentType: false,
+             beforSend: function() {
+                 $(document).find('#errors').empty();
+                 console.log('bd');
+
+             },
+             success: function(data) {
+                 if (data.status == 0) {
+                 $(document).find('.error-text').text('');
+
+                     $.each(data.error, function(prefix, val) {
+                         $('span.' + prefix + '_error').text(val[0]);
+
+                     });
+
+                 } else {
+                     $(document).find('.error-text').text('');
+
+                     $('#advertisementFormSubmit').trigger('reset')
+
+                 }
+             }
+
+         })
+
+     })
+ })
+</script>
+
+
         <script>
     $(document).ready(function() {
         $("input[name='search']").on("keyup", function() {
