@@ -53,11 +53,8 @@ class HomeController extends Controller
              'adv_period'=>['required'],
              'work_period'=>['required'],
              'gender'=>['required'],
-             'village_name'=>['required'],
+             'address_id'=>['required'],
              'city_name'=>['required'],
-
-
-
         ]);
          
 
@@ -71,17 +68,16 @@ class HomeController extends Controller
         ->whereMonth('created_at', Carbon::now()->month)
         ->count();
 
-        $maxDownloadsPerMonth = 40;
+
+        $maxDownloadsPerMonth = 5;
+
         if ($user && $user->is_worker == 1 && $currentMonthAdsCount >= $maxDownloadsPerMonth) {
             // User has reached the maximum allowed downloads for the current month
             return response()->json(['message' => 'You have reached the maximum number of allowed downloads for this month']);
         }elseif ($user && $user->is_worker == 0 && $currentMonthAdsCount >= $maxDownloadsPerMonth) {
             // Regular user has reached the maximum allowed ads
             return response()->json(['message' => 'User, you have reached the maximum number of allowed ads']);
-        }
-    
-
-    
+        }  
         $advertisement = new Advertisement;
         $advertisement->adv_req = $request->adv_req;
         $advertisement->job_des = $request->job_des;
@@ -104,12 +100,10 @@ class HomeController extends Controller
         } elseif ($user && $user->is_worker == 1) {
             $user->ads_count++;
             $user->save();
-
         }
     
         $currentMonthAdsCount1 = Advertisement::where('user_id', $user->id)
         ->count();
-        dd($currentMonthAdsCount1);
         return redirect(route('home' ));
 
     }
