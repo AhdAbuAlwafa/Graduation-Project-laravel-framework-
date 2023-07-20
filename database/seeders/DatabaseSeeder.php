@@ -78,9 +78,9 @@ class DatabaseSeeder extends Seeder
         // ]);
         
         \App\Models\User::factory()->create([
-            'fname' => 'leena',
-            'lname' => 'kasem',
-            'number' => 123456,
+            'fname' => 'jamal',
+            'lname' => 'luaai',
+            'number' => 987654321,
             'image' =>'',
             'description'=> '',
             'num_evl'=> 0,
@@ -89,7 +89,8 @@ class DatabaseSeeder extends Seeder
             'is_worker'=> 1,
             'is_active'=> 0,
             'address_id'=> $addresses->id, 
-            'password' => Hash::make('123456')
+            'password' => Hash::make('987654321')
         ]);
+
     }
 }
