@@ -71,7 +71,7 @@
                             alert(response.message);
                         } else {
                             $('#advertisementForm')[0].reset();
-                                                       alert('Advertisement posted successfully!');
+                            alert('Advertisement posted successfully!');
                         }
                     },
                     error: function(xhr, status, error) {
@@ -83,7 +83,7 @@
         });
     </script>
 
-    <script>
+<script>
         $(document).ready(function() {
             $('#city_name_select1').on('change', function() {
                 var selectedCity = $(this).val();
@@ -98,10 +98,10 @@
                         success: function(data) {
                             console.log(data);
                             // Clear the previous options
-
-                            $('#village_name_select1').html('<option value="all"> جميع القرى</option>');
+                            $('#village_name_select1').html('<option value="all">جميع القرى </option>');
                             // Append new options based on the received data
                             $.each(data, function(key, value) {
+
                                 $('#village_name_select1').append('<option value="' + value.id + '">' + value.village_name + '</option>');
                             });
                         },
@@ -302,7 +302,7 @@
                                 <div class="row" dir="rtl">
                                     <div class="col">
 
-                                        <select class="form-control8 form-select mt-3 " aria-label="Default select example" id="village_name_select" name="village_name">
+                                        <select class="form-control8 form-select mt-3 " aria-label="Default select example" id="village_name_select" name="address_id">
                                             <option value="all" selected>اخترالقرية/البلدة</option>
 
                                         </select>
@@ -588,7 +588,7 @@
                                 </div>
                                 <div class="row" dir="rtl">
                                     <div class="col">
-                                        <select class="form-control8 form-select mt-3 " aria-label="Default select example" id="village_name_select1" name="village_name">
+                                        <select class="form-control8 form-select mt-3 " aria-label="Default select example" id="village_name_select1" name="address_id">
                                             <option value="all" selected>اخترالقرية/البلدة</option>
 
                                         </select>
