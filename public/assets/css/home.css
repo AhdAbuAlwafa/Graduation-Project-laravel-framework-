@@ -550,6 +550,75 @@ button:hover {
 
 }
 
+/* Basic styles for the search container */
+.search-container {
+    position: relative;
+}
+
+/* Styles for the search input */
+#searchInput {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Styles for the search dropdown lists */
+.search-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    z-index: 1;
+    min-width: 200px;
+}
+
+/* Styles for the search dropdown list items */
+.search-dropdown li {
+    padding: 8px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Highlight the selected item when hovering */
+.search-dropdown li:hover {
+    background-color: #ddd;
+}
+
+/* Show the arrow at the top of the dropdown */
+.search-dropdown::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent #f9f9f9 transparent;
+}
+
+.suggestions {
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+}
+.suggestions p {
+    padding: 5px;
+    margin: 0;
+    cursor: pointer;
+}
+.suggestions p:hover {
+    background-color: #f1f1f1;
+}
 /*كورسال*/
 /* === Google Font Import - Poppins === */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
