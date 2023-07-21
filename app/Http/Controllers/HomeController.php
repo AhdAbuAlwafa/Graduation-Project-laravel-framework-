@@ -13,7 +13,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Log;
-
+use Illuminate\Support\Facades\Validator;
 
 class HomeController extends Controller
 {
@@ -45,17 +45,21 @@ class HomeController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
-        $validated = $request->validate([
-           // 'work_hour'=> ($request->is_worker == 1) ? ['required']: '',
-            //'adv_req'=> ($request->is_worker == 1) ? ['required','min:20','max:1500','string']: '',
-            'job_des'=>['required','min:20','max:1500','string'],
-             'job_name'=>['required','string'],
-             'adv_period'=>['required'],
-             'work_period'=>['required'],
-             'gender'=>['required'],
-             'address_id'=>['required'],
-             'city_name'=>['required'],
-        ]);
+
+        $validated = Validator::make($request->all(),[
+            'work_hour'=> ($request->advertisement_type == 'workshops') ? ['required']: '',
+            'adv_req'=> ($request->advertisement_type == 'workshops') ? ['required','min:20','max:1500','string']: '',
+             'job_des'=>['required','min:20','max:1500','string'],
+              'job_name'=>['required','string'],
+              'adv_period'=>['required'],
+              'work_period'=>['required'],
+              'gender'=>['required'],
+              'address_id'=>['required'],
+              'city_name'=>['required'],
+ 
+ 
+ 
+         ]);
          
 
         if ($request->input('advertisement_type') === 'workshops') {
@@ -77,8 +81,13 @@ class HomeController extends Controller
         }elseif ($user && $user->is_worker == 0 && $currentMonthAdsCount >= $maxDownloadsPerMonth) {
             // Regular user has reached the maximum allowed ads
             return response()->json(['message' => 'User, you have reached the maximum number of allowed ads']);
-        }  
-        $advertisement = new Advertisement;
+
+        }
+    
+        if (!$validated->passes()){
+            return response()->json(['status' =>0 ,'error' =>$validated->errors()->toArray()]);
+        }else {
+                $advertisement = new Advertisement;
         $advertisement->adv_req = $request->adv_req;
         $advertisement->job_des = $request->job_des;
         $advertisement->job_name = $request->job_name;
@@ -93,6 +102,9 @@ class HomeController extends Controller
         $advertisement->advertisement_type = $ads_type;
         $advertisement->created_at = Carbon::now();
         $advertisement->save();
+        }
+    
+    
     
         if ($user && $user->is_worker == 0) {
             $user->ads_count++;
@@ -104,6 +116,7 @@ class HomeController extends Controller
     
         $currentMonthAdsCount1 = Advertisement::where('user_id', $user->id)
         ->count();
+
         return redirect(route('home' ));
 
     }
@@ -151,3 +164,4 @@ class HomeController extends Controller
 
 
 }
+        

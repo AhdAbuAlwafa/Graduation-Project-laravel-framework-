@@ -75,7 +75,7 @@
             });
         });
     </script>
-
+{{-- 
     <script>
         $(document).ready(function() {
             $('#advertisementFormSubmit').submit(function(event) {
@@ -123,8 +123,6 @@
             });
         });
     </script>
-
-
 
     <script>
         $(document).ready(function() {
@@ -294,6 +292,7 @@
                     <a href="#" data-bs-toggle="modal" data-bs-target="#advertisiment-modal1" onclick="submitForm('workshops')" class="btn btn-lg btn-outline-primary" style="box-shadow: 0 0 32px rgba(0, 0, 0, 0.5) ;border-radius: 20px; background-color: #a3c5d6; color: rgb(0, 0, 0); "> اضف اعلان</a>
                 </form>
             </div>
+      
 
             <div class="modal" tabindex="-1" id="advertisiment-modal1">
                 <div class="modal-dialog">
@@ -307,6 +306,13 @@
                                 @csrf
 
                                 {{ csrf_field() }}
+                                <span id="errors" class="error-text adv_period_error"></span>
+                                
+                                <span id="errors" class="error-text job_name_error"></span>
+                                <span id="errors" class="error-text village_name_error"></span>
+                                <span id="errors" class="error-text city_name_error"></span>
+                                <span id="errors" class="error-text job_des_error"></span>
+                                <span id="errors" class="error-text adv_req_error"></span>
                                 <input type="hidden" name="advertisement_type" value="workshops ">
 
                                 <div class="row" dir="rtl">
@@ -562,6 +568,41 @@
         </script>
 
         @endif
+        <script>
+              $(function() {
+     $('#advertisementFormSubmit').on('submit', function(e) {
+          e.preventDefault();
+         $.ajax({
+             url: $(this).attr('action'),
+             method: $(this).attr('method'),
+             data: new FormData(this),
+             processData: false,
+             dataType: 'json',
+             contentType: false,
+             beforSend: function() {
+                 $(document).find('#errors').empty();
+                 console.log('bd');
+             },
+             success: function(data) {
+                 if (data.status == 0) {
+                 $(document).find('.error-text').text('');
+
+                     $.each(data.error, function(prefix, val) {
+                         $('span.' + prefix + '_error').text(val[0]);
+
+                     });
+
+                 } else {
+                     $(document).find('.error-text').text('');
+
+                     $('#advertisiment-modal1').trigger('reset')
+                 }
+             }
+         })
+     })
+ })
+        </script>
+        
         <!---------------second part of adv------------>
         <div class="row" style="margin-top: 200px;">
 
@@ -580,6 +621,12 @@
                     <a href="{{ route('advertisiment2', ['advertisement_type' => 'workAlone']) }}" class="btn btn-lg btn-outline-primary" style="box-shadow: 0 0 32px rgba(0, 0, 0, 0.5) ;border-radius: 20px; background-color: #a3c5d6; color: rgb(0, 0, 0); ">جميع الاعلانات</a>
                 </form>
             </div>
+            <span id="errors" class="error-text adv_period_error"></span>
+            <span id="errors" class="error-text job_name_error"></span>
+            <span id="errors" class="error-text village_name_error"></span>
+            <span id="errors" class="error-text city_name_error"></span>
+            <span id="errors" class="error-text job_des_error"></span>
+
             <div class="modal" tabindex="-1" id="advertisiment-modal">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -592,6 +639,13 @@
 
                                 @method('post')
                                 {{ csrf_field() }}
+                                <span id="errors" class="error-text adv_period_error"></span>
+                                
+                                <span id="errors" class="error-text job_name_error"></span>
+                                <span id="errors" class="error-text village_name_error"></span>
+                                <span id="errors" class="error-text city_name_error"></span>
+                                <span id="errors" class="error-text job_des_error"></span>
+                                <span id="errors" class="error-text adv_req_error"></span>
                                 <input type="hidden" name="advertisement_type" value="workAlone">
 
                                 <div class="row" dir="rtl">
@@ -805,56 +859,19 @@
 
         <!-- Swiper JS -->
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-
 <script>
                        $(function() {
                         $('#advertisementFormSubmit2').on('submit', function(e) {
                             e.preventDefault();
 
-                            $.ajax({
-                                url: $(this).attr('action'),
-                                method: $(this).attr('method'),
-                                data: new FormData(this),
-                                processData: false,
-                                dataType: 'json',
-                                contentType: false,
-                                beforSend: function() {
-                                    $(document).find('#errors').empty();
-                                    console.log('bd');
-              
-                                },
-                                success: function(data) {
-                                    if (data.status == 0) {
-                                    $(document).find('.error-text').text('');
-
-                                        $.each(data.error, function(prefix, val) {
-                                            $('span.' + prefix + '_error').text(val[0]);
-
-                                        });
-
-                                    } else {
-                                        $(document).find('.error-text').text('');
-
-                                        $('#advertisementFormSubmit2').trigger('reset')
-
-                                    }
-                                }
-
-                            })
-
-                        })
-                    })
-</script>
 
 
 
 
 <script>
     $(function() {
-     $('#advertisementFormSubmit').on('submit', function(e) {
+     $('#advertisementFormSubmit2').on('submit', function(e) {
          e.preventDefault();
-
          $.ajax({
              url: $(this).attr('action'),
              method: $(this).attr('method'),
@@ -865,7 +882,6 @@
              beforSend: function() {
                  $(document).find('#errors').empty();
                  console.log('bd');
-
              },
              success: function(data) {
                  if (data.status == 0) {
@@ -879,13 +895,10 @@
                  } else {
                      $(document).find('.error-text').text('');
 
-                     $('#advertisementFormSubmit').trigger('reset')
-
+                     $('#advertisiment-modal').trigger('reset')
                  }
              }
-
          })
-
      })
  })
 </script>
