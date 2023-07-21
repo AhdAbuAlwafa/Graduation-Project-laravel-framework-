@@ -97,18 +97,7 @@
                             <span id="errors" class="error-text password_error"></span>
                             <span id="errors" class="error-text gender_error"></span>
 
-                            <div class="row1" >
-                                <div class="col1" >
-                                    
-                                    
-                                    <label for="workercheck"></label> 
-                                    <input type="radio" value="1" name="is_worker" onclick="enabled(this)">
-                                    <label for="is_worker"  >التسجيل كعامل</label>
-                                    <br>
-                                    <input type="radio" value="0" name="is_worker" onclick="enabled(hidden)" >
-                                    <label  for="is_worker"  >التسجيل  كمستخدم</label>
-                                </div>
-                            </div>
+                            
                             
                             <!-------------------------اسم الشخص------------------------------------------>
                             <div class="row">
@@ -278,7 +267,18 @@
 
 
                             <!-------------------craft------------------------------->
-
+                            <div class="row1" >
+                                <div class="col1" >
+                                    
+                                    
+                                    <label for="workercheck">هل انت عامل؟</label> 
+                                    <input type="radio" value="1" name="is_worker" onclick="enabled(this)">
+                                    <label for="is_worker"  >نعم</label>
+                                    
+                                    <input type="radio" value="0" name="is_worker" onclick="enabled(hidden)" >
+                                    <label  for="is_worker"  >لا</label>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col">
                                     <div class="input-field-left">
