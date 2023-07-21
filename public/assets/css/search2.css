@@ -16,6 +16,160 @@ body {
     background: #e4e3e3;
 }
 
+
+/*البحث في الصوره*/
+.searchbox1 {
+
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0);
+    position: relative;
+    top: 200px;
+    right: 440px;
+}
+
+.searchbox2 {
+    height: 60px;
+    display: flex;
+    cursor: pointer;
+    padding: 10px 20px;
+    background: rgba(141, 139, 139, 0.247);
+    -webkit-backdrop-filte: blur(3px);
+    backdrop-filter: blur(3px);
+    border-radius: 30px;
+    border: 1px black solid;
+    align-items: center;
+    box-shadow: 0 10px 25px rgbg(0, 0, 0, .3);
+    margin-top: 100px;
+    margin-left: -400px;
+}
+
+.searchbox2 input {
+    width: 430px;
+    height: 30px;
+    outline: none;
+    border: none;
+    font-size: 30px;
+    color: azure;
+    transition: 0.8s;
+    background: transparent;
+    /*margin: 25px 0;
+    position: relative;
+    padding-top: 255px;
+    padding-right: 500px;*/
+
+}
+
+.searchbox2:hover input {
+    width: 550px;
+}
+
+.fa-user-magnifying-glass {
+    color: rgb(7, 7, 7);
+    font-size: 60px;
+}
+
+.searchbox2::placeholder {
+    color: rgba(2, 2, 2, 0.863);
+    font-size: 26px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.search-pic button {
+    position: inherit;
+    left: 459px;
+    top: 260px;
+    font-size: 38px;
+    width: 100px;
+    height: 63px;
+    background: rgba(0, 0, 0, 0.425);
+    color: rgb(0, 0, 0);
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-top: 4px;
+    padding-bottom: 7px;
+    border-radius: 10px;
+}
+
+button.active,
+button:hover {
+    background: rgb(0, 0, 0);
+    color: rgb(0, 0, 0);
+    border: 5px solid black;
+
+}
+
+/* Basic styles for the search container */
+.search-container {
+    position: relative;
+}
+
+/* Styles for the search input */
+#searchInput {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Styles for the search dropdown lists */
+.search-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    z-index: 1;
+    min-width: 200px;
+}
+
+/* Styles for the search dropdown list items */
+.search-dropdown li {
+    padding: 8px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Highlight the selected item when hovering */
+.search-dropdown li:hover {
+    background-color: #ddd;
+}
+
+/* Show the arrow at the top of the dropdown */
+.search-dropdown::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent #f9f9f9 transparent;
+}
+
+.suggestions {
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+}
+.suggestions p {
+    padding: 5px;
+    margin: 0;
+    cursor: pointer;
+}
+.suggestions p:hover {
+    background-color: #f1f1f1;
+}
 .cardsection {
     position: relative;
     height: 300px;
