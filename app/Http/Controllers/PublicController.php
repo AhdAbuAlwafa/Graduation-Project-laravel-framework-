@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Address;
 use App\Models\Craft;
+use App\Models\Rate;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class PublicController extends Controller
@@ -26,13 +28,14 @@ class PublicController extends Controller
 
     public function openCraft(Request $request, $profession = null)
     {
+
         $selectedCraft = $request->input('craft_name', 'all');
         $selectedProfession = $profession ?? 'all';
         $crafts = Craft::get();
         $cities = Address::distinct()->pluck('city_name', 'city_name')->toArray();
         $villages = [];
 
-        $query = User::query();
+        $query = User::query()->where('is_worker', 1)->with('rates');
 
         if ($selectedProfession != 'all') {
             $query->whereHas('crafts', function ($query) use ($selectedProfession) {
@@ -40,10 +43,36 @@ class PublicController extends Controller
             });
         }
 
-        $users = $query->paginate(12);
 
+        $users = $query->paginate();
+
+
+        // Calculate average rating for each user and store in an array
+        // $userRates = [];
+        // foreach ($users as $user) {
+        //     $totalRateUser = Rate::where('reviewable', $user->id)->sum('rate');
+        //     $totalReviewersUser = Rate::where('reviewable', $user->id)->count();
+        //     $userRate = ($totalReviewersUser == 0) ? 0 : $totalRateUser / $totalReviewersUser;
+        //     $userRates[$user->id] = $userRate;
+        // }
         return view('userPage.searchPage', compact('users', 'cities', 'villages', 'crafts', 'selectedProfession', 'selectedCraft'));
+        // return $users;
     }
+
+    //     $users = $query->orderByDesc(function ($query) {
+    //         return Rate::selectRaw('AVG(rate) as average_rate')
+    //             ->whereColumn('reviewable', 'users.id')
+    //             ->limit(1);
+    //     })->paginate(12);
+
+    // // Calculate $userRate for each user individually and store it in an array
+    // $userRates = [];
+    // foreach ($users as $user) {
+    //     $totalRateUser = Rate::where('reviewable', $user->id)->sum('rate');
+    //     $totalReviewersUser = Rate::where('reviewable', $user->id)->count();
+    //     $userRate = ($totalReviewersUser == 0) ? 0 : $totalRateUser / $totalReviewersUser;
+    //     $userRates[$user->id] = $userRate;
+    // }
 
 
     public function filterNav(Request $request)
@@ -109,25 +138,24 @@ class PublicController extends Controller
     }
 
 
-
-    public function nameSearch(Request $request)
+    public function searchSuggestions(Request $request)
     {
-        $selectedCraft = $request->input('craft_name', 'all');
-        $crafts = Craft::get();
-        $cities = Address::distinct()->pluck('city_name', 'city_name')->toArray();
-        $searchQuery = $request->input('search');
-
+        $searchQuery = $request->input('query');
+        
         // Perform the search query to retrieve matching users
         $users = User::where(function ($query) use ($searchQuery) {
-            $query->where('fname', 'LIKE', '%' . $searchQuery . '%')
-                ->orWhere('lname', 'LIKE', '%' . $searchQuery . '%');
+            $query->where('fname', 'LIKE', $searchQuery . '%')
+                ->orWhere('lname', 'LIKE', $searchQuery . '%');
         })
-            ->where('is_worker', 1)
-            ->paginate();
-
-        // Pass the list of matching users to the view
-        return view('userPage.searchPage', compact('users', 'crafts', 'cities', 'selectedCraft'));
+        ->where('is_worker', 1)
+        ->get();
+    
+        // Return the matching user names as JSON response
+        return response()->json($users);
     }
+    
+
+
 
     public function fiveAd(Request $request)
     {
