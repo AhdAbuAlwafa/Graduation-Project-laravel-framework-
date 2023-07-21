@@ -75,7 +75,7 @@
             });
         });
     </script>
-{{-- 
+
     <script>
         $(document).ready(function() {
             $('#advertisementFormSubmit').submit(function(event) {

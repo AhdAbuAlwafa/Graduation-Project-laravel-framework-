@@ -97,8 +97,19 @@
                             <span id="errors" class="error-text password_error"></span>
                             <span id="errors" class="error-text gender_error"></span>
 
-
-                          
+                            <div class="row1" >
+                                <div class="col1" >
+                                    
+                                    
+                                    <label for="workercheck"></label> 
+                                    <input type="radio" value="1" name="is_worker" onclick="enabled(this)">
+                                    <label for="is_worker"  >التسجيل كعامل</label>
+                                    <br>
+                                    <input type="radio" value="0" name="is_worker" onclick="enabled(hidden)" >
+                                    <label  for="is_worker"  >التسجيل  كمستخدم</label>
+                                </div>
+                            </div>
+                            
                             <!-------------------------اسم الشخص------------------------------------------>
                             <div class="row">
 
@@ -228,14 +239,14 @@
                                         <div class="col-lg-2 col-md-12 col-12">
                                             <div class="gender">
                                                 <input type='radio' id="check-male" id="reg-user" name="gender"
-                                                    value="0">
+                                                    value="ذكر">
                                                 <label for="check-male" style="font-size: 23px; margin-top: 5px;">
                                                     ذكر</label>
                                             </div>
                                         </div>
                                         <div class="col-lg-2 col-md-12 col-12">
                                             <div class="gender">
-                                                <input type='radio' id="check-female" name="gender" value="1"
+                                                <input type='radio' id="check-female" name="gender" value="انثى"
                                                     id="reg-user">
                                                 <label for="check-male" style="font-size: 23px; margin-top: 5px;">
                                                     انثى</label>
@@ -247,14 +258,7 @@
 
 
                             <!---------------------------image--------------------------------------->
-                            <!--<div class="row"  >
-                                <div class="col-lg-4 col-md-12 col-12">
-                                    <label for="formGroupExampleInput" class="form-label">صورة شخصيه</label>
-                                </div>
-                                <div class="col-lg-4 col-md-12 col-12">
-                                    <input type="file" class="form-control" id="image" name="image">
-                                </div>
-                            </div>-->
+                           
                             <div class="row">
                                 <div class="input-field2">
                                     <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" name="image"
@@ -277,18 +281,6 @@
 
                             <div class="row">
                                 <div class="col">
-                                    
-                                    {{-- <input type="checkbox" id="workercheck" name="is_worker" value="1 class="check"
-                                        onclick="enabled(this)"> --}}
-                                    <label for="workercheck"></label> 
-                                    <input type="radio" value="1" name="is_worker" onclick="enabled(this)">
-                                    <label for="is_worker" >التسجيل كعامل</label>
-                                    <input type="radio" value="0" name="is_worker" onclick="enabled(hidden)" >
-                                    <label  for="is_worker"  >التسجيل  كمستخدم</label>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
                                     <div class="input-field-left">
                                         <div class="select-country">
                                             <select class='input-box-num' id="crafts" name="craft"
@@ -307,6 +299,7 @@
                                     </div>
                                 </div>
                             </div>
+                          
 
                             <!--------------------------------------تjob-desc------------------------------------------------->
                             
