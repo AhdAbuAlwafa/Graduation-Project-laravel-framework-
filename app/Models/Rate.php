@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Rate extends Model
 {
     use HasFactory;
+    protected $table='rates';
     protected $fillable=['rate','reviewable','reviewer'];
     
     public function users(){
