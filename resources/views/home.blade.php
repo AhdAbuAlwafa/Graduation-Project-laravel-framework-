@@ -589,13 +589,12 @@
 
                      $.each(data.error, function(prefix, val) {
                          $('span.' + prefix + '_error').text(val[0]);
-
                      });
 
                  } else {
                      $(document).find('.error-text').text('');
 
-                     $('#advertisiment-modal1').trigger('reset')
+                     $('#advertisementFormSubmit').trigger('reset')
                  }
              }
          })
@@ -895,7 +894,7 @@
                  } else {
                      $(document).find('.error-text').text('');
 
-                     $('#advertisiment-modal').trigger('reset')
+                     $('#advertisementFormSubmit2').trigger('reset')
                  }
              }
          })

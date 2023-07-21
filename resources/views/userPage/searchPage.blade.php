@@ -139,7 +139,7 @@
                             <div class=" card">
                                 <div class="card-content">
                                     <div class="image">
-                                        <img src="assets/img/search-pic.jpg" alt="" />
+                                        <img src="{{ 'images/' . $user->image }}" alt="" />
                                     </div>
 
 
