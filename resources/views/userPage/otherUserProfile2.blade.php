@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <title> الرئيسيه</title>
+    <title>صفحة مهني</title>
     <link href="{{ asset('assets/css/otherUserProfile.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/navbar.css') }}" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
@@ -27,7 +27,7 @@
             <!----------------navbar------------------->
             @include('shared.navbar')
         </div>
-      
+
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
@@ -64,7 +64,6 @@
                             <div class="stars">
                                 <div class="col-md-6 col-lg-3 bigcard" id="search-results">
 
-                                    <h3> من هنا <b> {{$worker->fname}} </b> قم بتقييم</h3>
                                     <div class="rating">
 
                                         <h2 class="active">
@@ -75,7 +74,6 @@
 
                                     </div>
                                     <div class="rating row">
-                                        <h5>Your rating</h5>
                                         @for ($i = 1; $i <= 5; $i++) <a><i class="star fas fa-star " data-rating="{{ $i }}"></i></a>
                                             @endfor
                                     </div>
@@ -86,6 +84,13 @@
                         </div>
 
                     </ul>
+                    <button id="reset-rating" style="display: none;">Reset Rating</button>
+
+
+                    <div id="alert-message" style="display: none;">
+                        <p>Rating successfully completed!</p>
+                        <button onclick="refreshPage()">Okay</button>
+                    </div>
 
                     <div class="content">
                         <p>
@@ -172,118 +177,138 @@
 
         </div>
 
-        <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
-        <script src="https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl-js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-
-
-
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const stars = document.querySelectorAll('.star');
-                const selectedRatingDisplay = document.getElementById('selected-rating');
-                const resetButton = document.getElementById('reset-rating');
-                window.onload = function() {
-                    selectedRating = '<?php echo $isRated->rate ?? 0; ?>';
-                    highlightStars(selectedRating);
-                }
-                stars.forEach(function(star) {
-                    star.addEventListener('mouseenter', function() {
-                        const rating = parseInt(star.dataset.rating);
-                        highlightStars(rating);
-                    });
-                    star.addEventListener('mouseleave', function() {
-                        highlightStars(selectedRating);
-                    });
-                    star.addEventListener('click', function() {
-                        const rating = parseInt(star.dataset.rating);
-                        selectedRating = rating;
-                        updateRatingDisplay();
-                        resetButton.removeAttribute('disabled');
-                    });
-                });
-                resetButton.addEventListener('click', function() {
-                    selectedRating = 0;
-                    updateRatingDisplay();
-                    resetButton.setAttribute('disabled', true);
-                });
-
-                function highlightStars(rating) {
-                    stars.forEach(function(star) {
-                        const starRating = parseInt(star.dataset.rating);
-                        if (starRating <= rating) {
-                            star.classList.add('active');
-                        } else {
-                            star.classList.remove('active');
-                        }
-                    });
-                }
-
-                function updateRatingDisplay() {
-                    if (selectedRating !== 0) {
-                        id = '<?php echo $worker->id; ?>';
-                        $.ajax({
-                            type: 'POST',
-                            url: "/sendrate",
-                            data: 'id=' + id + '&rate=' + selectedRating + "&_token={{ csrf_token() }} &_method=post"
-                        })
-                    } else {
-                        selectedRatingDisplay.textContent = 'No rating selected.';
-                        stars.forEach(function(star) {
-                            star.classList.remove('active');
-                        });
-                    }
-                }
-            });
-        </script>
 
 <script>
-  $(document).ready(function() {
-    // Intercept the form submission event
-    $('#commentForm').submit(function(event) {
-        event.preventDefault(); // Prevent the form from submitting normally
 
-        // Get the form data
-        var formData = $(this).serialize();
+   
 
-        // Send an AJAX request to submit the form
-        $.ajax({
-            type: 'POST',
-            url: $(this).attr('action'),
-            data: formData,
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            success: function(response) {
-                // Clear the comment textarea
-                $('#commentadd').val('');
+document.addEventListener('DOMContentLoaded', function() {
+        const stars = document.querySelectorAll('.star');
+        const selectedRatingDisplay = document.getElementById('selected-rating');
+        const resetButton = document.getElementById('reset-rating'); 
+        let selectedRating = '<?php echo $isRated->rate ?? 0; ?>';
+        highlightStars(selectedRating);
 
-                // Append the new comment HTML to the comments container
-                var newComment = $(response.commentHtml);
-                newComment.css('background-color', 'red');
-                $('#commentsContainer').append(newComment);
+        stars.forEach(function(star) {
+            star.addEventListener('mouseenter', function() {
+                const rating = parseInt(star.dataset.rating);
+                highlightStars(rating);
+            });
 
-                // Remove the background color after 3 seconds
-                setTimeout(function() {
-                    newComment.css('background-color', 'transparent');
-                }, 3000);
-            },
-            error: function(xhr, textStatus, errorThrown) {
-                console.error(errorThrown);
-            }
+            star.addEventListener('mouseleave', function() {
+                highlightStars(selectedRating);
+            });
+
+            star.addEventListener('click', function() {
+                const rating = parseInt(star.dataset.rating);
+                selectedRating = rating;
+                updateRatingDisplay();
+                resetButton.removeAttribute('disabled');
+                // Show the alert message
+                const alertMessage = 'Rating successfully completed!';
+                window.alert(alertMessage);
+                refreshPage();
+            });
         });
-    });
 
-    // Handle the click event of the "نشر التعليق" button
-    $('#postCommentBtn').click(function() {
-        $('#commentForm').submit();
+        resetButton.addEventListener('click', function() {
+            selectedRating = 0;
+            updateRatingDisplay();
+            resetButton.setAttribute('disabled', true);
+        });
+
+        function highlightStars(rating) {
+            stars.forEach(function(star) {
+                const starRating = parseInt(star.dataset.rating);
+                if (starRating <= rating) {
+                    star.classList.add('active');
+                } else {
+                    star.classList.remove('active');
+                }
+            });
+        }
+
+        function updateRatingDisplay() {
+            if (selectedRating !== 0) {
+                const id = '<?php echo $worker->id; ?>';
+                $.ajax({
+                    type: 'POST',
+                    url: "/sendrate",
+                    data: {
+                        id: id,
+                        rate: selectedRating,
+                        _token: '{{ csrf_token() }}',
+                        _method: 'post'
+                    },
+                    success: function() {
+                        // Do nothing, the rating is successfully updated
+                    }
+                });
+            } else {
+                selectedRatingDisplay.textContent = 'No rating selected.';
+                stars.forEach(function(star) {
+                    star.classList.remove('active');
+                });
+            }
+        }
+
+        // Function to refresh the page
+        function refreshPage() {
+            window.location.reload();
+        }
     });
-});
 
 </script>
+
+        <script>
+            $(document).ready(function() {
+                // Intercept the form submission event
+                $('#commentForm').submit(function(event) {
+                    event.preventDefault(); // Prevent the form from submitting normally
+
+                    // Get the form data
+                    var formData = $(this).serialize();
+
+                    // Send an AJAX request to submit the form
+                    $.ajax({
+                        type: 'POST',
+                        url: $(this).attr('action'),
+                        data: formData,
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function(response) {
+                            // Clear the comment textarea
+                            $('#commentadd').val('');
+
+                            // Append the new comment HTML to the comments container
+                            var newComment = $(response.commentHtml);
+                            newComment.css('background-color', 'red');
+                            $('#commentsContainer').append(newComment);
+
+                            // Remove the background color after 3 seconds
+                            setTimeout(function() {
+                                newComment.css('background-color', 'transparent');
+                            }, 3000);
+                        },
+                        error: function(xhr, textStatus, errorThrown) {
+                            console.error(errorThrown);
+                        }
+                    });
+                });
+
+                // Handle the click event of the "نشر التعليق" button
+                $('#postCommentBtn').click(function() {
+                    $('#commentForm').submit();
+                });
+            });
+        </script>
 </body>
