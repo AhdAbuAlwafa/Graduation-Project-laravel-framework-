@@ -600,3 +600,15 @@ form .button input:hover {
     background: rgb(88, 56, 250);
 }
 
+.row1 {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.col1 {
+    float: right;
+}
+
+.col1 label {
+    font-size: 30px;
+}
