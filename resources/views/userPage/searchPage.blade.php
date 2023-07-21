@@ -6,8 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
-        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <title> البحث</title>
 
     <link href="{{ asset('assets/css/search2.css') }}" rel="stylesheet">
@@ -20,14 +19,11 @@
         <!----------------navbar------------------->
         @include('shared.navbar')
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous">
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
-        integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous">
     </script>
 
 
@@ -52,7 +48,7 @@
                             $.each(data, function(key, value) {
                                 $('#village_name_select').append('<option value="' + value.id + '">' + value.village_name + '</option>');
                             });
-                        }, 
+                        },
 
                     });
                 } else {
@@ -60,7 +56,7 @@
                     $('#village_name_select').html('<option value="all">Select Village</option>');
                 }
             });
-        }); 
+        });
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -76,21 +72,18 @@
         <div class="row" style="align-items: center; ">
             <div class="col">
 
-                <button class="btn btn-lg btn-outline-primary"
-                        style="border-width: 0px; background-color: #004985; color: white; ">ابحث</button>
+                <button class="btn btn-lg btn-outline-primary" style="border-width: 0px; background-color: #004985; color: white; ">ابحث</button>
             </div>
 
 
             <div class="col">
                 <div class="btn-group">
-                    <select id="craft_name_select" name="craft_name" class="btn btn-secondary btn-lg dropdown-toggle"
-                        ata-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                        style="background-color:  #004883; margin-left: 100px;">
+                    <select id="craft_name_select" name="craft_name" class="btn btn-secondary btn-lg dropdown-toggle" ata-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color:  #004883; margin-left: 100px;">
                         <option value="all" {{ $selectedCraft == 'all' ? 'selected' : '' }}>جميع المهن</option>
                         @foreach ($crafts as $craft)
-                            <option value="{{ $craft->id }}" {{ $selectedCraft == $craft->id ? 'selected' : '' }}>
-                                {{ $craft->craft_name }}
-                            </option>
+                        <option value="{{ $craft->id }}" {{ $selectedCraft == $craft->id ? 'selected' : '' }}>
+                            {{ $craft->craft_name }}
+                        </option>
                         @endforeach
                     </select>
                 </div>
@@ -111,9 +104,9 @@
                     <select id="city_name_select" name="city_name" class="btn btn-secondary btn-lg dropdown-toggle" ata-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color:  #004883; margin-left: 100px;">
                         <option value="all">جميع المدن</option>
                         @foreach ($cities as $cityName)
-                            <option value="{{ $cityName }}">
-                                {{ $cityName }}
-                            </option>
+                        <option value="{{ $cityName }}">
+                            {{ $cityName }}
+                        </option>
                         @endforeach
                     </select>
                 </div>
@@ -126,6 +119,8 @@
 
 
     </form>
+
+    
 
 
 
@@ -161,17 +156,36 @@
 
                                     </div>
 
+                                
+
                                     <div class="center">
 
                                         <div class="stars">
                                             <input type="radio" id="one" name="rate" value="1">
-                                            <label for="one"></label>
-                                            <span class="result"></span>
+                                            
+                                            @if (count($user->rates) >0)
+
+                                            @php
+                                            $total = 0;
+                                            $count = 0
+                                            @endphp
+
+                                            @foreach ($user->rates as $rate )
+                                            @php
+                                            $total +=$rate->rate;
+                                            $count++
+                                            @endphp
+                                            @endforeach
+                                            <label for="one">{{$total/$count}} </label>
+
+                                                                                        @endif
+
+
                                         </div>
                                     </div>
 
                                     <div class="button">
-                                    <a href="{{ route('userPage.otherUserProfile2', ['id' => $user->id]) }}" class="btn btn-primary"> انتقل الى صفحة المهني</a>
+                                        <a href="{{ route('userPage.otherUserProfile2', ['id' => $user->id]) }}" class="btn btn-primary"> انتقل الى صفحة المهني</a>
 
                                     </div>
                                 </div>
@@ -197,5 +211,17 @@
 
 
     </section>
+
+
+
+    
+
+<style>
+    .matched {
+        background-color: yellow;
+        font-weight: bold;
+    }
+</style>
 </body>
 
+</html>
