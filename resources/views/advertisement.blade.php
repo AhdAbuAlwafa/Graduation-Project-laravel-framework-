@@ -144,8 +144,8 @@
                         <p>{{ $ad->job_des }}</p>
                         <p>{{ $ad->adv_req }}</p>
                         <p>{{ $ad->advertisement_type }}</p>
-                        
-                            
+
+
 
                     </section>
 
@@ -158,10 +158,10 @@
 
                             </a>
                             <a class="city">
-                            <label for=""><label for="">{{ $ad->addresses ? $ad->addresses->city_name : 'N/A' }}</label></label>
+                                <label for=""><label for="">{{ $ad->addresses ? $ad->addresses->city_name : 'N/A' }}</label></label>
                             </a>
                             <a class="village">
-                            <label for=""><label for="">{{ $ad->addresses ? $ad->addresses->village_name : 'N/A' }}</label></label>
+                                <label for=""><label for="">{{ $ad->addresses ? $ad->addresses->village_name : 'N/A' }}</label></label>
                             </a>
                         </div>
 
