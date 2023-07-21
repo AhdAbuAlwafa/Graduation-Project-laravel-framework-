@@ -26,34 +26,7 @@
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/js/all.min.js" integrity="sha512-DWllpPHujNak1yadQKk5tN6+m4fASERcBr1JPB1b3a+w4YNfLInR39q6Q8TnZtULPST/dFw2H9ktWZddg18hg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
-
-    <script>
-        $(document).ready(function() {
-            $('#advertisementFormSubmit').submit(function(event) {
-                event.preventDefault();
-
-                var formData = $(this).serialize();
-
-                $.ajax({
-                    type: 'POST',
-                    url: '{{ route("workerPage.store") }}',
-                    data: formData,
-                    success: function(response) {
-                        if (response.message) {
-                            alert(response.message);
-                        } else {
-                            $('#advertisementForm')[0].reset();
-                                                           alert('Advertisement posted successfully!');
-                        }
-                    },
-                    error: function(xhr, status, error) {
-
-                        console.error(xhr.responseText);
-                    }
-                });
-            });
-        });
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
     <script>
         $(document).ready(function() {
@@ -68,22 +41,92 @@
                     data: formData,
                     success: function(response) {
                         if (response.message) {
-                            alert(response.message);
+                            // Display a SweetAlert warning message
+                            Swal.fire({
+                                title: 'Warning',
+                                text: response.message,
+                                icon: 'warning',
+                                confirmButtonText: 'OK'
+                            });
                         } else {
-                            $('#advertisementForm')[0].reset();
-                            alert('Advertisement posted successfully!');
+                            // Display a SweetAlert success message
+                            Swal.fire({
+                                title: 'Success',
+                                text: 'Advertisement posted successfully!',
+                                icon: 'success',
+                                confirmButtonText: 'OK'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    $('#advertisementForm')[0].reset();
+                                }
+                            });
                         }
                     },
                     error: function(xhr, status, error) {
-
-                        console.error(xhr.responseText);
+                        // Display a SweetAlert error message
+                        Swal.fire({
+                            title: 'Error',
+                            text: 'An error occurred while posting the advertisement. Please try again later.',
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
                     }
                 });
             });
         });
     </script>
 
-<script>
+    <script>
+        $(document).ready(function() {
+            $('#advertisementFormSubmit').submit(function(event) {
+                event.preventDefault();
+
+                var formData = $(this).serialize();
+
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ route("workerPage.store") }}',
+                    data: formData,
+                    success: function(response) {
+                        if (response.message) {
+                            // Display a SweetAlert warning message
+                            Swal.fire({
+                                title: 'Warning',
+                                text: response.message,
+                                icon: 'warning',
+                                confirmButtonText: 'OK'
+                            });
+                        } else {
+                            // Display a SweetAlert success message
+                            Swal.fire({
+                                title: 'Success',
+                                text: 'Advertisement posted successfully!',
+                                icon: 'success',
+                                confirmButtonText: 'OK'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    $('#advertisementForm')[0].reset();
+                                }
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        // Display a SweetAlert error message
+                        Swal.fire({
+                            title: 'Error',
+                            text: 'An error occurred while posting the advertisement. Please try again later.',
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+
+
+
+    <script>
         $(document).ready(function() {
             $('#city_name_select1').on('change', function() {
                 var selectedCity = $(this).val();
@@ -183,16 +226,19 @@
             <!-----------------search----------------->
             <div class="searchbox1">
                 <div class="searchbox2" dir="rtl">
-                    <form action="/users/search" method="GET">
-                        <input type="text" name="search" placeholder="ابحث عن عامل" style="color: black;">
-                        <a href="#" onclick="event.preventDefault(); this.closest('form').submit();">
-                            <i class="fa fa-search" style="font-size: 30px; color: rgb(38, 0, 255);"></i>
-                        </a>
-                    </form>
+                    <div class="search-container">
+                    <form action="/searchSuggestions" method="GET">
+                        <input type="text" name="search" placeholder="ابحث عن عامل" id="search" style="color: black;">
+        
+        
+       
+    </form>
+</div>
                 </div>
             </div>
 
         </div>
+    </div>
         <!----------------navbar------------------->
         @include('shared.navbar')
 
@@ -440,7 +486,7 @@
                             <div class="swiper-slide">
                                 <div class="card">
                                     <section class="main">
-                                        <p class="name">{{ $ad->users->fname }} {{ $ad->users->lname }}</p>
+                                        <h3 class="name">{{ $ad->users->fname }} {{ $ad->users->lname }}</h3>
                                         <p>{{ $ad->job_des }}</p>
                                         <p>{{ $ad->adv_req }}</p>
 
@@ -756,24 +802,70 @@
             <div class="swiper-pagination"></div>
 
         </section>
+
         <!-- Swiper JS -->
 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
         <script>
-            $(document).ready(function() {
-                $("input[name='search']").on("keyup", function() {
-                    var value = $(this).val().toLowerCase();
+    $(document).ready(function() {
+        $("input[name='search']").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
 
-                    $('div[data-role="user"]').each(function() {
-                        var userName = $(this).find('.name').text().toLowerCase();
-                        if (userName.indexOf(value) > -1) {
-                            $(this).show();
+            // Prevent sending empty search query
+            if (value.trim() === "") {
+                return;
+            }
+
+            // Show the complementary search results
+            $.ajax({
+                url: "{{ route('search.suggestions') }}",
+                type: "GET",
+                data: { query: value },
+                dataType: "json",
+                success: function(response) {
+                    // Get the search input element
+                    var searchInput = $("input[name='search']");
+                    // Clear any previous auto-suggestions
+                    searchInput.siblings('.suggestions').remove();
+
+                    // Create a div to display the auto-suggestions
+                    var suggestionsDiv = $("<div>").addClass("suggestions");
+
+                    // Add each suggestion to the div
+                    response.forEach(function(user) {
+                        var suggestionElement = $("<p>");
+                        var fullName = user.fname + " " + user.lname;
+                        var index = fullName.toLowerCase().indexOf(value);
+                        
+                        if (index !== -1) {
+                            // Highlight the matching part of the name
+                            var matchedPart = fullName.substr(index, value.length);
+                            suggestionElement.html(fullName.replace(new RegExp(matchedPart, "i"), "<span class='matched'>" + matchedPart + "</span>"));
                         } else {
-                            $(this).hide();
+                            suggestionElement.text(fullName);
                         }
+                        suggestionsDiv.append(suggestionElement);
                     });
-                });
+
+                    // Append the suggestions div after the search input
+                    searchInput.after(suggestionsDiv);
+                },
+                error: function(xhr) {
+                    console.error(xhr.responseText);
+                }
             });
-        </script>
+        });
+    });
+</script>
+
+<style>
+    .matched {
+        background-color: yellow;
+        font-weight: bold;
+    }
+</style>
+
+
 
         <script>
             $(document).ready(function() {
@@ -827,7 +919,6 @@
                 },
             });
         </script>
-    </div>
 
     <script>
         var buttonEl = document.getElementById('openerBtn');
@@ -837,23 +928,6 @@
             cardEl.classList.toggle('opened');
         })
     </script>
-    <script>
-        $(document).ready(function() {
-            $("#Inputsearch").on("keyup", function() {
-                var value = $(this).val().toLowerCase();
+        </body>
 
-                $('div[data-role="user"]').each(function() {
-                    var userName = $(this).find('h3').text().toLowerCase();
-                    if (userName.indexOf(value) > -1) {
-                        $(this).show();
-                    } else {
-                        $(this).hide();
-                    }
-                });
-            });
-        });
-    </script>
-
-</body>
-
-</html>
+        </html>
