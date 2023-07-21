@@ -47,6 +47,9 @@ public function receivedComments()
 {
     return $this->hasMany(User_Comment::class, 'worker_id');
 }
+public function rates(){
+    return $this->hasMany(Rate::class,'reviewable');
+}
 
 
 
