@@ -131,18 +131,15 @@
         <div class="up-page">
             <!-----------------search----------------->
             <div class="searchbox1">
-                <div class="searchbox2" dir="rtl">
-
-                    <div class="search-container">
-                        <form action="{{ route('name.search') }}" method="GET">
-                            @csrf
-                            <input type="text" name="search" placeholder="ابحث عن عامل" style="color: black;">
-                            <button type="submit" class="btn btn-lg btn-outline-primary" style="border-width: 0px; background-color: #004985; color: white; ">ابحث</button>
-                        </form>
-                    </div>
+                <div class="searchbox2">
+                    <form action="/users/search" method="GET">
+                        <input type="text" name="search" placeholder="ابحث عن عامل">
+                        <a href="#" onclick="event.preventDefault(); this.closest('form').submit();">
+                            <i class="fa fa-magnifying-glass"></i>
+                        </a>
+                    </form>
                 </div>
             </div>
-
         </div>
         <!----------------navbar------------------->
         @include('shared.navbar')
@@ -932,17 +929,22 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
 
-    <div class="searchbox1">
-        <div class="searchbox2">
-            <form action="/users/search" method="GET">
-                <input type="text" name="search" placeholder="ابحث عن عامل">
-                <a href="#" onclick="event.preventDefault(); this.closest('form').submit();">
-                    <i class="fa fa-magnifying-glass"></i>
-                </a>
-            </form>
-        </div>
-    </div>
-   
+    <script>
+        $(document).ready(function() {
+            $("#Inputsearch").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+
+                $('div[data-role="user"]').each(function() {
+                    var userName = $(this).find('h3').text().toLowerCase();
+                    if (userName.indexOf(value) > -1) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            });
+        });
+    </script>
 
     
 
