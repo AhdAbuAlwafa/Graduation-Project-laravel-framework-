@@ -29,53 +29,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 
-    <script>
-        $(document).ready(function() {
-            $('#advertisementFormSubmit2').submit(function(event) {
-                event.preventDefault();
-
-                var formData = $(this).serialize();
-
-                $.ajax({
-                    type: 'POST',
-                    url: '{{ route("workerPage.store") }}',
-                    data: formData,
-                    success: function(response) {
-                        if (response.message) {
-                            // Display a SweetAlert warning message
-                            Swal.fire({
-                                title: 'Warning',
-                                text: response.message,
-                                icon: 'warning',
-                                confirmButtonText: 'OK'
-                            });
-                        } else {
-                            // Display a SweetAlert success message
-                            Swal.fire({
-                                title: 'Success',
-                                text: 'Advertisement posted successfully!',
-                                icon: 'success',
-                                confirmButtonText: 'OK'
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    $('#advertisementForm')[0].reset();
-                                }
-                            });
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        // Display a SweetAlert error message
-                        Swal.fire({
-                            title: 'Error',
-                            text: 'An error occurred while posting the advertisement. Please try again later.',
-                            icon: 'error',
-                            confirmButtonText: 'OK'
-                        });
-                    }
-                });
-            });
-        })
-    </script>
+    
 
 
     <script>
@@ -1055,15 +1009,20 @@
         }
     </style>
 
-    <style>
-        #shop-errors p {
-            margin-bottom: 0px;
-            color: red;
-            direction: rtl
-        }
-    </style>
-
+    
 
 </body>
 
 </html>
+<style>
+    #shop-errors p {
+       margin-bottom: 0px;
+       color: red;
+       direction: rtl
+   }
+   #free-errors p {
+       margin-bottom: 0px;
+       color: red;
+       direction: rtl
+   }
+</style>
