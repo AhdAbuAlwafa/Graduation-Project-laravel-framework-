@@ -932,85 +932,17 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
 
-    <script>
-        $(document).ready(function() {
-            $("input[name='search']").on("keyup", function() {
-                var value = $(this).val().toLowerCase();
-
-                // Prevent sending empty search query
-                if (value.trim() === "") {
-                    return;
-                }
-
-                // Show the complementary search results
-                $.ajax({
-                    url: "{{ route('search.suggestions') }}",
-                    type: "GET",
-                    data: {
-                        query: value
-                    },
-                    dataType: "json",
-                    success: function(response) {
-                        // Get the search input element
-                        var searchInput = $("input[name='search']");
-                        // Clear any previous auto-suggestions
-                        searchInput.siblings('.suggestions').remove();
-
-                        // Create a div to display the auto-suggestions
-                        var suggestionsDiv = $("<div>").addClass("suggestions");
-
-                        // Add each suggestion to the div
-                        response.forEach(function(user) {
-                            var suggestionElement = $("<p>");
-                            var fullName = user.fname + " " + user.lname;
-                            var index = fullName.toLowerCase().indexOf(value);
-
-                            if (index !== -1) {
-                                // Highlight the matching part of the name
-                                var matchedPart = fullName.substr(index, value.length);
-                                suggestionElement.html(fullName.replace(new RegExp(matchedPart, "i"), "<span class='matched'>" + matchedPart + "</span>"));
-                            } else {
-                                suggestionElement.text(fullName);
-                            }
-                            suggestionsDiv.append(suggestionElement);
-                        });
-
-                        // Append the suggestions div after the search input
-                        searchInput.after(suggestionsDiv);
-
-                        // Filter the displayed users based on the search query
-                        $('div[data-role="user"]').each(function() {
-                            var userName = $(this).find('h3').text().toLowerCase();
-                            if (userName.indexOf(value) > -1) {
-                                $(this).show();
-                            } else {
-                                $(this).hide();
-                            }
-                        });
-                    },
-                    error: function(xhr) {
-                        console.error(xhr.responseText);
-                    }
-                });
-            });
-        });
-
-        $(document).on('click', '.suggestions p', function() {
-            // Get the text of the clicked suggestion
-            var clickedSuggestion = $(this).text().trim();
-            // Set the search input value to the clicked suggestion
-            $("input[name='search']").val(clickedSuggestion);
-            // Trigger the search form submission
-            $("form[action='{{ route('name.search') }}']").submit();
-        });
-    </script>
-
-    <style>
-        .matched {
-            background-color: yellow;
-            font-weight: bold;
-        }
-    </style>
+    <div class="searchbox1">
+        <div class="searchbox2">
+            <form action="/users/search" method="GET">
+                <input type="text" name="search" placeholder="ابحث عن عامل">
+                <a href="#" onclick="event.preventDefault(); this.closest('form').submit();">
+                    <i class="fa fa-magnifying-glass"></i>
+                </a>
+            </form>
+        </div>
+    </div>
+   
 
     
 
