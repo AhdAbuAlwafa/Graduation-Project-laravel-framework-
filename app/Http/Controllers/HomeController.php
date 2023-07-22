@@ -33,13 +33,13 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
-    {  
+    {
         $cities = Address::distinct()->pluck('city_name', 'city_name')->toArray();
         $crafts=Craft::get();
         $user = Auth::user();
         $workAloneAds = Advertisement::where('advertisement_type', 'workAlone')->limit(6)->get();
         $workshopAds = Advertisement::where('advertisement_type', 'workshops')->limit(6)->get();
-        return view('home', compact( 'crafts','workAloneAds', 'workshopAds','user','cities'));    
+        return view('home', compact( 'crafts','workAloneAds', 'workshopAds','user','cities'));
     }
 
     public function store(Request $request)
@@ -56,11 +56,31 @@ class HomeController extends Controller
               'gender'=>['required'],
               'address_id'=>['required'],
               'city_name'=>['required'],
- 
- 
- 
-         ]);
-         
+
+
+
+         ],
+         [
+            'work_hour.required' => '.حدد عدد سعات العمل',
+            'adv_req.required' => '.حدد متطلبات الوظيفة',
+            'adv_req.min' => '.متطلبات الوظيفة يجب ان تكون اكتر من 20 حرف ',
+            'adv_req.max' => '.متطلبات الوظيفة يجب ان تكون اقل من 1500 حرف ',
+            'job_des.required' => '.حدد وصف الوظيفة',
+            'job_des.min' => '.وصف الوظيفة يجب ان يكون اكتر من 20 حرف ',
+            'job_des.max' => '.وصف الوظيفة يجب ان يكون اقل من 1500 حرف ',
+            'job_name.required'=>'حدد المهنة',
+            'adv_period.required'=>'حدد مده الاعلان',
+            'work_period.required'=>'حدد الفتره ',
+            'gender.required'=>'حدد جنس المهني',
+            'address_id.required'=>'اخنر اسم القرية',
+            'city_name.required'=>'اخنر المدينة'
+
+
+
+
+         ]
+        );
+
 
         if ($request->input('advertisement_type') === 'workshops') {
             $ads_type = 'workshops';
@@ -77,13 +97,13 @@ class HomeController extends Controller
 
         if ($user && $user->is_worker == 1 && $currentMonthAdsCount >= $maxDownloadsPerMonth) {
             // User has reached the maximum allowed downloads for the current month
-            return response()->json(['message' => 'You have reached the maximum number of allowed downloads for this month']);
+            return response()->json(['status'=>3,'message' => 'You have reached the maximum number of allowed downloads for this month']);
         }elseif ($user && $user->is_worker == 0 && $currentMonthAdsCount >= $maxDownloadsPerMonth) {
             // Regular user has reached the maximum allowed ads
-            return response()->json(['message' => 'User, you have reached the maximum number of allowed ads']);
+            return response()->json(['status'=>2,'message' => 'User, you have reached the maximum number of allowed ads']);
 
         }
-    
+
         if (!$validated->passes()){
             return response()->json(['status' =>0 ,'error' =>$validated->errors()->toArray()]);
         }else {
@@ -102,10 +122,11 @@ class HomeController extends Controller
         $advertisement->advertisement_type = $ads_type;
         $advertisement->created_at = Carbon::now();
         $advertisement->save();
+        return response()->json(['status'=>1, 'message'=>'تم اضافه الاعلان بنجاح']);
         }
-    
-    
-    
+
+
+
         if ($user && $user->is_worker == 0) {
             $user->ads_count++;
             $user->save();
@@ -113,7 +134,7 @@ class HomeController extends Controller
             $user->ads_count++;
             $user->save();
         }
-    
+
         $currentMonthAdsCount1 = Advertisement::where('user_id', $user->id)
         ->count();
 
@@ -140,7 +161,7 @@ class HomeController extends Controller
 
 
     }
-    
+
     public function openCraft(Request $request,$profession = null)
     {
         $selectedCraft = $request->input('craft_name', 'all');
@@ -148,20 +169,19 @@ class HomeController extends Controller
         $crafts = Craft::get();
         $cities = Address::distinct()->pluck('city_name', 'city_name')->toArray();
         $villages = [];
-    
+
         $query = User::query ();
-    
+
         if ($selectedProfession != 'all') {
             $query->whereHas('crafts', function ($query) use ($selectedProfession) {
                 $query->where('crafts.id', $selectedProfession); // Specify the table name 'crafts' for the 'id' column
             });
         }
-    
+
         $users = $query->orderBy('all_evl', 'desc')->paginate(12);
-    
+
         return view('userPage.searchPage', compact('users', 'cities', 'villages', 'crafts', 'selectedProfession','selectedCraft'));
     }
 
 
 }
-        
