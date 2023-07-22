@@ -87,11 +87,6 @@
                     <button id="reset-rating" style="display: none;">Reset Rating</button>
 
 
-                    <div id="alert-message" style="display: none;">
-                        <p>Rating successfully completed!</p>
-                        <button onclick="refreshPage()">Okay</button>
-                    </div>
-
                     <div class="content">
                         <p>
                             {{$worker->description}}
@@ -177,23 +172,26 @@
 
         </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-<script src="https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+        <script src="https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
+      <!-- Include SweetAlert library -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+
+<!-- Your HTML content -->
+
+<!-- Your JavaScript code -->
 <script>
-
-   
-
-document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function() {
         const stars = document.querySelectorAll('.star');
         const selectedRatingDisplay = document.getElementById('selected-rating');
-        const resetButton = document.getElementById('reset-rating'); 
+        const resetButton = document.getElementById('reset-rating');
         let selectedRating = '<?php echo $isRated->rate ?? 0; ?>';
         highlightStars(selectedRating);
 
@@ -212,10 +210,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 selectedRating = rating;
                 updateRatingDisplay();
                 resetButton.removeAttribute('disabled');
-                // Show the alert message
-                const alertMessage = 'Rating successfully completed!';
-                window.alert(alertMessage);
-                refreshPage();
+
+                // Show the SweetAlert popup for the successful rating completion
+                showSweetAlert();
             });
         });
 
@@ -249,7 +246,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         _method: 'post'
                     },
                     success: function() {
-                        // Do nothing, the rating is successfully updated
                     }
                 });
             } else {
@@ -260,13 +256,26 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
+        function showSweetAlert() {
+            Swal.fire({
+                icon: 'success',
+                title: 'لقد تم التقييم بنجاح !',
+                text: 'شكرا لك للتقييم!',
+                showConfirmButton: true,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    refreshPage();
+                }
+            });
+        }
+
         // Function to refresh the page
         function refreshPage() {
             window.location.reload();
         }
     });
-
 </script>
+
 
         <script>
             $(document).ready(function() {
@@ -311,4 +320,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             });
         </script>
+
+
+
 </body>
