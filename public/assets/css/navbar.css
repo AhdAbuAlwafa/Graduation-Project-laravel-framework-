@@ -190,6 +190,7 @@ body {
 
 .navbar-light .navbar-nav .nav-link {
     color: #000;
+    width: 140px;
 }
 
 .navbar-light .navbar-nav .nav-link:focus,

@@ -56,21 +56,8 @@
                     <a class="navbar-brand"  href="#"><span class="text-warning" >CALL</span >MEHANI</a> <button  aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse" type="button"><span class="navbar-toggler-icon"></span></button>
                    <!----------فراغ اللوجو----->
                     <li class="nav-item">
-						<a class="nav-link" style="color: rgb(0, 0, 0);" href='{{ route('userPage.userProfile') }}'></a>
+						<a class="nav-link" style="color: rgb(0, 0, 0);" href='#'></a>
 					</li>
-                    <li class="nav-item">
-						<a class="nav-link" style="color: rgb(0, 0, 0);" href='{{ route('userPage.userProfile') }}'></a>
-					</li>
-                    <li class="nav-item">
-						<a class="nav-link" style="color: rgb(0, 0, 0);" href='{{ route('userPage.userProfile') }}'></a>
-					</li>
-                    <li class="nav-item">
-						<a class="nav-link" style="color: rgb(0, 0, 0);" href='{{ route('userPage.userProfile') }}'></a>
-					</li>
-                    <li class="nav-item">
-						<a class="nav-link" style="color: rgb(0, 0, 0);" href='{{ route('userPage.userProfile') }}'></a>
-					</li>
-                    
                     <!------------------------------------->
                     @if (auth()->user()!= null)
                     <li class="nav-item" >
