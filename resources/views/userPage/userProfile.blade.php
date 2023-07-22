@@ -63,7 +63,7 @@
                     $('#ipt').on('change', function() {
                         $('#btn').text('تحميل الصورة')
                     })
-                } else {
+                } else {console.log('h');
                     $.ajax({
                         url: $(this).attr('action'),
                         method: $(this).attr('method'),
@@ -181,8 +181,7 @@
                                 @csrf
                                 <input type="file" name="image" hidden id="ipt"
                                     accept="image/png, image/gif, image/jpeg , image/svg , image/jpg">
-                                <button href="" id="btn" class="btn80 btn-primary" disabled>تغيير الصورة
-                                    الشخصية</button>
+                                <button href="" id="btn" class="btn80 btn-primary" disabled>تغيير الصورة الشخصية</button>
                             </form>
                         </div>
                     </div>

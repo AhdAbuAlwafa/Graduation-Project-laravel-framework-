@@ -78,8 +78,7 @@ class RegisterController extends Controller
             'description'=> ($req->is_worker == 1) ? ['required','min:10','max:1500','string']: '',
             'is_worker'=>['required','in:1,0'],
             'gender'=>['required','in:1,0'],
-            'image' => 'required|file|mimes:jpg,jpeg,png',
-
+            
 
         ]);
         if (!$validator->passes()){
