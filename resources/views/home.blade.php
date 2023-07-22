@@ -620,12 +620,7 @@
                     <a href="{{ route('advertisiment2', ['advertisement_type' => 'workAlone']) }}" class="btn btn-lg btn-outline-primary" style="box-shadow: 0 0 32px rgba(0, 0, 0, 0.5) ;border-radius: 20px; background-color: #a3c5d6; color: rgb(0, 0, 0); ">جميع الاعلانات</a>
                 </form>
             </div>
-            <span id="errors" class="error-text adv_period_error"></span>
-            <span id="errors" class="error-text job_name_error"></span>
-            <span id="errors" class="error-text village_name_error"></span>
-            <span id="errors" class="error-text city_name_error"></span>
-            <span id="errors" class="error-text job_des_error"></span>
-
+           
             <div class="modal" tabindex="-1" id="advertisiment-modal">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -857,12 +852,6 @@
         </section>
 
         <!-- Swiper JS -->
-
-<script>
-                       $(function() {
-                        $('#advertisementFormSubmit2').on('submit', function(e) {
-                            e.preventDefault();
-
 
 
 
