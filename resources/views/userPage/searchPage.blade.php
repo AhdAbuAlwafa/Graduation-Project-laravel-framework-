@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html >
 
 
 <head>
@@ -82,7 +82,7 @@
                             <select id="craft_name_select" name="craft_name"
                                 class="btn btn-secondary btn-lg dropdown-toggle" ata-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false"
-                                style="background-color:  #004883; margin-left: 100px;">
+                                style="background-color:  #004883; margin-right: -80px;">
                                 <option value="all" {{ $selectedCraft=='all' ? 'selected' : '' }}>جميع المهن</option>
                                 @foreach ($crafts as $craft)
                                 <option value="{{ $craft->id }}" {{ $selectedCraft==$craft->id ? 'selected' : '' }}>
