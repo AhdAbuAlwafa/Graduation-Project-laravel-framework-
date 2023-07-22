@@ -172,7 +172,7 @@
                             <p>اضغط الرمز اعلاه لمعرفه المزيد</p>
 
                         </section>
-                        <button id="openerBtn">
+                        <button id="openerBtn" class="openerBtn">
                             <i class="fas fa-plus"></i>
                             <i class="fas fa-minus"></i>
                         </button>
@@ -195,12 +195,14 @@
 </body>
 
 <script>
-    var buttonEl = document.getElementById('openerBtn');
-    var cardEl = document.querySelector('.card');
+    var buttonEls = document.querySelectorAll('.openerBtn');
+    var cardEls = document.querySelectorAll('.card');
 
-    buttonEl.addEventListener('click', function() {
-        cardEl.classList.toggle('opened');
-    })
+    for (let i = 0; buttonEls.length; i++) {
+        buttonEls[i].addEventListener('click', function () {
+            cardEls[i].classList.toggle('opened');
+        })
+    }
 </script>
 
 
