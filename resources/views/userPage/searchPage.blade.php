@@ -113,11 +113,6 @@
             </div>
 
 
-
-
-
-
-
     </form>
 
     
@@ -134,7 +129,7 @@
                 <div class="row" style="align-items: center; margin-top: -400px; ;">
                     @foreach($users as $user)
 
-                    <div class="col">
+                    <div class="col" data-role="user">
                         <div class="content">
                             <div class=" card">
                                 <div class="card-content">
@@ -144,7 +139,7 @@
 
 
                                     <div class="name-profession">
-                                        <span class="name">{{ $user->fname }} {{ $user->lname }}</span>
+                                        <h3 class="name">{{ $user->fname }} {{ $user->lname }}</h3>
                                         <span class="profession"> @foreach($user->crafts as $craft)
                                             {{ $craft->craft_name }}
                                             @endforeach</span>
@@ -185,7 +180,7 @@
                                     </div>
 
                                     <div class="button">
-                                        <a href="{{ route('userPage.otherUserProfile2', ['id' => $user->id]) }}" class="btn btn-primary"> انتقل الى صفحة المهني</a>
+                                        <a href="{{ route('workerPage.showWorker', ['id' => $user->id]) }}" class="btn btn-primary"> انتقل الى صفحة المهني</a>
 
                                     </div>
                                 </div>
@@ -213,15 +208,6 @@
     </section>
 
 
-
-    
-
-<style>
-    .matched {
-        background-color: yellow;
-        font-weight: bold;
-    }
-</style>
 </body>
 
 </html>
