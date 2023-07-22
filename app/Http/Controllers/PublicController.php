@@ -159,25 +159,29 @@ class PublicController extends Controller
         return response()->json($users);
     }
 
-//     public function nameSearch(Request $request)
-// {
-//     $selectedCraft = $request->input('craft_name', 'all');
-//     $crafts = Craft::get();
-//     $cities = Address::distinct()->pluck('city_name', 'city_name')->toArray();
+    public function nameSearch(Request $request)
+    {
+        $searchQuery = $request->input('search');
+        $selectedCraft = $request->input('craft_name', 'all');
+        $crafts = Craft::get();
+        $cities = Address::distinct()->pluck('city_name', 'city_name')->toArray();
+    
+        $searchQuery = $request->input('search');
+    
+        // Perform the search query to retrieve matching users
+        $users = User::where(function ($query) use ($searchQuery) {
+            $query->where('fname', 'LIKE', '%' . $searchQuery . '%')
+                ->orWhere('lname', 'LIKE', '%' . $searchQuery . '%');
+        })
+        ->where('is_worker', 1)
+        ->paginate(12);
+    
+        // Pass the list of matching users and the search query to the view
+        return view('userPage.searchPage', compact('users', 'crafts', 'cities', 'selectedCraft', 'searchQuery'));
+    }
+    
 
-//     $searchQuery = $request->input('search');
 
-//     // Perform the search query to retrieve matching users
-//     $users = User::where(function ($query) use ($searchQuery) {
-//         $query->where('fname', 'LIKE', '%' . $searchQuery . '%')
-//             ->orWhere('lname', 'LIKE', '%' . $searchQuery . '%');
-//     })
-//     ->where('is_worker', 1)
-//     ->paginate();
-
-//     // Pass the list of matching users to the view
-//     return view('userPage.searchPage', compact('users', 'crafts', 'cities', 'selectedCraft'));
-// }
 
     
 
