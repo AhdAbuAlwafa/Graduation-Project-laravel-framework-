@@ -39,21 +39,29 @@
                     <div class="img__container">
                         <img src="{{ 'images/' . auth()->user()->image }}" alt="صائب صلاح " />
                     </div>
-
                     <div class="center1">
-                        <div class="stars1">
+                        <div class="stars1 ">
+
+
                             <input type="radio" id="one1" name="rate1" value="1">
                             <h2 for="one">@for ($i = 1; $i <= 5; $i++) @if ($i <=round($userRate)) <i class=" fas fa-star fa-2xl active  text-warning"></i>
+                               
+                           
 
-                                    @else
-                                    <i class=" fas fa-star fa-2xl  " data-rating="{{ $i }}"></i>
+                                @else
+                                <i class=" fas fa-star fa-2xl  " data-rating="{{ $i }}"></i>
 
-                                    @endif
-                                    @endfor
-                            </h2>
-                            <span class="result"></span>
+                                @endif
+                                @endfor
+                        </h2>
+                           
+                        <span class="result"></span>
+
+                          
+                               
                         </div>
                     </div>
+                   
                     <h2>{{$worker->fname}}</h2>
                     <h1>@foreach($worker->crafts as $craft)
                         {{$craft->craft_name}} <b> , </b>
@@ -74,8 +82,11 @@
 
                                     </div>
                                     <div class="rating row">
-                                        @for ($i = 1; $i <= 5; $i++) <a><i class="star fas fa-star " data-rating="{{ $i }}"></i></a>
+                                        <ul>
+                                            @for ($i = 1; $i <= 5; $i++) <a><i class="star fas fa-star " data-rating="{{ $i }}"></i></a>
                                             @endfor
+                                        </ul>
+                                      
                                     </div>
                                     <p id="selected-rating"></p>
 
