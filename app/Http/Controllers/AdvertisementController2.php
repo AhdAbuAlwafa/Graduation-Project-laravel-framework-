@@ -20,10 +20,10 @@ class AdvertisementController2 extends Controller
         $cities = Address::distinct()->pluck('city_name', 'city_name')->toArray();
         $villages = Address::distinct()->pluck('village_name', 'village_name')->toArray();
     
-        $selectedCraft = $request->input('craft_name');
-        $selectedCity = $request->input('city_name');
-        $selectedVillage = $request->input('village_name');
-        $selectedType = $request->input('advertisement_type');
+        $selectedCraft = $request->input('craft_name') ?? 'all';
+        $selectedCity = $request->input('city_name') ?? 'all';
+        $selectedVillage = $request->input('village_name') ?? 'all';
+        $selectedType = $request->input('advertisement_type') ?? 'all';
     
         $query = Advertisement::query();
     
