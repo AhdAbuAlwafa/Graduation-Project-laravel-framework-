@@ -61,7 +61,7 @@ class HomeController extends Controller
 
          ],
          [
-            'work_hour.required' => '.حدد عدد سعات العمل',
+            'work_hour.required' => '.حدد عدد ساعات العمل',
             'adv_req.required' => '.حدد متطلبات الوظيفة',
             'adv_req.min' => '.متطلبات الوظيفة يجب ان تكون اكتر من 20 حرف ',
             'adv_req.max' => '.متطلبات الوظيفة يجب ان تكون اقل من 1500 حرف ',
