@@ -59,6 +59,8 @@ class PublicController extends Controller
         // return $users;
     }
 
+    
+
     //     $users = $query->orderByDesc(function ($query) {
     //         return Rate::selectRaw('AVG(rate) as average_rate')
     //             ->whereColumn('reviewable', 'users.id')
@@ -140,6 +142,9 @@ class PublicController extends Controller
 
     public function searchSuggestions(Request $request)
     {
+        $selectedCraft = $request->input('craft_name', 'all');
+    $crafts = Craft::get();
+    $cities = Address::distinct()->pluck('city_name', 'city_name')->toArray();
         $searchQuery = $request->input('query');
         
         // Perform the search query to retrieve matching users
@@ -153,6 +158,27 @@ class PublicController extends Controller
         // Return the matching user names as JSON response
         return response()->json($users);
     }
+
+//     public function nameSearch(Request $request)
+// {
+//     $selectedCraft = $request->input('craft_name', 'all');
+//     $crafts = Craft::get();
+//     $cities = Address::distinct()->pluck('city_name', 'city_name')->toArray();
+
+//     $searchQuery = $request->input('search');
+
+//     // Perform the search query to retrieve matching users
+//     $users = User::where(function ($query) use ($searchQuery) {
+//         $query->where('fname', 'LIKE', '%' . $searchQuery . '%')
+//             ->orWhere('lname', 'LIKE', '%' . $searchQuery . '%');
+//     })
+//     ->where('is_worker', 1)
+//     ->paginate();
+
+//     // Pass the list of matching users to the view
+//     return view('userPage.searchPage', compact('users', 'crafts', 'cities', 'selectedCraft'));
+// }
+
     
 
 
