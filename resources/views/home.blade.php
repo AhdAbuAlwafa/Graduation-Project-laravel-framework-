@@ -28,7 +28,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
-    <script>
+    {{-- <script>
         $(document).ready(function() {
             $('#advertisementFormSubmit2').submit(function(event) {
                 event.preventDefault();
@@ -122,7 +122,7 @@
                 });
             });
         });
-    </script>
+    </script> --}}
 
     <script>
         $(document).ready(function() {
@@ -227,9 +227,9 @@
                     <div class="search-container">
                     <form action="/searchSuggestions" method="GET">
                         <input type="text" name="search" placeholder="ابحث عن عامل" id="search" style="color: black;">
-        
-        
-       
+
+
+
     </form>
 </div>
                 </div>
@@ -292,7 +292,7 @@
                     <a href="#" data-bs-toggle="modal" data-bs-target="#advertisiment-modal1" onclick="submitForm('workshops')" class="btn btn-lg btn-outline-primary" style="box-shadow: 0 0 32px rgba(0, 0, 0, 0.5) ;border-radius: 20px; background-color: #a3c5d6; color: rgb(0, 0, 0); "> اضف اعلان</a>
                 </form>
             </div>
-      
+
 
             <div class="modal" tabindex="-1" id="advertisiment-modal1">
                 <div class="modal-dialog">
@@ -304,22 +304,20 @@
                         <div class="modal-body">
                             <form action="{{route('workerPage.store')}}" method="post" id="advertisementFormSubmit">
                                 @csrf
-
                                 {{ csrf_field() }}
-                                <span id="errors" class="error-text adv_period_error"></span>
-                                
-                                <span id="errors" class="error-text job_name_error"></span>
-                                <span id="errors" class="error-text village_name_error"></span>
-                                <span id="errors" class="error-text city_name_error"></span>
-                                <span id="errors" class="error-text job_des_error"></span>
-                                <span id="errors" class="error-text adv_req_error"></span>
+
+
+                                   <div id="shop-errors">
+
+                                   </div>
+
                                 <input type="hidden" name="advertisement_type" value="workshops ">
 
                                 <div class="row" dir="rtl">
                                     <div class="col">
                                         <select class="form-control8 form-select mt-3  justify-content-end" aria-label="Default select example" name="adv_period">
 
-                                            <option selected>اختر مدة الاعلان</option>
+                                            <option selected value="">اختر مدة الاعلان</option>
                                             <option value="1">يوم</option>
                                             <option value="2">يومان</option>
                                             <option value="3">ثلاثة ايام</option>
@@ -338,7 +336,7 @@
                                         <div class="select1">
 
                                             <select class="form-control8 form-select mt-3" aria-label="Default select example" name="job_name">
-                                                <option selected>اختر المهنة المطلوبة</option>
+                                                <option selected value="">اختر المهنة المطلوبة</option>
                                                 @foreach($crafts as $craft)
                                                 <option value="{{$craft->craft_name}}">{{$craft->craft_name}}</option>
                                                 @endforeach
@@ -355,14 +353,14 @@
                                     <div class="col">
 
                                         <select class="form-control8 form-select mt-3 " aria-label="Default select example" id="village_name_select" name="address_id">
-                                            <option value="all" selected>اخترالقرية/البلدة</option>
+                                            <option  selected value="">اخترالقرية/البلدة</option>
 
                                         </select>
 
                                     </div>
                                     <div class="col">
                                         <select class="form-control8 form-select mt-3" aria-label="Default select example" id="city_name_select" name="city_name">
-                                            <option value="all" selected>اختر المدينة</option>
+                                            <option selected value="">اختر المدينة</option>
                                             @foreach($cities as $cityName)
                                             <option value="{{ $cityName }}">
                                                 {{ $cityName }}
@@ -380,7 +378,7 @@
                                     <div class="col">
                                         <select class="form-control8 form-select mt-3  justify-content-end" aria-label="Default select example" name="work_hour">
 
-                                            <option selected>عدد ساعات العمل</option>
+                                            <option selected value="">عدد ساعات العمل</option>
                                             <option value="8">8</option>
                                             <option value="4">4</option>
                                             <option value="5">5</option>
@@ -478,7 +476,7 @@
             </div>
 
         </div>
-        <section style="  position: relative;  
+        <section style="  position: relative;
         height: 550px;
         align-items: center;">
 
@@ -579,29 +577,68 @@
              processData: false,
              dataType: 'json',
              contentType: false,
-             beforSend: function() {
-                 $(document).find('#errors').empty();
-                 console.log('bd');
-             },
+
              success: function(data) {
-                 if (data.status == 0) {
-                 $(document).find('.error-text').text('');
+                if (data.status == 0) {
+                //  $(document).find('.error-text').text('');
+                const list = document.getElementById("shop-errors");
+
+                while (list.hasChildNodes()) {
+                list.removeChild(list.firstChild);
+                }
 
                      $.each(data.error, function(prefix, val) {
-                         $('span.' + prefix + '_error').text(val[0]);
+                        //  $('span.' + prefix + '_error').text(val[0]).removeAttr('hidden');
+
+                        errorSec= document.getElementById('shop-errors');
+                         prefix = document.createElement("p");
+                        prefix.innerText = val[0];
+                        errorSec.appendChild(prefix)
+
+
                      });
 
-                 } else {
-                     $(document).find('.error-text').text('');
+                 }
+                 else if (data.status == 2){
+                    Swal.fire({
+                                title: 'warning',
+                                text: 'You have reached the maximum number of allowed downloads for this month',
+                                icon: 'warning',
+                                confirmButtonText: 'OK'
+                            });
 
-                     $('#advertisementFormSubmit').trigger('reset')
+                 }
+                 else if (data.status == 3){
+                    Swal.fire({
+                                title: 'warning',
+                                text: ' you have reached the maximum number of allowed ads',
+                                icon: 'warning',
+                                confirmButtonText: 'OK'
+                            });
+
+                 }
+                  else {
+                    const list = document.getElementById("shop-errors");
+
+                    while (list.hasChildNodes()) {
+                    list.removeChild(list.firstChild);
+                    }
+
+
+                     $('#advertisementFormSubmit').trigger('reset');
+                     Swal.fire({
+                                title: 'success',
+                                text: 'تم اضافه الاعلان بنجاح',
+                                icon: 'success',
+                                confirmButtonText: 'OK'
+                            });
                  }
              }
          })
      })
  })
         </script>
-        
+
         <!---------------second part of adv------------>
         <div class="row" style="margin-top: 200px;">
 
@@ -620,7 +657,12 @@
                     <a href="{{ route('advertisiment2', ['advertisement_type' => 'workAlone']) }}" class="btn btn-lg btn-outline-primary" style="box-shadow: 0 0 32px rgba(0, 0, 0, 0.5) ;border-radius: 20px; background-color: #a3c5d6; color: rgb(0, 0, 0); ">جميع الاعلانات</a>
                 </form>
             </div>
-           
+            <span id="errors" class="error-text adv_period_error"></span>
+            <span id="errors" class="error-text job_name_error"></span>
+            <span id="errors" class="error-text village_name_error"></span>
+            <span id="errors" class="error-text city_name_error"></span>
+            <span id="errors" class="error-text job_des_error"></span>
+
             <div class="modal" tabindex="-1" id="advertisiment-modal">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -633,13 +675,9 @@
 
                                 @method('post')
                                 {{ csrf_field() }}
-                                <span id="errors" class="error-text adv_period_error"></span>
-                                
-                                <span id="errors" class="error-text job_name_error"></span>
-                                <span id="errors" class="error-text village_name_error"></span>
-                                <span id="errors" class="error-text city_name_error"></span>
-                                <span id="errors" class="error-text job_des_error"></span>
-                                <span id="errors" class="error-text adv_req_error"></span>
+                                <div id="free-errors">
+
+                                </div>
                                 <input type="hidden" name="advertisement_type" value="workAlone">
 
                                 <div class="row" dir="rtl">
@@ -666,7 +704,7 @@
                                         <div class="select1">
 
                                             <select class="form-control8 form-select mt-3" aria-label="Default select example" name="job_name">
-                                                <option selected>اختر المهنة المطلوبة</option>
+                                                <option selected value="">اختر المهنة المطلوبة</option>
                                                 @foreach($crafts as $craft)
                                                 <option value="{{$craft->craft_name}}">{{$craft->craft_name}}</option>
                                                 @endforeach
@@ -683,7 +721,7 @@
                                 <div class="row" dir="rtl">
                                     <div class="col">
                                         <select class="form-control8 form-select mt-3 " aria-label="Default select example" id="village_name_select1" name="address_id">
-                                            <option value="all" selected>اخترالقرية/البلدة</option>
+                                            <option value="" selected>اخترالقرية/البلدة</option>
 
                                         </select>
                                         @error('village_name')
@@ -694,7 +732,7 @@
                                     </div>
                                     <div class="col">
                                         <select class="form-control8 form-select mt-3" aria-label="Default select example" id="city_name_select1" name="city_name">
-                                            <option value="all" selected>اختر المدينة</option>
+                                            <option value="" selected>اختر المدينة</option>
                                             @foreach($cities as $cityName)
                                             <option value="{{ $cityName }}">
                                                 {{ $cityName }}
@@ -782,7 +820,7 @@
             </div>
         </div>
 
-        <section style="  position: relative;  
+        <section style="  position: relative;
         height: 450px; margin-bottom: 200px;
         align-items: center; ">
 
@@ -853,6 +891,12 @@
 
         <!-- Swiper JS -->
 
+{{-- <script>
+                       $(function() {
+                        $('#advertisementFormSubmit2').on('submit', function(e) {
+                            e.preventDefault(); --}}
+
+
 
 
 
@@ -867,23 +911,56 @@
              processData: false,
              dataType: 'json',
              contentType: false,
-             beforSend: function() {
-                 $(document).find('#errors').empty();
-                 console.log('bd');
-             },
+
              success: function(data) {
                  if (data.status == 0) {
-                 $(document).find('.error-text').text('');
+                    const list = document.getElementById("free-errors");
+
+                while (list.hasChildNodes()) {
+                list.removeChild(list.firstChild);
+                }
 
                      $.each(data.error, function(prefix, val) {
-                         $('span.' + prefix + '_error').text(val[0]);
+                        errorSec= document.getElementById('free-errors');
+                         prefix = document.createElement("p");
+                        prefix.innerText = val[0];
+                        errorSec.appendChild(prefix)
 
                      });
 
-                 } else {
-                     $(document).find('.error-text').text('');
+                 }
 
-                     $('#advertisementFormSubmit2').trigger('reset')
+                 else if (data.status == 2){
+                    Swal.fire({
+                                title: 'warning',
+                                text: 'You have reached the maximum number of allowed downloads for this month',
+                                icon: 'warning',
+                                confirmButtonText: 'OK'
+                            });
+
+                 }
+                 else if (data.status == 3){
+                    Swal.fire({
+                                title: 'warning',
+                                text: ' you have reached the maximum number of allowed ads',
+                                icon: 'warning',
+                                confirmButtonText: 'OK'
+                            });
+
+                 }
+                  else {
+                    const list = document.getElementById("free-errors");
+
+                        while (list.hasChildNodes()) {
+                        list.removeChild(list.firstChild);
+                        }
+                     $('#advertisementFormSubmit2').trigger('reset');
+                     Swal.fire({
+                                title: 'success',
+                                text: 'تم اضافه الاعلان بنجاح',
+                                icon: 'success',
+                                confirmButtonText: 'OK'
+                            });
                  }
              }
          })
@@ -922,7 +999,7 @@
                         var suggestionElement = $("<p>");
                         var fullName = user.fname + " " + user.lname;
                         var index = fullName.toLowerCase().indexOf(value);
-                        
+
                         if (index !== -1) {
                             // Highlight the matching part of the name
                             var matchedPart = fullName.substr(index, value.length);
@@ -1017,3 +1094,15 @@
         </body>
 
         </html>
+<style>
+     #shop-errors p {
+        margin-bottom: 0px;
+        color: red;
+        direction: rtl
+    }
+    #free-errors p {
+        margin-bottom: 0px;
+        color: red;
+        direction: rtl
+    }
+</style>
