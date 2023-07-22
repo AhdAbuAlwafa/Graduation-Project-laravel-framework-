@@ -61,7 +61,7 @@
                     <!------------------------------------->
                     @if (auth()->user()!= null)
                     <li class="nav-item" >
-                        <a class="nav-link" style="color: rgb(0, 0, 0);" href="{{ route('logout') }}" onclick="event.preventDefault() ; document.getElementById('logout').submit()" class=" btn nav-btn">تسجيل الخروج</a>
+                        <a class="nav-link" style="color: rgb(0, 0, 0); font-size=10px;" href="{{ route('logout') }}" onclick="event.preventDefault() ; document.getElementById('logout').submit()" class=" btn nav-btn">تسجيل الخروج</a>
                     </li>
                     <form action="{{ route('logout') }}" hidden disabled id="logout"  method="post">
                         @method('post')

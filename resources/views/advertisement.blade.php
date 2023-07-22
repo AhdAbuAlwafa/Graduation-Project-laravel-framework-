@@ -143,7 +143,6 @@
                         <p class="name">{{ $ad->users->fname }} {{ $ad->users->lname }}</p>
                         <p class="job_des">{{ $ad->job_des }}</p>
                         <p class="job_des">{{ $ad->adv_req }}</p>
-                        <p class="job_des">{{ $ad->advertisement_type }}</p>
                     </section>
 
                     <section class="more">
@@ -161,23 +160,36 @@
                                 <label for=""><label for="">{{ $ad->addresses ? $ad->addresses->village_name : 'N/A' }}</label></label>
                             </a>
                         </div>
+                        
                         <div class="moreinfo2">
-                            <a class="phonenum">
-                                <label for="">رقم الهاتف : </label>
-                                <label for="">{{ $ad->users->number }}</label>
-                            </a>
-                            <a class="addvdate">
-                                <label for=""> تاريخ انتهاء الاعلان : </label>
-                                <label for=""> {{ $ad->expires_at }}</label>
-                            </a>
-                            <a class="addvdate">
-                                <label for=""> الفترة: </label>
-                                <label for=""> {{ $ad->expires_at }}</label>
-                            </a>
-                            <a class="addvdate">
-                                <label for=""> الجنس: </label>
-                                <label for=""> {{ $ad->expires_at }}</label>
-                            </a>
+                            <div class="info-wrapper">
+                                <a class="phonenum">
+                                    <label for="">{{ $ad->users->number }}</label>
+                                    <label for="">:الرقم  </label>
+                                </a>
+                                <a class="addvdate">
+                                    <label for="">{{ date('Y-m-d', strtotime($ad->expires_at)) }}</label>
+                                    <label for=""> : تاريخ انتهاء الإعلان </label>
+                                </a>
+                                <a class="period">
+                                    <label for="">{{ $ad->work_period }}</label>
+                                    <label for="">: الفترة </label>
+                                </a>
+                                <a class="gender">
+                                    <label for=""> 
+                                        @if ($ad->users->gender == 0)
+                                            ذكر
+                                        @elseif ($ad->users->gender == 1)
+                                            أنثى
+                                        @endif
+                                    </label>
+                                    <label for="">: الجنس</label>
+                                </a>
+                                <a class="hour">
+                                    <label for="">{{ $ad->work_hour }}</label>
+                                    <label for=""> : عدد ساعات العمل</label>
+                                </a>
+                            </div>
                         </div>
                     </section>
 
