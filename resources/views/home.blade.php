@@ -28,7 +28,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
-    {{-- <script>
+     <script>
         $(document).ready(function() {
             $('#advertisementFormSubmit2').submit(function(event) {
                 event.preventDefault();
@@ -76,6 +76,7 @@
         });
     </script>
 
+
     <script>
         $(document).ready(function() {
             $('#advertisementFormSubmit').submit(function(event) {
@@ -89,40 +90,21 @@
                     data: formData,
                     success: function(response) {
                         if (response.message) {
-                            // Display a SweetAlert warning message
-                            Swal.fire({
-                                title: 'Warning',
-                                text: response.message,
-                                icon: 'warning',
-                                confirmButtonText: 'OK'
-                            });
+                            alert(response.message);
                         } else {
-                            // Display a SweetAlert success message
-                            Swal.fire({
-                                title: 'Success',
-                                text: 'Advertisement posted successfully!',
-                                icon: 'success',
-                                confirmButtonText: 'OK'
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    $('#advertisementForm')[0].reset();
-                                }
-                            });
+                            $('#advertisementForm')[0].reset();
+                            alert('Advertisement posted successfully!');
                         }
                     },
                     error: function(xhr, status, error) {
-                        // Display a SweetAlert error message
-                        Swal.fire({
-                            title: 'Error',
-                            text: 'An error occurred while posting the advertisement. Please try again later.',
-                            icon: 'error',
-                            confirmButtonText: 'OK'
-                        });
+
+                        console.error(xhr.responseText);
                     }
                 });
             });
         });
-    </script> --}}
+    </script> 
+
 
     <script>
         $(document).ready(function() {
@@ -224,7 +206,6 @@
             <!-----------------search----------------->
             <div class="searchbox1">
                 <div class="searchbox2" dir="rtl">
-                    <div class="search-container">
                     <form action="/searchSuggestions" method="GET">
                         <input type="text" name="search" placeholder="ابحث عن عامل" id="search" style="color: black;">
 
@@ -232,11 +213,11 @@
 
     </form>
 </div>
+
                 </div>
             </div>
 
         </div>
-    </div>
         <!----------------navbar------------------->
         @include('shared.navbar')
 
@@ -490,7 +471,7 @@
                             <div class="swiper-slide">
                                 <div class="card">
                                     <section class="main">
-                                        <h3 class="name">{{ $ad->users->fname }} {{ $ad->users->lname }}</h3>
+                                        <p class="name">{{ $ad->users->fname }} {{ $ad->users->lname }}</p>
                                         <p>{{ $ad->job_des }}</p>
                                         <p>{{ $ad->adv_req }}</p>
 
@@ -888,13 +869,12 @@
             <div class="swiper-pagination"></div>
 
         </section>
-
         <!-- Swiper JS -->
 
-{{-- <script>
+ <!-- <script>
                        $(function() {
                         $('#advertisementFormSubmit2').on('submit', function(e) {
-                            e.preventDefault(); --}}
+                            e.preventDefault();  -->
 
 
 
@@ -1030,6 +1010,7 @@
 
 
 
+
         <script>
             $(document).ready(function() {
                 $('#advertisementForm').submit(function(event) {
@@ -1091,7 +1072,6 @@
             cardEl.classList.toggle('opened');
         })
     </script>
-        </body>
 
         </html>
 <style>
@@ -1106,3 +1086,4 @@
         direction: rtl
     }
 </style>
+
