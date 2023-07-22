@@ -92,7 +92,7 @@ Route::prefix('/crafts')->group(function(){
    Route::get('/searchSuggestions', [PublicController::class , 'searchSuggestions'])->name('search.suggestions');
 
 
-   Route::get('/name-search', [UserController::class, 'nameSearch'])->name('name.search');
+   Route::get('/name-search', [PublicController::class, 'nameSearch'])->name('name.search');
 
 
   
