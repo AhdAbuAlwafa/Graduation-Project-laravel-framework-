@@ -88,9 +88,7 @@ Route::prefix('/crafts')->group(function(){
    Route::get('/users/search',[PublicController::class,'nameSearch'])->name('users.search');
 
    Route::get('/worker/{id}', [WorkerPageController::class, 'show'])->name('workerPage.showWorker');
-   Route::get('/users/search',[PublicController::class,'nameSearch'])->name('users.search');
-   Route::get('/searchSuggestions', [PublicController::class , 'searchSuggestions'])->name('search.suggestions');
-
+   //Route::get('/users/search',[PublicController::class,'nameSearch'])->name('users.search');
 
    Route::get('/name-search', [PublicController::class, 'nameSearch'])->name('name.search');
 
