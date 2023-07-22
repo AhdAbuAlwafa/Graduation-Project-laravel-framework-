@@ -70,30 +70,19 @@
                     <ul class="evaluation">
                         <div class="center">
                             <div class="stars">
-                                <div class="col-md-6 col-lg-3 bigcard" id="search-results">
-
-                                    <div class="rating">
-
-                                        <h2 class="active">
-                                            {{round($userRate,1)}}
-
-
-                                        </h2>
-
-                                    </div>
-                                    <div class="rating row">
-                                        <ul>
-                                            @for ($i = 1; $i <= 5; $i++) <a><i class="star fas fa-star " data-rating="{{ $i }}"></i></a>
-                                            @endfor
-                                        </ul>
-                                      
-                                    </div>
-                                    <p id="selected-rating"></p>
-
-                                </div>
+                                <input type="radio" id="five" name="rate" value="5">
+                                <label for="five"></label>
+                                <input type="radio" id="four" name="rate" value="4">
+                                <label for="four"></label>
+                                <input type="radio" id="three" name="rate" value="3">
+                                <label for="three"></label>
+                                <input type="radio" id="two" name="rate" value="2">
+                                <label for="two"></label>
+                                <input type="radio" id="one" name="rate" value="1">
+                                <label for="one"></label>
+                                <span class="result"></span>
                             </div>
                         </div>
-
                     </ul>
                     <button id="reset-rating" style="display: none;">Reset Rating</button>
 
@@ -198,17 +187,17 @@
 <!-- Your HTML content -->
 
 <!-- Your JavaScript code -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const stars = document.querySelectorAll('.star');
-        const selectedRatingDisplay = document.getElementById('selected-rating');
-        const resetButton = document.getElementById('reset-rating');
+        const stars = document.querySelectorAll('.stars input');
+        const ratingResult = document.querySelector('.result');
         let selectedRating = '<?php echo $isRated->rate ?? 0; ?>';
-        highlightStars(selectedRating);
 
         stars.forEach(function(star) {
             star.addEventListener('mouseenter', function() {
-                const rating = parseInt(star.dataset.rating);
+                const rating = parseInt(star.value);
                 highlightStars(rating);
             });
 
@@ -217,29 +206,21 @@
             });
 
             star.addEventListener('click', function() {
-                const rating = parseInt(star.dataset.rating);
+                const rating = parseInt(star.value);
                 selectedRating = rating;
                 updateRatingDisplay();
-                resetButton.removeAttribute('disabled');
-
                 // Show the SweetAlert popup for the successful rating completion
                 showSweetAlert();
             });
         });
 
-        resetButton.addEventListener('click', function() {
-            selectedRating = 0;
-            updateRatingDisplay();
-            resetButton.setAttribute('disabled', true);
-        });
-
         function highlightStars(rating) {
             stars.forEach(function(star) {
-                const starRating = parseInt(star.dataset.rating);
+                const starRating = parseInt(star.value);
                 if (starRating <= rating) {
-                    star.classList.add('active');
+                    star.parentElement.classList.add('active');
                 } else {
-                    star.classList.remove('active');
+                    star.parentElement.classList.remove('active');
                 }
             });
         }
@@ -260,9 +241,9 @@
                     }
                 });
             } else {
-                selectedRatingDisplay.textContent = 'No rating selected.';
+                ratingResult.textContent = 'No rating selected.';
                 stars.forEach(function(star) {
-                    star.classList.remove('active');
+                    star.parentElement.classList.remove('active');
                 });
             }
         }
@@ -270,7 +251,7 @@
         function showSweetAlert() {
             Swal.fire({
                 icon: 'success',
-                title: 'لقد تم التقييم بنجاح !',
+                title: 'لقد تم التقييم بنجاح!',
                 text: 'شكرا لك للتقييم!',
                 showConfirmButton: true,
             }).then((result) => {
@@ -286,7 +267,6 @@
         }
     });
 </script>
-
 
         <script>
             $(document).ready(function() {
