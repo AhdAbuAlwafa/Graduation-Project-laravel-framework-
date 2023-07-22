@@ -234,6 +234,7 @@
                                                 <input type='radio' id="check-male" id="reg-user" name="gender"
                                                     value="0">
                                                 <label for="check-male" style="font-size: 23px; margin-top: 5px; font-weight: bold;">
+
                                                     ذكر</label>
                                             </div>
                                         </div>
