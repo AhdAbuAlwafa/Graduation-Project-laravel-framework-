@@ -757,6 +757,7 @@ button:hover {
     padding: 15px;
     padding-bottom: 190px;
     transition: padding-bottom 0.4s;
+    height: 400px;
 }
 
 .main::before {
@@ -777,6 +778,7 @@ button:hover {
     direction:rtl;
     margin-right: 10px;
     margin-left: 10px;
+    height: 50px;
 }
 
 p.name {
@@ -876,16 +878,28 @@ p.name {
 }
 
 .card.opened .more {
-    height: 230px;
+    height: 300px;
 }
 
 .card.opened .main {
-    padding-bottom: 40px;
+    padding-bottom: 0px;
+    padding-top: 100px;
     box-shadow: 0 0 30px #c0c6c8;
+    height: 100px;
+}
+
+.card.opened .main .job_des{
+    visibility:hidden;
 }
 
 .card.opened .info {
     box-shadow: 0 0 25px #c9d1d4;
+    height: 0px;
+    margin-top: 100px;
+}
+
+.card.opened .info section p{
+    visibility:hidden;
 }
 
 .card.opened i.fa-minus {
