@@ -141,12 +141,9 @@
                 <div class="card">
                     <section class="main">
                         <p class="name">{{ $ad->users->fname }} {{ $ad->users->lname }}</p>
-                        <p>{{ $ad->job_des }}</p>
-                        <p>{{ $ad->adv_req }}</p>
-                        <p>{{ $ad->advertisement_type }}</p>
-
-
-
+                        <p class="job_des">{{ $ad->job_des }}</p>
+                        <p class="job_des">{{ $ad->adv_req }}</p>
+                        <p class="job_des">{{ $ad->advertisement_type }}</p>
                     </section>
 
                     <section class="more">
@@ -164,7 +161,24 @@
                                 <label for=""><label for="">{{ $ad->addresses ? $ad->addresses->village_name : 'N/A' }}</label></label>
                             </a>
                         </div>
-
+                        <div class="moreinfo2">
+                            <a class="phonenum">
+                                <label for="">رقم الهاتف : </label>
+                                <label for="">{{ $ad->users->number }}</label>
+                            </a>
+                            <a class="addvdate">
+                                <label for=""> تاريخ انتهاء الاعلان : </label>
+                                <label for=""> {{ $ad->expires_at }}</label>
+                            </a>
+                            <a class="addvdate">
+                                <label for=""> الفترة: </label>
+                                <label for=""> {{ $ad->expires_at }}</label>
+                            </a>
+                            <a class="addvdate">
+                                <label for=""> الجنس: </label>
+                                <label for=""> {{ $ad->expires_at }}</label>
+                            </a>
+                        </div>
                     </section>
 
                     <section class="info">
@@ -202,7 +216,7 @@
         buttonEls[i].addEventListener('click', function () {
             cardEls[i].classList.toggle('opened');
         })
-    }
+       }
 </script>
 
 

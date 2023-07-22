@@ -395,8 +395,8 @@
                                 <div class="card">
                                     <section class="main">
                                         <p class="name">{{ $ad->users->fname }} {{ $ad->users->lname }}</p>
-                                        <p>{{ $ad->job_des }}</p>
-                                        <p>{{ $ad->adv_req }}</p>
+                                        <p class="job_des">{{ $ad->job_des }}</p>
+                                        <p class="job_des">{{ $ad->adv_req }}</p>
 
                                     </section>
 
@@ -420,6 +420,14 @@
                                             </a>
                                             <a class="addvdate">
                                                 <label for=""> تاريخ انتهاء الاعلان : </label>
+                                                <label for=""> {{ $ad->expires_at }}</label>
+                                            </a>
+                                            <a class="addvdate">
+                                                <label for=""> الفترة: </label>
+                                                <label for=""> {{ $ad->expires_at }}</label>
+                                            </a>
+                                            <a class="addvdate">
+                                                <label for=""> الجنس: </label>
                                                 <label for=""> {{ $ad->expires_at }}</label>
                                             </a>
                                         </div>
@@ -736,8 +744,8 @@
                                 <div class="card">
                                     <section class="main">
                                         <p class="name">{{ $ad->users->fname }} {{ $ad->users->lname }}</p>
-                                        <p>{{ $ad->job_des }}</p>
-                                        <p>{{ $ad->adv_req }}</p>
+                                        <p class="job_des">{{ $ad->job_des }}</p>
+                                        <p class="job_des">{{ $ad->adv_req }}</p>
 
                                     </section>
 
@@ -761,6 +769,14 @@
                                             </a>
                                             <a class="addvdate">
                                                 <label for=""> تاريخ انتهاء الاعلان : </label>
+                                                <label for=""> {{ $ad->expires_at }}</label>
+                                            </a>
+                                            <a class="addvdate">
+                                                <label for=""> الفترة: </label>
+                                                <label for=""> {{ $ad->expires_at }}</label>
+                                            </a>
+                                            <a class="addvdate">
+                                                <label for=""> الجنس: </label>
                                                 <label for=""> {{ $ad->expires_at }}</label>
                                             </a>
                                         </div>
