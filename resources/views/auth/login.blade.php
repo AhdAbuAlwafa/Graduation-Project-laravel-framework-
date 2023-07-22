@@ -9,10 +9,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
             integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+        <link rel="stylesheet" href="assets/css/login.css">
+        <link href="{{ asset('assets/css/navbar.css') }}" rel="stylesheet">
     </head>
-    <link rel="stylesheet" href="assets/css/login.css">
-    <link href="{{ asset('assets/css/navbar.css') }}" rel="stylesheet">
-    @include('shared.navbar')
+
 
     <body>
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
@@ -24,6 +25,9 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
             integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous">
         </script>
+
+        @include('shared.navbar')
+
         <div class="connn" dir="rtl">
 
 
@@ -228,16 +232,16 @@
                                         <div class="col-lg-2 col-md-12 col-12">
                                             <div class="gender">
                                                 <input type='radio' id="check-male" id="reg-user" name="gender"
-                                                    value="ذكر">
-                                                <label for="check-male" style="font-size: 23px; margin-top: 5px;">
+                                                    value="0">
+                                                <label for="check-male" style="font-size: 23px; margin-top: 5px; font-weight: bold;">
                                                     ذكر</label>
                                             </div>
                                         </div>
                                         <div class="col-lg-2 col-md-12 col-12">
                                             <div class="gender">
-                                                <input type='radio' id="check-female" name="gender" value="انثى"
+                                                <input type='radio' id="check-female" name="gender" value="1"
                                                     id="reg-user">
-                                                <label for="check-male" style="font-size: 23px; margin-top: 5px;">
+                                                <label for="check-male" style="font-size: 23px; margin-top: 5px; font-weight: bold;">
                                                     انثى</label>
                                             </div>
                                         </div>
@@ -267,16 +271,16 @@
 
 
                             <!-------------------craft------------------------------->
-                            <div class="row1" >
+                            <div class="row1" style="margin-top: 10px;">
                                 <div class="col1" >
                                     
                                     
                                     <label for="workercheck">هل انت عامل؟</label> 
-                                    <input type="radio" value="1" name="is_worker" onclick="enabled(this)">
-                                    <label for="is_worker"  >نعم</label>
+                                    <input type="radio" value="1" name="is_worker" onclick="enabled(this)" style="margin-right: 20px;">
+                                    <label for="is_worker"  style="margin-right: 5px;">نعم</label>
                                     
-                                    <input type="radio" value="0" name="is_worker" onclick="enabled(hidden)" >
-                                    <label  for="is_worker"  >لا</label>
+                                    <input type="radio" value="0" name="is_worker" onclick="enabled(hidden)" style="margin-right: 20px;" >
+                                    <label  for="is_worker" style="margin-right: 5px;" >لا</label>
                                 </div>
                             </div>
                             <div class="row">
@@ -304,8 +308,8 @@
                             <!--------------------------------------تjob-desc------------------------------------------------->
                             
                             <!---------------------------------submit------------------------------------->
-                            <div class="input-field">
-                                <button type="submit" class="input-submit2">
+                            <div class="input-field" id="register-submit" style="margin-top: -130px;">
+                                <button type="submit" class="input-submit2" >
                                     تسجيل
                                 </button>
                             </div>
@@ -385,13 +389,16 @@
                     function enabled(workercheck) {
                         var description = document.getElementById("reg-description");
                         var crafts = document.getElementById("crafts");
+                        var register = document.getElementById("register-submit");
                         if (workercheck.checked) {
                             crafts.style.visibility = 'visible'; // Show
                             description.style.visibility = 'visible'; // Show
                             description.focus();
+                            register.style.marginTop = '25px';
                         } else {
                             crafts.style.visibility = 'hidden'; // Hide
                             description.style.visibility = 'hidden'; // Hide
+                            register.style.marginTop = '-130px';
                         }
 
 
