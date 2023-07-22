@@ -28,7 +28,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
-     <script>
+
+    <script>
         $(document).ready(function() {
             $('#advertisementFormSubmit2').submit(function(event) {
                 event.preventDefault();
@@ -73,37 +74,8 @@
                     }
                 });
             });
-        });
+        })
     </script>
-
-
-    <script>
-        $(document).ready(function() {
-            $('#advertisementFormSubmit').submit(function(event) {
-                event.preventDefault();
-
-                var formData = $(this).serialize();
-
-                $.ajax({
-                    type: 'POST',
-                    url: '{{ route("workerPage.store") }}',
-                    data: formData,
-                    success: function(response) {
-                        if (response.message) {
-                            alert(response.message);
-                        } else {
-                            $('#advertisementForm')[0].reset();
-                            alert('Advertisement posted successfully!');
-                        }
-                    },
-                    error: function(xhr, status, error) {
-
-                        console.error(xhr.responseText);
-                    }
-                });
-            });
-        });
-    </script> 
 
 
     <script>
@@ -135,39 +107,39 @@
                     $('#village_name_select1').html('<option value="all">جميع القرى </option>');
                 }
             });
-        });
-    </script>
+        }); 
+        </script>
 
-    <script>
-        $(document).ready(function() {
-            $('#city_name_select').on('change', function() {
-                var selectedCity = $(this).val();
-                if (selectedCity) {
-                    // Send an Ajax request to get the villages based on the selected city
-                    $.ajax({
-                        url: "{{ route('get-villages') }}",
-                        type: "GET",
-                        data: {
-                            city_name: selectedCity
-                        },
-                        success: function(data) {
-                            console.log(data);
-                            // Clear the previous options
-                            $('#village_name_select').html('<option value="all">جميع القرى </option>');
-                            // Append new options based on the received data
-                            $.each(data, function(key, value) {
+      <script>
+            $(document).ready(function() {
+                $('#city_name_select').on('change', function() {
+                    var selectedCity = $(this).val();
+                    if (selectedCity) {
+                        // Send an Ajax request to get the villages based on the selected city
+                        $.ajax({
+                            url: "{{ route('get-villages') }}",
+                            type: "GET",
+                            data: {
+                                city_name: selectedCity
+                            },
+                            success: function(data) {
+                                console.log(data);
+                                // Clear the previous options
+                                $('#village_name_select').html('<option value="all">جميع القرى </option>');
+                                // Append new options based on the received data
+                                $.each(data, function(key, value) {
 
-                                $('#village_name_select').append('<option value="' + value.id + '">' + value.village_name + '</option>');
-                            });
-                        },
+                                    $('#village_name_select').append('<option value="' + value.id + '">' + value.village_name + '</option>');
+                                });
+                            },
 
-                    });
-                } else {
-                    // If no city is selected, clear the villages dropdown
-                    $('#village_name_select').html('<option value="all">جميع القرى </option>');
-                }
+                        });
+                    } else {
+                        // If no city is selected, clear the villages dropdown
+                        $('#village_name_select').html('<option value="all">جميع القرى </option>');
+                    }
+                });
             });
-        });
     </script>
 
     <!-----------------coursal------------------>
@@ -206,14 +178,14 @@
             <!-----------------search----------------->
             <div class="searchbox1">
                 <div class="searchbox2" dir="rtl">
-                    <form action="/searchSuggestions" method="GET">
-                        <input type="text" name="search" placeholder="ابحث عن عامل" id="search" style="color: black;">
 
-
-
-    </form>
-</div>
-
+                    <div class="search-container">
+                        <form action="{{ route('name.search') }}" method="GET">
+                            @csrf
+                            <input type="text" name="search" placeholder="ابحث عن عامل" style="color: black;">
+                            <button type="submit" class="btn btn-lg btn-outline-primary" style="border-width: 0px; background-color: #004985; color: white; ">ابحث</button>
+                        </form>
+                    </div>
                 </div>
             </div>
 
@@ -288,9 +260,9 @@
                                 {{ csrf_field() }}
 
 
-                                   <div id="shop-errors">
+                                <div id="shop-errors">
 
-                                   </div>
+                                </div>
 
                                 <input type="hidden" name="advertisement_type" value="workshops ">
 
@@ -334,7 +306,7 @@
                                     <div class="col">
 
                                         <select class="form-control8 form-select mt-3 " aria-label="Default select example" id="village_name_select" name="address_id">
-                                            <option  selected value="">اخترالقرية/البلدة</option>
+                                            <option selected value="">اخترالقرية/البلدة</option>
 
                                         </select>
 
@@ -548,76 +520,73 @@
 
         @endif
         <script>
-              $(function() {
-     $('#advertisementFormSubmit').on('submit', function(e) {
-          e.preventDefault();
-         $.ajax({
-             url: $(this).attr('action'),
-             method: $(this).attr('method'),
-             data: new FormData(this),
-             processData: false,
-             dataType: 'json',
-             contentType: false,
+            $(function() {
+                $('#advertisementFormSubmit').on('submit', function(e) {
+                    e.preventDefault();
+                    $.ajax({
+                        url: $(this).attr('action'),
+                        method: $(this).attr('method'),
+                        data: new FormData(this),
+                        processData: false,
+                        dataType: 'json',
+                        contentType: false,
 
-             success: function(data) {
-                if (data.status == 0) {
-                //  $(document).find('.error-text').text('');
-                const list = document.getElementById("shop-errors");
+                        success: function(data) {
+                            if (data.status == 0) {
+                                //  $(document).find('.error-text').text('');
+                                const list = document.getElementById("shop-errors");
 
-                while (list.hasChildNodes()) {
-                list.removeChild(list.firstChild);
-                }
+                                while (list.hasChildNodes()) {
+                                    list.removeChild(list.firstChild);
+                                }
 
-                     $.each(data.error, function(prefix, val) {
-                        //  $('span.' + prefix + '_error').text(val[0]).removeAttr('hidden');
+                                $.each(data.error, function(prefix, val) {
+                                    //  $('span.' + prefix + '_error').text(val[0]).removeAttr('hidden');
 
-                        errorSec= document.getElementById('shop-errors');
-                         prefix = document.createElement("p");
-                        prefix.innerText = val[0];
-                        errorSec.appendChild(prefix)
-
-
-                     });
-
-                 }
-                 else if (data.status == 2){
-                    Swal.fire({
-                                title: 'warning',
-                                text: 'You have reached the maximum number of allowed downloads for this month',
-                                icon: 'warning',
-                                confirmButtonText: 'OK'
-                            });
-
-                 }
-                 else if (data.status == 3){
-                    Swal.fire({
-                                title: 'warning',
-                                text: ' you have reached the maximum number of allowed ads',
-                                icon: 'warning',
-                                confirmButtonText: 'OK'
-                            });
-
-                 }
-                  else {
-                    const list = document.getElementById("shop-errors");
-
-                    while (list.hasChildNodes()) {
-                    list.removeChild(list.firstChild);
-                    }
+                                    errorSec = document.getElementById('shop-errors');
+                                    prefix = document.createElement("p");
+                                    prefix.innerText = val[0];
+                                    errorSec.appendChild(prefix)
 
 
-                     $('#advertisementFormSubmit').trigger('reset');
-                     Swal.fire({
-                                title: 'success',
-                                text: 'تم اضافه الاعلان بنجاح',
-                                icon: 'success',
-                                confirmButtonText: 'OK'
-                            });
-                 }
-             }
-         })
-     })
- })
+                                });
+
+                            } else if (data.status == 2) {
+                                Swal.fire({
+                                    title: 'warning',
+                                    text: 'You have reached the maximum number of allowed downloads for this month',
+                                    icon: 'warning',
+                                    confirmButtonText: 'OK'
+                                });
+
+                            } else if (data.status == 3) {
+                                Swal.fire({
+                                    title: 'warning',
+                                    text: ' you have reached the maximum number of allowed ads',
+                                    icon: 'warning',
+                                    confirmButtonText: 'OK'
+                                });
+
+                            } else {
+                                const list = document.getElementById("shop-errors");
+
+                                while (list.hasChildNodes()) {
+                                    list.removeChild(list.firstChild);
+                                }
+
+
+                                $('#advertisementFormSubmit').trigger('reset');
+                                Swal.fire({
+                                    title: 'success',
+                                    text: 'تم اضافه الاعلان بنجاح',
+                                    icon: 'success',
+                                    confirmButtonText: 'OK'
+                                });
+                            }
+                        }
+                    })
+                })
+            })
         </script>
 
         <!---------------second part of adv------------>
@@ -869,200 +838,130 @@
             <div class="swiper-pagination"></div>
 
         </section>
-        <!-- Swiper JS -->
-
- <!-- <script>
-                       $(function() {
-                        $('#advertisementFormSubmit2').on('submit', function(e) {
-                            e.preventDefault();  -->
+    </div>
 
 
 
 
 
-<script>
-    $(function() {
-     $('#advertisementFormSubmit2').on('submit', function(e) {
-         e.preventDefault();
-         $.ajax({
-             url: $(this).attr('action'),
-             method: $(this).attr('method'),
-             data: new FormData(this),
-             processData: false,
-             dataType: 'json',
-             contentType: false,
+    <script>
+        $(function() {
+            $('#advertisementFormSubmit2').on('submit', function(e) {
+                e.preventDefault();
+                $.ajax({
+                    url: $(this).attr('action'),
+                    method: $(this).attr('method'),
+                    data: new FormData(this),
+                    processData: false,
+                    dataType: 'json',
+                    contentType: false,
 
-             success: function(data) {
-                 if (data.status == 0) {
-                    const list = document.getElementById("free-errors");
+                    success: function(data) {
+                        if (data.status == 0) {
+                            const list = document.getElementById("free-errors");
 
-                while (list.hasChildNodes()) {
-                list.removeChild(list.firstChild);
-                }
+                            while (list.hasChildNodes()) {
+                                list.removeChild(list.firstChild);
+                            }
 
-                     $.each(data.error, function(prefix, val) {
-                        errorSec= document.getElementById('free-errors');
-                         prefix = document.createElement("p");
-                        prefix.innerText = val[0];
-                        errorSec.appendChild(prefix)
+                            $.each(data.error, function(prefix, val) {
+                                errorSec = document.getElementById('free-errors');
+                                prefix = document.createElement("p");
+                                prefix.innerText = val[0];
+                                errorSec.appendChild(prefix)
 
-                     });
+                            });
 
-                 }
-
-                 else if (data.status == 2){
-                    Swal.fire({
+                        } else if (data.status == 2) {
+                            Swal.fire({
                                 title: 'warning',
                                 text: 'You have reached the maximum number of allowed downloads for this month',
                                 icon: 'warning',
                                 confirmButtonText: 'OK'
                             });
 
-                 }
-                 else if (data.status == 3){
-                    Swal.fire({
+                        } else if (data.status == 3) {
+                            Swal.fire({
                                 title: 'warning',
                                 text: ' you have reached the maximum number of allowed ads',
                                 icon: 'warning',
                                 confirmButtonText: 'OK'
                             });
 
-                 }
-                  else {
-                    const list = document.getElementById("free-errors");
+                        } else {
+                            const list = document.getElementById("free-errors");
 
-                        while (list.hasChildNodes()) {
-                        list.removeChild(list.firstChild);
-                        }
-                     $('#advertisementFormSubmit2').trigger('reset');
-                     Swal.fire({
+                            while (list.hasChildNodes()) {
+                                list.removeChild(list.firstChild);
+                            }
+                            $('#advertisementFormSubmit2').trigger('reset');
+                            Swal.fire({
                                 title: 'success',
                                 text: 'تم اضافه الاعلان بنجاح',
                                 icon: 'success',
                                 confirmButtonText: 'OK'
                             });
-                 }
-             }
-         })
-     })
- })
-</script>
-
-
-        <script>
-    $(document).ready(function() {
-        $("input[name='search']").on("keyup", function() {
-            var value = $(this).val().toLowerCase();
-
-            // Prevent sending empty search query
-            if (value.trim() === "") {
-                return;
-            }
-
-            // Show the complementary search results
-            $.ajax({
-                url: "{{ route('search.suggestions') }}",
-                type: "GET",
-                data: { query: value },
-                dataType: "json",
-                success: function(response) {
-                    // Get the search input element
-                    var searchInput = $("input[name='search']");
-                    // Clear any previous auto-suggestions
-                    searchInput.siblings('.suggestions').remove();
-
-                    // Create a div to display the auto-suggestions
-                    var suggestionsDiv = $("<div>").addClass("suggestions");
-
-                    // Add each suggestion to the div
-                    response.forEach(function(user) {
-                        var suggestionElement = $("<p>");
-                        var fullName = user.fname + " " + user.lname;
-                        var index = fullName.toLowerCase().indexOf(value);
-
-                        if (index !== -1) {
-                            // Highlight the matching part of the name
-                            var matchedPart = fullName.substr(index, value.length);
-                            suggestionElement.html(fullName.replace(new RegExp(matchedPart, "i"), "<span class='matched'>" + matchedPart + "</span>"));
-                        } else {
-                            suggestionElement.text(fullName);
                         }
-                        suggestionsDiv.append(suggestionElement);
-                    });
-
-                    // Append the suggestions div after the search input
-                    searchInput.after(suggestionsDiv);
-                },
-                error: function(xhr) {
-                    console.error(xhr.responseText);
-                }
-            });
-        });
-    });
-</script>
-
-<style>
-    .matched {
-        background-color: yellow;
-        font-weight: bold;
-    }
-</style>
+                    }
+                })
+            })
+        })
+    </script>
 
 
 
 
-        <script>
-            $(document).ready(function() {
-                $('#advertisementForm').submit(function(event) {
-                    event.preventDefault();
+    <script>
+        $(document).ready(function() {
+            $('#advertisementForm').submit(function(event) {
+                event.preventDefault();
 
-                    var formData = $(this).serialize();
+                var formData = $(this).serialize();
 
-                    $.ajax({
-                        type: 'POST',
-                        url: '{{ route("workerPage.store") }}',
-                        data: formData,
-                        success: function(response) {
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ route("workerPage.store") }}',
+                    data: formData,
+                    success: function(response) {
 
-                            $('#messageText').text(response.message);
-                            $('#messageModal').modal('show');
-                        },
-                        error: function(xhr, status, error) {
+                        $('#messageText').text(response.message);
+                        $('#messageModal').modal('show');
+                    },
+                    error: function(xhr, status, error) {
 
-                            console.error(xhr.responseText);
-                        }
-                    });
+                        console.error(xhr.responseText);
+                    }
                 });
             });
-        </script>
+        });
+    </script>
 
-        <script>
-            function submitForm(advertisementType) {
-                $('input[name="advertisement_type"]').val(advertisementType);
+    <script>
+        function submitForm(advertisementType) {
+            $('input[name="advertisement_type"]').val(advertisementType);
 
-                $('#advertisementForm').submit();
-            }
-        </script>
+            $('#advertisementForm').submit();
+        }
+    </script>
 
 
-        <!-- Initialize Swiper -->
-        <script>
-            var swiper = new Swiper(".mySwiper", {
-                slidesPerView: 3,
-                spaceBetween: 30,
-                slidesPerGroup: 3,
-                loop: true,
-                loopFillGroupWithBlank: true,
-                pagination: {
-                    el: ".swiper-pagination",
-                    clickable: true,
-                },
-                navigation: {
-                    nextEl: ".swiper-button-next",
-                    prevEl: ".swiper-button-prev",
-                },
-            });
-        </script>
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+            slidesPerView: 3,
+            spaceBetween: 30,
+            slidesPerGroup: 3,
+            loop: true,
+            loopFillGroupWithBlank: true,
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+        });
+    </script>
 
     <script>
         var buttonEl = document.getElementById('openerBtn');
@@ -1073,17 +972,98 @@
         })
     </script>
 
-        </html>
-<style>
-     #shop-errors p {
-        margin-bottom: 0px;
-        color: red;
-        direction: rtl
-    }
-    #free-errors p {
-        margin-bottom: 0px;
-        color: red;
-        direction: rtl
-    }
-</style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
+
+    <script>
+        $(document).ready(function() {
+            $("input[name='search']").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+
+                // Prevent sending empty search query
+                if (value.trim() === "") {
+                    return;
+                }
+
+                // Show the complementary search results
+                $.ajax({
+                    url: "{{ route('search.suggestions') }}",
+                    type: "GET",
+                    data: {
+                        query: value
+                    },
+                    dataType: "json",
+                    success: function(response) {
+                        // Get the search input element
+                        var searchInput = $("input[name='search']");
+                        // Clear any previous auto-suggestions
+                        searchInput.siblings('.suggestions').remove();
+
+                        // Create a div to display the auto-suggestions
+                        var suggestionsDiv = $("<div>").addClass("suggestions");
+
+                        // Add each suggestion to the div
+                        response.forEach(function(user) {
+                            var suggestionElement = $("<p>");
+                            var fullName = user.fname + " " + user.lname;
+                            var index = fullName.toLowerCase().indexOf(value);
+
+                            if (index !== -1) {
+                                // Highlight the matching part of the name
+                                var matchedPart = fullName.substr(index, value.length);
+                                suggestionElement.html(fullName.replace(new RegExp(matchedPart, "i"), "<span class='matched'>" + matchedPart + "</span>"));
+                            } else {
+                                suggestionElement.text(fullName);
+                            }
+                            suggestionsDiv.append(suggestionElement);
+                        });
+
+                        // Append the suggestions div after the search input
+                        searchInput.after(suggestionsDiv);
+
+                        // Filter the displayed users based on the search query
+                        $('div[data-role="user"]').each(function() {
+                            var userName = $(this).find('h3').text().toLowerCase();
+                            if (userName.indexOf(value) > -1) {
+                                $(this).show();
+                            } else {
+                                $(this).hide();
+                            }
+                        });
+                    },
+                    error: function(xhr) {
+                        console.error(xhr.responseText);
+                    }
+                });
+            });
+        });
+
+        $(document).on('click', '.suggestions p', function() {
+            // Get the text of the clicked suggestion
+            var clickedSuggestion = $(this).text().trim();
+            // Set the search input value to the clicked suggestion
+            $("input[name='search']").val(clickedSuggestion);
+            // Trigger the search form submission
+            $("form[action='{{ route('name.search') }}']").submit();
+        });
+    </script>
+
+    <style>
+        .matched {
+            background-color: yellow;
+            font-weight: bold;
+        }
+    </style>
+
+    <style>
+        #shop-errors p {
+            margin-bottom: 0px;
+            color: red;
+            direction: rtl
+        }
+    </style>
+
+
+</body>
+
+</html>
