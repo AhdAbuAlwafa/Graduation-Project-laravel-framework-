@@ -23,7 +23,7 @@
 
 <body>
     <div>
-        <div>
+        <div dir="ltr">
             <!----------------navbar------------------->
             @include('shared.navbar')
         </div>
