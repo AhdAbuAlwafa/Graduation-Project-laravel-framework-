@@ -11,8 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::rename('user_comment', 'user_comments');
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('image')->default('null.jpeg')->change();; 
 
+        });
     }
 
     /**
@@ -20,7 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::rename('user_comment', 'user_comments');
-
+        Schema::table('users', function (Blueprint $table) {
+            //
+        });
     }
 };

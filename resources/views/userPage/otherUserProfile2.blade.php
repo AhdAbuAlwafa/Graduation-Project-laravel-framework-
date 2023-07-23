@@ -44,7 +44,7 @@
             <div class="cols__container">
                 <div class="left__col">
                     <div class="img__container">
-                        <img src="{{ 'images/' . auth()->user()->image }}" alt="صائب صلاح " />
+                        <img src="{{ '/images/'. ($user->image ?? 'null') }}" alt="صائب صلاح " />
                     </div>
                     <div class="center1">
                         <div class="stars1 ">
@@ -127,6 +127,7 @@
                     <div class="worker-gender">
                         <label> الجنس : </label>
                         <span class="gender">
+
                             @if ($worker->gender == 0)
                                 ذكر
                             @elseif ($worker->gender == 1)
@@ -136,7 +137,6 @@
                     </div>
 
 
-
                     <div id="vertical-line"></div>
                     <div class="container mt-5">
                         <div class="d-flex justify-content-center row">
@@ -144,7 +144,7 @@
 
                                 <div class="bg-light p-2" style="width: 550px; margin-left: 400px;">
                                     <div class="d-flex flex-row align-items-start">
-                                        <img src="assets/img/user-page.jpg" alt="" class="rounded-circle"
+                                        <img src="{{ '/images/' . (auth()->user()->image ?? 'null') }}" alt="" class="rounded-circle"
                                             width="90" height="90"
                                             style="margin: 12px;  box-shadow: 3px 5px 14px rgba(0, 0, 0, 0.5); border: 4px solid white;">
                                         <form id="commentForm"
