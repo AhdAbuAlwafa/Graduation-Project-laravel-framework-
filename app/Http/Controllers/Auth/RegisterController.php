@@ -97,8 +97,9 @@ class RegisterController extends Controller
 
 
             if ($req->hasFile('image')) {
-                $imagePath = $req->file('image')->store('images', 'public');
-                $user->image = $imagePath;
+                $imgName= md5(time()).'.'.$req->image->extension();
+                $req->image->move(public_path('images'),$imgName);
+                $user->image = $imgName;
             }
             
             $user->save();

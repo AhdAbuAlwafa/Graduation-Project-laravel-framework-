@@ -11,7 +11,7 @@ class WorkerPageController extends Controller
 {
     public function show($id)
     {
-        $user = User::find($id)->first();
+        $user = User::where('id',$id)->first();
         $receivedComments = User_Comment::get()->where('worker_id',$id);
         $isRated = Rate::where('reviewable',$id)->where('reviewer',auth()->user()->id)->first();
         $worker = User::with('addresses', 'crafts')->where('id', $id)->first();
@@ -23,9 +23,8 @@ class WorkerPageController extends Controller
             $userRate = $totalRate / $totalReviewers; 
         }
     
-
-
-        return view('userPage.otherUserProfile2', compact('worker','userRate','isRated','receivedComments','user'));
+        //return $user;
+         return view('userPage.otherUserProfile2', compact('worker','userRate','isRated','receivedComments','user'));
     }
 
     public function rate(Request $request ){

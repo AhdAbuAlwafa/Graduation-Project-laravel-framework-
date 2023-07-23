@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('advertisements', function (Blueprint $table) {
-            $table->dateTime('expires_at')->nullable();
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('image')->default('null.jpg')->change();; 
 
         });
     }
@@ -22,7 +22,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('advertisements', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             //
         });
     }
