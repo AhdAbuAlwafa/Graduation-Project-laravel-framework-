@@ -16,6 +16,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+
+        $this->call(UserSeeder::class);
+        $this->call(CraftSeeder::class);
+
         // $users =\App\Models\User::factory(50)->create();
 
         // foreach($users as $user){
@@ -27,10 +31,7 @@ class DatabaseSeeder extends Seeder
 
         // \App\Models\User::factory(10)->create();
         
-        $addresses = \App\Models\Address::factory()->create([
-            'city_name' => 'Jenin',
-            'village_name' => 'Yabad',
-        ]);
+        
 
         // \App\Models\User::factory()->create([
         //     'fname' => 'haya',
@@ -77,20 +78,6 @@ class DatabaseSeeder extends Seeder
         //     'password' => Hash::make('1209')
         // ]);
         
-        \App\Models\User::factory()->create([
-            'fname' => 'jamal',
-            'lname' => 'luaai',
-            'number' => 987654321,
-            'image' =>'',
-            'description'=> '',
-            'num_evl'=> 0,
-            'all_evl'=> 0,
-            'gender'=> 0,
-            'is_worker'=> 1,
-            'is_active'=> 0,
-            'address_id'=> $addresses->id, 
-            'password' => Hash::make('987654321')
-        ]);
-
+        
     }
 }
